@@ -1,0 +1,225 @@
+\documentclass[10pt,a4paper]{article}
+
+% -------------------- Packages --------------------
+\usepackage[a4paper,left=0.55in,right=0.55in,top=0.45in,bottom=0.45in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=black
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% -------------------- Section Style --------------------
+\titleformat{\section}
+{\large\bfseries}
+{}
+{0em}
+{}
+[\vspace{-1pt}\titlerule]
+
+\titlespacing{\section}
+{0pt}
+{8pt}
+{5pt}
+
+% -------------------- Item spacing --------------------
+\setlist[itemize]{
+leftmargin=15pt,
+itemsep=1pt,
+topsep=2pt,
+parsep=0pt,
+partopsep=0pt
+}
+
+% -------------------- Commands --------------------
+\newcommand{\resumeProject}[4]{
+\noindent
+\textbf{\large #1}
+\hfill
+{\footnotesize
+\href{#3}{\textcolor{black}{\faExternalLinkAlt\ Live}}
+\hspace{0.8em}
+\href{#4}{\textcolor{black}{\faGithub\ Repo}}
+}
+
+\vspace{2pt}
+
+{\small\itshape #2}
+
+\vspace{2pt}
+}
+
+\newcommand{\resumeSubheading}[4]{
+\textbf{#1}\hfill #2\\
+#3\hfill #4
+}
+\newcommand{\resumeProjectRepo}[3]{
+\noindent
+\textbf{\large #1}
+\hfill
+{\footnotesize
+\href{#3}{\textcolor{black}{\faGithub\ Repo}}
+}
+
+\vspace{2pt}
+
+{\small\itshape #2}
+
+\vspace{2pt}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+
+{\Huge\bfseries NANDA KISHOR}
+
+\vspace{4pt}
+
+\small
+Hyderabad \hspace{0.5em}$|$\hspace{0.5em}
++91 9381837737 \hspace{0.5em}$|$\hspace{0.5em}
+\href{mailto:nandakishor0718@gmail.com}{nandakishor0718@gmail.com}
+
+\vspace{2pt}
+
+\small
+\href{https://www.linkedin.com/in/nanda-kishor-b3ab0833b}{linkedin.com/in/nanda-kishor7}
+\hspace{0.5em}$|$\hspace{0.5em}
+\href{https://github.com/Nandha050}{github.com/Nandha050}
+\hspace{0.5em}$|$\hspace{0.5em}
+\href{https://iam-nanda.vercel.app}{iam-nanda.vercel.app}
+
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{PROFILE}
+
+CSE undergraduate (CGPA 7.73) building AI-powered backend and full-stack systems — ML credit risk scoring (XGBoost), real-time geolocation (\textbf{WebSockets, Redis}), and multimodal AI analysis (Gemini, prompt engineering), using \textbf{Python, FastAPI, MERN stack (React.js, Node.js, Express.js, MongoDB)}. Top 20 contributor among 4,000+ in a global open-source program.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{EDUCATION}
+
+\resumeSubheading
+{Bachelor of Engineering in Computer Science Engineering}
+{Jul 2024 -- May 2027(expected)}
+{Institute of Aeronautical Engineering}
+{CGPA: 7.73/10}
+
+\vspace{5pt}
+
+\resumeSubheading
+{Diploma in Computer Science and Engineering}
+{Aug 2021 -- Apr 2024}
+{Annamacharya Institute of Technology and Science}
+{CGPA: 8.46/10}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{EXPERIENCE}
+
+\resumeSubheading
+{Open Source Contributor -- Open Source Connect Global (OSCG'26)}
+{Jan 2026 -- Mar 2026}
+{Remote}
+{}
+
+
+\begin{itemize}[topsep=1pt,itemsep=1pt]
+
+\item Contributed production-quality code to multiple \textbf{open-source projects} by implementing features, resolving bugs, and improving software maintainability using \textbf{Git} and \textbf{GitHub}.
+
+\item Recognized as a \textbf{Top 20 Contributor} among \textbf{4,000+ participants} for delivering impactful contributions during \textbf{Open Source Connect Global (OSCG'26)}.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{PROJECTS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\resumeProjectRepo
+{Credit AI Platform -- AI-Powered Corporate Credit Appraisal Engine}
+{Python, FastAPI, React, MongoDB, OCR, XGBoost, OpenRouter/Gemini, Docker}
+{https://github.com/Nandha050/credit-ai}
+\begin{itemize}
+\item Engineered an end-to-end platform automating corporate credit appraisal from multi-source financial documents using \textbf{OCR}, parsing, and rule-based validation.
+\item Trained an \textbf{XGBoost} credit-risk model achieving \textbf{94.2\% ROC-AUC} and \textbf{84.5\% accuracy}, mapped through an explainable \textbf{Five Cs} framework into auditable Approve/Refer/Reject decisions.
+\item Integrated company intelligence, litigation, and regulatory checks into the underwriting workflow, and automated committee-ready \textbf{CAM report} generation (\textbf{DOCX}/\textbf{PDF}).
+\end{itemize}
+\vspace{5pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resumeProject
+{NavixGo -- Smart Real-Time Transit Platform}
+{React Native, Node.js, Express.js, MongoDB, Redis, WebSockets, Firebase, Google Maps API}
+{https://www.navixgo.in/}
+{https://github.com/Nandha050/navixgo}
+\begin{itemize}
+\item Built a real-time transit platform delivering live vehicle tracking and \textbf{ETA} prediction via \textbf{Redis} pub/sub and \textbf{WebSockets}, caching driver location to avoid querying \textbf{MongoDB} on every request.
+\item Benchmarked the \textbf{Redis}-backed location API at an average \textbf{84ms} response time across 50 requests, with sub-millisecond batch-upload processing before broadcast.
+\item Designed role-based dashboards and \textbf{Firebase Cloud Messaging} alerts and \textbf{Google Maps API} GPS tracking.
+\end{itemize}
+\vspace{5pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resumeProject
+{Finance Dashboard – Financial Analytics Web Application}
+{React, TypeScript, Tailwind CSS, Zustand, Recharts}
+{https://finance-interface-gray.vercel.app/}
+{https://github.com/Nandha050/finance-interface}
+\begin{itemize}
+\item Built a responsive finance dashboard with \textbf{interactive charts, KPI cards}, and transaction management using React and TypeScript.
+\item Implemented search, filtering, sorting, pagination, Zustand \textbf{state management}, and frontend role-based access control (Admin/Viewer).
+\item Developed \textbf{reusable UI components} with \textbf{Tailwind CSS and Radix UI}, adding dark mode, responsive design, CSV/JSON export, and performance optimizations.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{TECHNICAL SKILLS}
+
+\renewcommand{\arraystretch}{1.05}
+
+\begin{tabularx}{\textwidth}{@{}X X@{}}
+
+\textbf{Programming:} Python, Java, JavaScript, TypeScript &
+\textbf{Cloud \& Tools:} Google Cloud Run, AWS S3, Docker \\
+
+\textbf{Frontend:} React.js, Next.js, HTML5, CSS3, Tailwind CSS, React Native &
+\textbf{Databases:} MongoDB, MySQL, SQLite, Mongoose \\
+
+\textbf{Backend:} Node.js, Express.js, REST APIs, JWT &
+\textbf{Developer Tools:} Git, GitHub, Postman, Cursor, Figma, VS Code \\
+
+\textbf{AI/GenAI:} LLMs, Gemini API, OpenAI API, Prompt Engineering, NLP ,n8n automations&
+\textbf{Core Concepts:} OS, Computer Networks, OOP, DSA, DBMS, Software Engineering\\
+
+\end{tabularx}
+
+\vspace{4pt}
+
+\textbf{\large{Soft Skills}}\\[1pt]
+\small Problem Solving, Analytical Thinking, Team Collaboration, Communication, Time Management, Adaptability
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

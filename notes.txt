@@ -1,0 +1,2 @@
+This is an invalid plain text file.
+It should be rejected by the .tex upload endpoint.

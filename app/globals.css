@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-base: #050505;
+    --bg-secondary: #0A0A0A;
+    --bg-panel: #0F0F0F;
+    --bg-elevated: #141414;
+    --bg-elevated-hover: #1A1A1A;
+    
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-hover: rgba(255, 255, 255, 0.14);
+    --border-active: rgba(255, 255, 255, 0.22);
+
+    --text-primary: #EDEDED;
+    --text-secondary: #9E9EA6;
+    --text-tertiary: #63636B;
+    --text-muted: #45454C;
+
+    --accent-amber: #DCA744;
+    --accent-amber-subtle: rgba(220, 167, 68, 0.12);
+    --accent-blue: #38BDF8;
+    --accent-blue-subtle: rgba(56, 189, 248, 0.10);
+    --accent-emerald: #34D399;
+    --accent-emerald-subtle: rgba(52, 211, 153, 0.10);
+    --accent-rose: #FB7185;
+    --accent-rose-subtle: rgba(251, 113, 133, 0.10);
+  }
+
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  html,
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom Luxury Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Monospace Code Editor Font */
+.font-editor {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Code Syntax Highlighting Classes for LaTeX */
+.token-command {
+  color: #7DD3FC;
+  font-weight: 500;
+}
+.token-argument {
+  color: #FCD34D;
+}
+.token-bracket {
+  color: #A1A1AA;
+}
+.token-comment {
+  color: #52525B;
+  font-style: italic;
+}
+.token-string {
+  color: #86EFAC;
+}
+.token-operator {
+  color: #F472B6;
+}
+
+/* Paper Preview Styling */
+.resume-paper-shadow {
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Subtle Glass Surface */
+.glass-surface {
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
