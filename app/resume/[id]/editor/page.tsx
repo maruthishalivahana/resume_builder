@@ -13,7 +13,6 @@ export default function ResumeEditorPage() {
   return (
     <WorkspaceShell>
       <div className="w-full h-full flex flex-col overflow-hidden">
-        {/* Mobile/Tablet Adaptive Tabs Header (< 1024px) */}
         <div className="lg:hidden flex items-center justify-around border-b border-white/[0.08] bg-[#0A0A0C] p-2 text-xs">
           <button
             onClick={() => setMobileTab("structure")}
@@ -52,9 +51,7 @@ export default function ResumeEditorPage() {
           </button>
         </div>
 
-        {/* Main 3-Pane Workspace */}
         <div className="flex-1 flex overflow-hidden">
-          {/* Left Pane: Structure Navigator */}
           <div
             className={`w-56 shrink-0 h-full ${
               mobileTab === "structure" ? "block w-full" : "hidden lg:block"
@@ -63,7 +60,6 @@ export default function ResumeEditorPage() {
             <StructurePanel />
           </div>
 
-          {/* Middle Pane: Inline Block Editor */}
           <div
             className={`flex-1 h-full min-w-0 ${
               mobileTab === "editor" ? "block w-full" : "hidden lg:block"
@@ -72,7 +68,6 @@ export default function ResumeEditorPage() {
             <BlockEditor />
           </div>
 
-          {/* Right Pane: High-Fidelity PDF Preview */}
           <div
             className={`w-[45%] shrink-0 h-full ${
               mobileTab === "preview" ? "block w-full" : "hidden xl:block"

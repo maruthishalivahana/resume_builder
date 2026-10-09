@@ -344,6 +344,35 @@ export async function updateLatexFile(
 // Alias for updateLatexFile to maintain backward compatibility
 export const patchLatexFile = updateLatexFile;
 
+export interface AcceptedTailoringSuggestion {
+  suggestionId: string;
+  status: "accepted";
+  fileId: string;
+  fileName: string;
+  changedLineStart: number;
+  changedLineEnd: number;
+  updatedContent: string;
+  pdfStale: true;
+}
+
+export async function acceptTailoringSuggestion(
+  suggestionId: string,
+  projectId: string,
+  versionId: string
+): Promise<AcceptedTailoringSuggestion> {
+  const response = await fetch(`${API_URL}/api/tailoring/suggestions/${encodeURIComponent(suggestionId)}/accept`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ projectId, versionId }),
+  });
+  const json = await response.json().catch(() => null);
+  if (!response.ok || !json?.success) {
+    const code = json?.error?.code || json?.code;
+    throw new Error(code ? `${code}: ${json?.error?.message || json?.message}` : (json?.message || `Failed to apply suggestion (status ${response.status})`));
+  }
+  return json.data as AcceptedTailoringSuggestion;
+}
+
 export interface CompileErrorItem {
   severity: "error" | "warning";
   file: string | null;
@@ -402,19 +431,28 @@ export function getLatexPdfUrl(projectId: string): string {
  * Checks whether the configured LaTeX compiler is installed and available.
  */
 export async function checkCompilerStatus(): Promise<CompilerStatusData> {
-  const response = await fetch(`${API_URL}/api/latex/compiler/status`, {
-    method: "GET",
-    cache: "no-store",
-  });
-  if (!response.ok) {
+  try {
+    const response = await fetch(`${API_URL}/api/latex/compiler/status`, {
+      method: "GET",
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      return {
+        available: false,
+        compiler: "pdflatex",
+        error: `Compiler status check failed (status ${response.status})`,
+      };
+    }
+    const json = await response.json();
+    return json.data;
+  } catch (err) {
+    console.error("checkCompilerStatus error:", err);
     return {
       available: false,
       compiler: "pdflatex",
-      error: `Compiler status check failed (status ${response.status})`,
+      error: "Compiler status check failed because the backend is unreachable",
     };
   }
-  const json = await response.json();
-  return json.data;
 }
 
 /**

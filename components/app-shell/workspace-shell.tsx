@@ -4,6 +4,7 @@ import React from "react";
 import { ResumeSidebar } from "@/components/app-shell/resume-sidebar";
 import { AppHeader } from "@/components/app-shell/app-header";
 import { AIDrawer } from "@/components/ai/ai-drawer";
+import { ResumeAIFloating } from "@/components/ai/resume-ai-floating";
 import { ShortcutsModal } from "@/components/app-shell/shortcuts-modal";
 
 interface WorkspaceShellProps {
@@ -28,6 +29,7 @@ export function WorkspaceShell({ children }: WorkspaceShellProps) {
 
         {/* Global Contextual AI Copilot Drawer */}
         <AIDrawer />
+        <ResumeAIFloating />
 
         {/* Keyboard Shortcuts Modal */}
         <ShortcutsModal />

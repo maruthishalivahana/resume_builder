@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import latexRoutes from "./routes/latex.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
+import tailoringRoutes from "./modules/job-tailoring/routes/tailoring.routes";
 
 export function createApp(): Application {
   const app = express();
@@ -28,6 +29,7 @@ export function createApp(): Application {
 
   // LaTeX feature routes
   app.use("/api/latex", latexRoutes);
+  app.use("/api/tailoring", tailoringRoutes);
 
   // Centralized Error Handling Middleware (must be after all routes)
   app.use(errorMiddleware);

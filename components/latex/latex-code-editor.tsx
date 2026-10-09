@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { EditorState, Compartment } from "@codemirror/state";
-import { EditorView, keymap, ViewUpdate } from "@codemirror/view";
+import { EditorState, Compartment, StateEffect, StateField, RangeSet } from "@codemirror/state";
+import { EditorView, keymap, ViewUpdate, Decoration } from "@codemirror/view";
 import { basicSetup } from "codemirror";
 import { latex } from "codemirror-lang-latex";
 import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
@@ -17,6 +17,40 @@ export interface LatexCodeEditorProps {
   onCursorChange?: (line: number, col: number) => void;
   onSave?: () => void;
   targetLine?: number | null;
+  highlightRange?: { startLine: number; endLine: number } | null;
+}
+
+const setHighlight = StateEffect.define<{ startLine: number; endLine: number } | null>();
+const highlightField = StateField.define<RangeSet<Decoration>>({
+  create: () => RangeSet.empty,
+  update: (decorations, transaction) => {
+    let next = transaction.docChanged ? decorations.map(transaction.changes) : decorations;
+    for (const effect of transaction.effects) {
+      if (effect.is(setHighlight)) {
+        next = effect.value
+          ? createLineDecorations(transaction.state, effect.value.startLine, effect.value.endLine)
+          : RangeSet.empty;
+      }
+    }
+    return next;
+  },
+  provide: (field) => EditorView.decorations.from(field),
+});
+
+const changedLineMark = Decoration.line({ attributes: { class: "cm-ai-changed-line" } });
+
+function createLineDecorations(
+  state: EditorState,
+  startLine: number,
+  endLine: number
+): RangeSet<Decoration> {
+  const safeStart = Math.max(1, Math.min(startLine, state.doc.lines));
+  const safeEnd = Math.max(safeStart, Math.min(endLine, state.doc.lines));
+  const ranges = [];
+  for (let lineNumber = safeStart; lineNumber <= safeEnd; lineNumber += 1) {
+    ranges.push(changedLineMark.range(state.doc.line(lineNumber).from));
+  }
+  return RangeSet.of(ranges, true);
 }
 
 /**
@@ -31,6 +65,10 @@ const darkResumeTheme = EditorView.theme(
       fontSize: "12px",
       fontFamily:
         'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+    },
+    ".cm-ai-changed-line": {
+      backgroundColor: "rgba(245, 158, 11, 0.12)",
+      borderLeft: "2px solid rgba(245, 158, 11, 0.8)",
     },
     ".cm-content": {
       caretColor: "#F59E0B",
@@ -146,6 +184,7 @@ export function LatexCodeEditor({
   onCursorChange,
   onSave,
   targetLine,
+  highlightRange = null,
 }: LatexCodeEditorProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
@@ -212,6 +251,7 @@ export function LatexCodeEditor({
         latex({ autoCloseTags: true, enableAutocomplete: true }),
         darkResumeTheme,
         syntaxHighlighting(latexHighlightStyle),
+        highlightField,
         wrapComp.of(isWrapLines ? EditorView.lineWrapping : []),
         readOnlyComp.of(EditorState.readOnly.of(readOnly)),
         saveKeymap,
@@ -304,6 +344,21 @@ export function LatexCodeEditor({
       // ignore
     }
   }, [targetLine]);
+
+  useEffect(() => {
+    const view = viewRef.current;
+    if (!view) return;
+    view.dispatch({ effects: setHighlight.of(highlightRange) });
+    if (!highlightRange) return;
+    const safeLine = Math.max(1, Math.min(highlightRange.startLine, view.state.doc.lines));
+    const line = view.state.doc.line(safeLine);
+    view.dispatch({ selection: { anchor: line.from }, scrollIntoView: true });
+    view.focus();
+    const timer = window.setTimeout(() => {
+      if (viewRef.current === view) view.dispatch({ effects: setHighlight.of(null) });
+    }, 4000);
+    return () => window.clearTimeout(timer);
+  }, [highlightRange]);
 
   return (
     <div

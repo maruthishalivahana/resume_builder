@@ -40,6 +40,8 @@ export function LatexWorkspace() {
     compileLatex,
     activeErrorLine,
     jumpToError,
+    editorHighlightRange,
+    suggestionFeedback,
   } = useResume();
 
   const entryFileName =
@@ -106,6 +108,19 @@ export function LatexWorkspace() {
 
   return (
     <div className="w-full h-[calc(100vh-3.5rem)] flex flex-col bg-[#070709] select-none">
+      {suggestionFeedback && (
+        <div
+          className={`px-3 py-1.5 text-[11px] border-b ${
+            suggestionFeedback.type === "success"
+              ? "text-emerald-300 bg-emerald-500/10 border-emerald-500/20"
+              : "text-rose-300 bg-rose-500/10 border-rose-500/20"
+          }`}
+          role="status"
+        >
+          {suggestionFeedback.type === "success" ? "✓ " : ""}
+          {suggestionFeedback.message}
+        </div>
+      )}
       {/* Main 2-Way Split: CodeMirror 6 Editor + PDF Preview */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left/Center: Monospace CodeMirror 6 Editor */}
@@ -278,6 +293,7 @@ export function LatexWorkspace() {
                 onCursorChange={handleCursorChange}
                 onSave={flushSave}
                 targetLine={activeErrorLine}
+                highlightRange={editorHighlightRange}
               />
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-6 text-neutral-500">

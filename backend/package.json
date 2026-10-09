@@ -7,7 +7,13 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "node test-suite.js"
+    "test": "node test-suite.js",
+    "test:tailoring": "npm run build && node test-tailoring.js",
+    "test:semantic": "npm run build && node test-semantic.js",
+    "test:hybrid": "npm run build && node test-hybrid.js",
+    "test:match": "npm run build && node test-match.js",
+    "test:grounded": "npm run build && node test-grounded.js",
+    "test:source-patch": "npm run build && node test-source-patch.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

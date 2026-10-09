@@ -26,9 +26,11 @@ import {
   fetchLatexProject,
   setLatexProjectEntryFile,
   checkCompilerStatus,
+  acceptTailoringSuggestion,
   CompileErrorItem,
   CompilerStatusData,
 } from "@/lib/api/latex";
+import { fetchTailoringSuggestions, rejectTailoringSuggestion, TailoringSuggestionView } from "@/lib/api/tailoring";
 
 interface ResumeContextType {
   resume: Resume;
@@ -46,6 +48,9 @@ interface ResumeContextType {
   pdfState: PdfState;
   pdfUrl: string | null;
   activeErrorLine: number | null;
+  editorHighlightRange: { startLine: number; endLine: number } | null;
+  suggestionFeedback: { type: "success" | "error"; message: string } | null;
+  applyAcceptedSuggestion: (result: Awaited<ReturnType<typeof acceptTailoringSuggestion>>) => void;
   compilerInfo: CompilerStatusData | null;
   saveStatus: "saved" | "saving";
   latexCode: string;
@@ -142,6 +147,13 @@ interface ResumeContextType {
   setPdfScale: (scale: number | ((prev: number) => number)) => void;
   setPdfPage: (page: number) => void;
   resetToMaster: () => void;
+  tailoringSuggestions: TailoringSuggestionView[];
+  tailoringSuggestionsLoading: boolean;
+  tailoringSuggestionsError: string | null;
+  refreshTailoringSuggestions: () => Promise<void>;
+  acceptTailoringSuggestionById: (suggestionId: string) => Promise<void>;
+  rejectTailoringSuggestionById: (suggestionId: string) => Promise<void>;
+  currentVersionId: string | null;
 }
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
@@ -152,6 +164,10 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [selectedBulletId, setSelectedBulletId] = useState<string | null>(null);
   const [aiSuggestions, setAiSuggestions] = useState<AISuggestion[]>(mockAISuggestions);
   const [activeSuggestion, setActiveSuggestion] = useState<AISuggestion | null>(null);
+  const [tailoringSuggestions, setTailoringSuggestions] = useState<TailoringSuggestionView[]>([]);
+  const [tailoringSuggestionsLoading, setTailoringSuggestionsLoading] = useState(false);
+  const [tailoringSuggestionsError, setTailoringSuggestionsError] = useState<string | null>(null);
+  const currentVersionId = resume.versions[0]?.id ?? null;
 
   // Compilation state
   const [isCompiling, setIsCompiling] = useState<boolean>(false);
@@ -164,6 +180,8 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [pdfState, setPdfState] = useState<PdfState>("none");
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [activeErrorLine, setActiveErrorLine] = useState<number | null>(null);
+  const [editorHighlightRange, setEditorHighlightRange] = useState<{ startLine: number; endLine: number } | null>(null);
+  const [suggestionFeedback, setSuggestionFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [compilerInfo, setCompilerInfo] = useState<CompilerStatusData | null>(null);
 
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving">("saved");
@@ -424,6 +442,63 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     }, 400);
   }, [activeFileId, activeFile]);
 
+  const applyAcceptedSuggestion = useCallback((result: Awaited<ReturnType<typeof acceptTailoringSuggestion>>) => {
+    setFiles((prev) => prev.map((file) =>
+      file.id === result.fileId
+        ? { ...file, content: result.updatedContent, lineCount: result.updatedContent.split(/\r?\n/).length }
+        : file
+    ));
+    setActiveFileId(result.fileId);
+    setLatexCode(result.updatedContent);
+    setFileSaveStatus("saved");
+    setIsPdfStale(result.pdfStale);
+    setPdfState(result.pdfStale ? "stale" : pdfState);
+    setEditorHighlightRange({
+      startLine: result.changedLineStart,
+      endLine: result.changedLineEnd,
+    });
+    setSuggestionFeedback({
+      type: "success",
+      message: `Suggestion applied to ${result.fileName} · line ${result.changedLineStart}`,
+    });
+  }, [pdfState]);
+
+  const refreshTailoringSuggestions = useCallback(async () => {
+    if (!projectId || !currentVersionId) {
+      setTailoringSuggestions([]);
+      return;
+    }
+    setTailoringSuggestionsLoading(true);
+    setTailoringSuggestionsError(null);
+    try {
+      setTailoringSuggestions(await fetchTailoringSuggestions(projectId, currentVersionId));
+    } catch (error) {
+      setTailoringSuggestionsError(error instanceof Error ? error.message : "Unable to load suggestions");
+    } finally {
+      setTailoringSuggestionsLoading(false);
+    }
+  }, [projectId, currentVersionId]);
+
+  const acceptTailoringSuggestionById = useCallback(async (suggestionId: string) => {
+    if (!projectId || !currentVersionId) throw new Error("Resume version is not available yet.");
+    const requestProjectId = projectId;
+    const requestVersionId = currentVersionId;
+    const result = await acceptTailoringSuggestion(suggestionId, requestProjectId, requestVersionId);
+    if (projectId !== requestProjectId || currentVersionId !== requestVersionId) return;
+    applyAcceptedSuggestion(result);
+    setTailoringSuggestions((previous) => previous.map((item) =>
+      item.suggestionId === suggestionId ? { ...item, status: "accepted" } : item
+    ));
+  }, [projectId, currentVersionId, applyAcceptedSuggestion]);
+
+  const rejectTailoringSuggestionById = useCallback(async (suggestionId: string) => {
+    if (!projectId || !currentVersionId) throw new Error("Resume version is not available yet.");
+    await rejectTailoringSuggestion(suggestionId, projectId, currentVersionId);
+    setTailoringSuggestions((previous) => previous.map((item) =>
+      item.suggestionId === suggestionId ? { ...item, status: "rejected" } : item
+    ));
+  }, [projectId, currentVersionId]);
+
   const setEditorContent = useCallback((content: string) => {
     if (activeFile?.id) {
       updateFileContent(activeFile.id, content);
@@ -666,6 +741,10 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   // ATS Progressive Disclosure State
   const [selectedATSIssueId, setSelectedATSIssueId] = useState<string | null>(null);
   const [isFullDiagnosticsOpen, setIsFullDiagnosticsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isAIAssistantOpen) void refreshTailoringSuggestions();
+  }, [isAIAssistantOpen, refreshTailoringSuggestions]);
 
   useEffect(() => {
     try {
@@ -952,9 +1031,23 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setIsAIAssistantOpen(true);
   }, [aiSuggestions]);
 
-  const acceptAISuggestion = useCallback((suggestionId: string) => {
+  const acceptAISuggestion = useCallback(async (suggestionId: string) => {
     const suggestion = aiSuggestions.find((s) => s.id === suggestionId);
     if (!suggestion) return;
+
+    if (projectId && !suggestionId.startsWith("sug_")) {
+      try {
+        const result = await acceptTailoringSuggestion(suggestionId, projectId, currentVersionId || "");
+        applyAcceptedSuggestion(result);
+      } catch (error) {
+        console.error("Failed to apply AI suggestion:", error);
+        setSuggestionFeedback({
+          type: "error",
+          message: error instanceof Error ? error.message : "Unable to apply suggestion.",
+        });
+        return;
+      }
+    }
 
     setResume((prev) => {
       const updatedExperience = prev.experience.map((exp) => ({
@@ -974,7 +1067,7 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
       prev.map((s) => (s.id === suggestionId ? { ...s, status: "accepted" } : s))
     );
     setActiveSuggestion(null);
-  }, [aiSuggestions]);
+  }, [aiSuggestions, projectId, currentVersionId, applyAcceptedSuggestion]);
 
   const rejectAISuggestion = useCallback((suggestionId: string) => {
     setAiSuggestions((prev) =>
@@ -1007,6 +1100,16 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
         pdfState,
         pdfUrl,
         activeErrorLine,
+        editorHighlightRange,
+        suggestionFeedback,
+        applyAcceptedSuggestion,
+        tailoringSuggestions,
+        tailoringSuggestionsLoading,
+        tailoringSuggestionsError,
+        refreshTailoringSuggestions,
+        acceptTailoringSuggestionById,
+        rejectTailoringSuggestionById,
+        currentVersionId,
         compilerInfo,
         saveStatus,
         latexCode,

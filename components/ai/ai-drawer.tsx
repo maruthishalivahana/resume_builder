@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sparkles,
   X,
@@ -26,14 +26,26 @@ export function AIDrawer() {
     setIsAIAssistantOpen,
     aiAssistantView,
     setAiAssistantView,
-    activeSuggestion,
-    acceptAISuggestion,
-    rejectAISuggestion,
     resume,
+    tailoringSuggestions,
+    tailoringSuggestionsLoading,
+    tailoringSuggestionsError,
+    refreshTailoringSuggestions,
+    acceptTailoringSuggestionById,
+    rejectTailoringSuggestionById,
+    currentVersionId,
   } = useResume();
 
   const [inputQuery, setInputQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"copilot" | "jd" | "ats">("copilot");
+  const [selectedSuggestionId, setSelectedSuggestionId] = useState<string | null>(null);
+  const [applyingSuggestionId, setApplyingSuggestionId] = useState<string | null>(null);
+  const [suggestionError, setSuggestionError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const next = tailoringSuggestions.find((suggestion) => suggestion.status === "pending") ?? tailoringSuggestions[0];
+    setSelectedSuggestionId(next?.suggestionId ?? null);
+  }, [tailoringSuggestions]);
 
   if (!isAIAssistantOpen) return null;
 
@@ -135,7 +147,37 @@ export function AIDrawer() {
             </div>
 
             {/* Active Suggestion Diff Card */}
-            {activeSuggestion ? (
+            {tailoringSuggestionsLoading ? (
+              <div className="p-6 text-center text-neutral-400">Loading suggestions…</div>
+            ) : tailoringSuggestionsError ? (
+              <div className="p-6 text-center space-y-2 text-neutral-400">
+                <p>Unable to load suggestions</p>
+                <Button variant="ghost" size="sm" onClick={() => void refreshTailoringSuggestions()}>Retry</Button>
+              </div>
+            ) : selectedSuggestionId && tailoringSuggestions.find((item) => item.suggestionId === selectedSuggestionId) ? (
+              (() => {
+                const suggestion = tailoringSuggestions.find((item) => item.suggestionId === selectedSuggestionId)!;
+                const isApplying = applyingSuggestionId === suggestion.suggestionId;
+                const isPending = suggestion.status === "pending";
+                return (
+              <div className="space-y-3">
+                {tailoringSuggestions.length > 1 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {tailoringSuggestions.map((item) => (
+                      <button
+                        key={item.suggestionId}
+                        onClick={() => setSelectedSuggestionId(item.suggestionId)}
+                        className={`px-2 py-1 rounded-md border text-[10px] ${
+                          item.suggestionId === suggestion.suggestionId
+                            ? "border-amber-400/40 bg-amber-400/10 text-amber-200"
+                            : "border-white/10 text-neutral-400 hover:text-white"
+                        }`}
+                      >
+                        {item.status === "accepted" ? "✓ " : ""}{item.requirement}
+                      </button>
+                    ))}
+                  </div>
+                )}
               <div className="rounded-xl border border-amber-400/30 bg-[#111116] p-3.5 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-amber-300 text-xs flex items-center gap-1.5">
@@ -148,45 +190,71 @@ export function AIDrawer() {
 
                 <div className="space-y-2 text-xs">
                   <div className="pl-2 border-l-2 border-rose-500/40 text-neutral-400 line-through leading-relaxed">
-                    {activeSuggestion.originalText}
+                    {suggestion.before}
                   </div>
                   <div className="pl-2 border-l-2 border-amber-400 text-white font-medium leading-relaxed">
-                    {activeSuggestion.suggestedText}
+                    {suggestion.after}
                   </div>
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-black/40 border border-white/[0.04] text-[11px] text-neutral-400 space-y-1">
                   <span className="text-neutral-300 font-medium">Why: </span>
-                  {activeSuggestion.rationale}
+                  {suggestion.reason}
+                </div>
+                <div className="text-[10px] text-neutral-500">
+                  Requirement: <span className="text-neutral-300">{suggestion.requirement}</span>
+                  {suggestion.evidence[0] && <> · Evidence: {suggestion.evidence[0].fileName}:{suggestion.evidence[0].lineStart}</>}
                 </div>
 
                 <div className="flex items-center justify-end gap-2 pt-1">
-                  <Button
+                  {!isPending && (
+                    <span className={`text-[10px] font-mono ${suggestion.status === "accepted" ? "text-emerald-400" : "text-rose-400"}`}>
+                      {suggestion.status === "accepted" ? "✓ Applied" : "Rejected"}
+                    </span>
+                  )}
+                  {isPending && <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => rejectAISuggestion(activeSuggestion.id)}
+                    disabled={isApplying}
+                    onClick={async () => {
+                      setApplyingSuggestionId(suggestion.suggestionId);
+                      setSuggestionError(null);
+                      try { await rejectTailoringSuggestionById(suggestion.suggestionId); } catch (error) {
+                        setSuggestionError(error instanceof Error ? error.message : "Unable to reject suggestion.");
+                      } finally { setApplyingSuggestionId(null); }
+                    }}
                   >
                     Reject
-                  </Button>
-                  <Button
+                  </Button>}
+                  {isPending && <Button
                     variant="primary"
                     size="sm"
-                    onClick={() => acceptAISuggestion(activeSuggestion.id)}
+                    disabled={isApplying || !currentVersionId}
+                    onClick={async () => {
+                      setApplyingSuggestionId(suggestion.suggestionId);
+                      setSuggestionError(null);
+                      try { await acceptTailoringSuggestionById(suggestion.suggestionId); } catch (error) {
+                        setSuggestionError(error instanceof Error ? error.message : "Unable to apply suggestion.");
+                      } finally { setApplyingSuggestionId(null); }
+                    }}
                   >
                     <Check className="w-3.5 h-3.5" />
-                    <span>Apply Diff</span>
-                  </Button>
+                    <span>{isApplying ? "Applying…" : "Apply Diff"}</span>
+                  </Button>}
                 </div>
+                {suggestionError && <p className="text-[10px] text-rose-300">{suggestionError}</p>}
               </div>
+              </div>
+                );
+              })()
             ) : (
               <div className="p-6 rounded-xl border border-white/[0.06] bg-[#0E0E12] text-center space-y-2">
                 <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mx-auto text-neutral-400">
                   <FileText className="w-4 h-4" />
                 </div>
-                <h4 className="font-semibold text-white text-xs">No active bullet selected</h4>
+                <h4 className="font-semibold text-white text-xs">No pending suggestions</h4>
                 <p className="text-neutral-400 text-[11px] leading-relaxed">
-                  Hover any bullet in the Editor and click <strong>AI Polish</strong> to generate
-                  calibrated metric enhancements.
+                  Validated suggestions for this resume version will appear here.
                 </p>
               </div>
             )}
