@@ -1,8 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { MatchClassification } from "../types";
+import { MatchClassification, MatchReasonCode } from "../types";
 
 export interface IResumeMatch extends Document {
   analysisId?: string;
+  jobTargetId: string;
   projectId: string;
   versionId: string;
   requirementId: string;
@@ -16,12 +17,14 @@ export interface IResumeMatch extends Document {
     hybridScore: number;
   }>;
   reason: string;
+  reasonCode?: MatchReasonCode;
   bestScore: number;
 }
 
 const schema = new Schema<IResumeMatch>(
   {
     analysisId: { type: String, index: true },
+    jobTargetId: { type: String, required: true, index: true },
     projectId: { type: String, required: true, index: true },
     versionId: { type: String, required: true, index: true },
     requirementId: { type: String, required: true },
@@ -35,11 +38,13 @@ const schema = new Schema<IResumeMatch>(
       hybridScore: { type: Number, required: true },
     }],
     reason: { type: String, required: true },
+    reasonCode: String,
     bestScore: { type: Number, required: true },
   },
   { timestamps: true }
 );
 
-schema.index({ projectId: 1, versionId: 1, requirementId: 1 }, { unique: true });
+schema.index({ analysisId: 1, requirementId: 1 }, { unique: true });
+schema.index({ jobTargetId: 1, requirementId: 1 });
 
 export default mongoose.model<IResumeMatch>("ResumeMatch", schema);

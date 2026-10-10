@@ -9,7 +9,7 @@ export type RequirementCategory =
   | "soft_skill"
   | "other";
 
-export type RequirementImportance = "required" | "preferred";
+export type RequirementImportance = "required" | "preferred" | "unspecified";
 export type MatchClassification = "STRONG" | "PARTIAL" | "WEAK" | "MISSING" | "CONFLICT";
 export type EvidenceType =
   | "bullet"
@@ -25,6 +25,8 @@ export type SuggestionStatus = "pending" | "accepted" | "edited" | "rejected";
 export interface JobRequirementData {
   id: string;
   text: string;
+  originalText?: string;
+  cleanText?: string;
   category: RequirementCategory;
   importance: RequirementImportance;
   extractedTerms: string[];
@@ -41,6 +43,7 @@ export interface ResumeEvidenceData {
   subsection?: string;
   type: EvidenceType;
   text: string;
+  rawText?: string;
   source: {
     fileId: string;
     fileName: string;
@@ -88,7 +91,27 @@ export interface MatchClassificationResult {
   evidenceIds: string[];
   evidenceScores: MatchEvidenceScore[];
   reason: string;
+  reasonCode?: MatchReasonCode;
 }
+
+export type MatchReasonCode =
+  | "NO_EVIDENCE_RETRIEVED"
+  | "NO_VERIFIED_EVIDENCE"
+  | "EXACT_EVIDENCE_MATCH"
+  | "PARTIAL_EVIDENCE_MATCH"
+  | "RELATED_EVIDENCE_ONLY"
+  | "CONFLICTING_EVIDENCE";
+
+export type SuggestionReasonCode =
+  | "NO_EDIT_NEEDED"
+  | "PROVIDER_ERROR"
+  | "INVALID_PROVIDER_OUTPUT"
+  | "CLAIM_VALIDATION_FAILED"
+  | "NO_OP_EDIT"
+  | "SOURCE_PATCH_FAILED"
+  | "SUGGESTION_PERSISTENCE_FAILED"
+  | "SUGGESTION_SCOPE_MISMATCH"
+  | "PERSISTED";
 
 export type GroundedSuggestionType = "rewrite" | "reorder" | "highlight" | "keyword";
 
@@ -148,4 +171,5 @@ export interface AnalysisSummary {
   missing: number;
   conflict: number;
   safeSuggestions: number;
+  diagnosticReasons?: Record<string, number>;
 }

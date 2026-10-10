@@ -1,8 +1,11 @@
+import "./config/env";
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import { randomUUID } from "crypto";
 import latexRoutes from "./routes/latex.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
 import tailoringRoutes from "./modules/job-tailoring/routes/tailoring.routes";
+import chatRoutes from "./routes/chat.routes";
 
 export function createApp(): Application {
   const app = express();
@@ -18,6 +21,12 @@ export function createApp(): Application {
 
   // Body parser for JSON
   app.use(express.json());
+  app.use((req: Request, res: Response, next) => {
+    const requestId = req.header("x-request-id")?.trim() || randomUUID();
+    res.locals.requestId = requestId;
+    res.setHeader("x-request-id", requestId);
+    next();
+  });
 
   // Health check endpoint
   app.get("/api/health", (_req: Request, res: Response) => {
@@ -30,6 +39,7 @@ export function createApp(): Application {
   // LaTeX feature routes
   app.use("/api/latex", latexRoutes);
   app.use("/api/tailoring", tailoringRoutes);
+  app.use("/api/chat", chatRoutes);
 
   // Centralized Error Handling Middleware (must be after all routes)
   app.use(errorMiddleware);

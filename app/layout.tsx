@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ResumeProvider } from "@/hooks/use-resume";
 import { CommandPalette } from "@/components/ui/command-palette";
-import { AIAssistantDrawer } from "@/components/ai/ai-assistant-drawer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +33,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#050505] text-[#EDEDED] selection:bg-amber-400/20 selection:text-amber-200">
         <ResumeProvider>
           <CommandPalette />
-          <AIAssistantDrawer />
           {children}
         </ResumeProvider>
       </body>

@@ -1,9 +1,10 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { SourcePatch, SuggestionStatus, SuggestionType } from "../types";
+import { SourcePatch, SuggestionReasonCode, SuggestionStatus, SuggestionType } from "../types";
 
 export interface ITailoringSuggestion extends Document {
   suggestionId: string;
   analysisId: string;
+  jobTargetId: string;
   requirementId: string;
   projectId: string;
   versionId: string;
@@ -16,6 +17,7 @@ export interface ITailoringSuggestion extends Document {
   confidence: number;
   status: SuggestionStatus;
   validation: "PASS" | "FAIL";
+  reasonCode?: SuggestionReasonCode;
   sourcePatch?: SourcePatch;
   appliedAt?: Date;
   appliedFileId?: string;
@@ -29,6 +31,7 @@ const schema = new Schema<ITailoringSuggestion>(
   {
     suggestionId: { type: String, required: true, unique: true },
     analysisId: { type: String, required: true, index: true },
+    jobTargetId: { type: String, required: true, index: true },
     requirementId: { type: String, required: true },
     projectId: { type: String, required: true, index: true },
     versionId: { type: String, required: true, index: true },
@@ -41,6 +44,7 @@ const schema = new Schema<ITailoringSuggestion>(
     confidence: { type: Number, min: 0, max: 1, required: true },
     status: { type: String, required: true, default: "pending" },
     validation: { type: String, required: true },
+    reasonCode: String,
     sourcePatch: {
       fileId: { type: String, required: true },
       fileName: { type: String, required: true },

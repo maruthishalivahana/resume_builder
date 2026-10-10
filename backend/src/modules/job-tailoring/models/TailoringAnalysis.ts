@@ -15,6 +15,7 @@ export interface ITailoringAnalysis extends Document {
   startedAt?: Date;
   completedAt?: Date;
   durationMs?: number;
+  diagnosticReasons?: Record<string, number>;
 }
 
 const schema = new Schema<ITailoringAnalysis>(
@@ -30,6 +31,7 @@ const schema = new Schema<ITailoringAnalysis>(
     startedAt: Date,
     completedAt: Date,
     durationMs: Number,
+    diagnosticReasons: Schema.Types.Mixed,
   },
   { timestamps: true }
 );

@@ -7,7 +7,7 @@ export function buildGroundedSuggestionPrompt(
 ): string {
   const evidenceText = evidence.map((item) => JSON.stringify({
     evidenceId: item.id,
-    text: item.text,
+    text: item.rawText ?? item.text,
     section: item.section,
     source: item.source,
     technologies: item.technologies,
@@ -21,6 +21,7 @@ export function buildGroundedSuggestionPrompt(
     "Do not convert related technologies into identical technologies.",
     "Do not upgrade weak or partial evidence into strong claims.",
     "Preserve the factual meaning of the original evidence.",
+    "CRITICAL: The `before` and `after` fields MUST be exact raw text strings that match the formatting of the provided evidence text exactly (including LaTeX braces, backslashes, and line breaks) so they can be securely patched.",
     "If no safe improvement exists, return null.",
     "",
     "OUTPUT SCHEMA:",

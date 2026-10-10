@@ -33,6 +33,14 @@ assert.equal(classify(requirement("7", "2+ years of Node.js experience", "experi
 assert.notEqual(classify(requirement("8", "React"), evidence("e8", "Built React Native mobile applications", ["React Native"], ["react_native"])), "STRONG");
 assert.notEqual(classify(requirement("9", "Java"), evidence("e9", "Built JavaScript applications", ["JavaScript"], ["javascript"])), "STRONG");
 assert.notEqual(classify(requirement("10", "PostgreSQL"), evidence("e10", "Designed MongoDB collections", ["MongoDB"], ["mongodb"])), "STRONG");
+assert.equal(classify(requirement("10a", "Java"), evidence("e10a", "Built JavaScript applications", ["JavaScript"], ["javascript"])), "WEAK");
+assert.equal(classify(requirement("10b", "JavaScript"), evidence("e10b", "Built Java applications", ["Java"], ["java"])), "WEAK");
+assert.equal(classify(requirement("10c", "React"), evidence("e10c", "Built React Native applications", ["React Native"], ["react_native"])), "PARTIAL");
+assert.equal(classify(requirement("10d", "React Native"), evidence("e10d", "Built React applications", ["React"], ["react"])), "WEAK");
+assert.equal(classify(requirement("10e", "Node.js"), evidence("e10e", "Built Next.js applications", ["Next.js"], ["nextjs"])), "WEAK");
+assert.equal(classify(requirement("10f", "Next.js"), evidence("e10f", "Built Node.js applications", ["Node.js"], ["nodejs"])), "WEAK");
+assert.equal(classify(requirement("10g", "SQL"), evidence("e10g", "Designed NoSQL collections", ["NoSQL"], ["nosql"])), "WEAK");
+assert.equal(classify(requirement("10h", "NoSQL"), evidence("e10h", "Designed SQL queries", ["SQL"], ["sql"])), "WEAK");
 assert.notEqual(classify(requirement("11", "Docker"), evidence("e11", "Managed Kubernetes deployments", ["Kubernetes"], ["kubernetes"])), "STRONG");
 assert.notEqual(classify(requirement("12", "GitHub Actions"), evidence("e12", "Maintained Jenkins pipelines", ["Jenkins"], ["jenkins"])), "STRONG");
 assert.notEqual(classify(requirement("13", "3 years experience"), evidence("e13", "3 months experience")), "STRONG");

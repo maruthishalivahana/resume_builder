@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Sparkles,
   X,
@@ -15,6 +15,9 @@ import {
   ShieldCheck,
   Sliders,
   Send,
+  Loader2,
+  Bot,
+  User,
 } from "lucide-react";
 import { useResume } from "@/hooks/use-resume";
 import { mockJobMatches, mockATSEvaluation } from "@/lib/mock-data";
@@ -34,6 +37,10 @@ export function AIDrawer() {
     acceptTailoringSuggestionById,
     rejectTailoringSuggestionById,
     currentVersionId,
+    chatMessages,
+    isChatLoading,
+    chatError,
+    sendChatMessage,
   } = useResume();
 
   const [inputQuery, setInputQuery] = useState("");
@@ -41,11 +48,18 @@ export function AIDrawer() {
   const [selectedSuggestionId, setSelectedSuggestionId] = useState<string | null>(null);
   const [applyingSuggestionId, setApplyingSuggestionId] = useState<string | null>(null);
   const [suggestionError, setSuggestionError] = useState<string | null>(null);
+  const chatBottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const next = tailoringSuggestions.find((suggestion) => suggestion.status === "pending") ?? tailoringSuggestions[0];
     setSelectedSuggestionId(next?.suggestionId ?? null);
   }, [tailoringSuggestions]);
+
+  useEffect(() => {
+    if (activeTab === "copilot") {
+      chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatMessages, isChatLoading, activeTab]);
 
   if (!isAIAssistantOpen) return null;
 
@@ -54,11 +68,18 @@ export function AIDrawer() {
   );
 
   const quickPrompts = [
-    { label: "Analyze this JD", action: () => setActiveTab("jd") },
-    { label: "Find resume gaps", action: () => setActiveTab("jd") },
-    { label: "Improve selected bullet", action: () => setActiveTab("copilot") },
-    { label: "Fix ATS issues", action: () => setActiveTab("ats") },
+    { label: "Analyze my resume for ATS", text: "How ATS friendly is my current resume layout and structure?" },
+    { label: "How to format summary?", text: "What are best practices for writing a high-impact summary section?" },
+    { label: "Quantify experience", text: "How can I add strong metrics to my technical experience bullets?" },
+    { label: "Action verbs guide", text: "Give me strong action verbs for software engineering leadership." },
   ];
+
+  const handleSend = () => {
+    if (!inputQuery.trim() || isChatLoading) return;
+    const msg = inputQuery;
+    setInputQuery("");
+    sendChatMessage(msg);
+  };
 
   return (
     <div className="fixed inset-y-0 right-0 z-50 w-full max-w-[390px] bg-[#0A0A0D] border-l border-white/[0.09] shadow-2xl flex flex-col text-xs select-none backdrop-blur-xl animate-in slide-in-from-right duration-150">
@@ -100,7 +121,7 @@ export function AIDrawer() {
               : "text-neutral-400 hover:text-neutral-200"
           }`}
         >
-          Bullet Copilot
+          AI Chat
         </button>
         <button
           onClick={() => setActiveTab("jd")}
@@ -127,18 +148,19 @@ export function AIDrawer() {
       {/* Drawer Content */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {activeTab === "copilot" && (
-          <div className="space-y-4">
-            {/* Quick Actions */}
+          <div className="space-y-4 flex flex-col min-h-full">
+            {/* Quick Prompts */}
             <div className="space-y-1.5">
               <div className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider font-mono">
-                How can I help?
+                Suggested Questions
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {quickPrompts.map((qp, idx) => (
                   <button
                     key={idx}
-                    onClick={qp.action}
-                    className="px-2.5 py-1 rounded-md bg-[#14141A] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white text-[11px] transition-colors"
+                    onClick={() => sendChatMessage(qp.text)}
+                    disabled={isChatLoading}
+                    className="px-2.5 py-1 rounded-md bg-[#14141A] border border-white/10 hover:border-white/20 text-neutral-300 hover:text-white text-[11px] transition-colors disabled:opacity-50"
                   >
                     {qp.label}
                   </button>
@@ -146,117 +168,121 @@ export function AIDrawer() {
               </div>
             </div>
 
-            {/* Active Suggestion Diff Card */}
-            {tailoringSuggestionsLoading ? (
-              <div className="p-6 text-center text-neutral-400">Loading suggestions…</div>
-            ) : tailoringSuggestionsError ? (
-              <div className="p-6 text-center space-y-2 text-neutral-400">
-                <p>Unable to load suggestions</p>
-                <Button variant="ghost" size="sm" onClick={() => void refreshTailoringSuggestions()}>Retry</Button>
-              </div>
-            ) : selectedSuggestionId && tailoringSuggestions.find((item) => item.suggestionId === selectedSuggestionId) ? (
+            {/* Conversation History */}
+            <div className="space-y-3 pt-2">
+              {chatMessages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex items-start gap-2.5 ${
+                    msg.role === "user" ? "flex-row-reverse" : ""
+                  }`}
+                >
+                  <div
+                    className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] ${
+                      msg.role === "user"
+                        ? "bg-amber-400/20 text-amber-300 border border-amber-400/40"
+                        : "bg-white/10 text-neutral-300 border border-white/10"
+                    }`}
+                  >
+                    {msg.role === "user" ? <User className="w-3 h-3" /> : <Bot className="w-3 h-3" />}
+                  </div>
+
+                  <div
+                    className={`p-3 rounded-xl max-w-[85%] text-[11.5px] leading-relaxed whitespace-pre-wrap ${
+                      msg.role === "user"
+                        ? "bg-amber-400/10 text-amber-100 border border-amber-400/20 rounded-tr-none"
+                        : "bg-[#121318] text-neutral-200 border border-white/[0.08] rounded-tl-none"
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+
+              {isChatLoading && (
+                <div className="flex items-center gap-2 text-neutral-400 text-[11px] p-2">
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-400" />
+                  <span>AI Copilot is thinking…</span>
+                </div>
+              )}
+
+              {chatError && (
+                <div className="p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 text-[11px]">
+                  {chatError}
+                </div>
+              )}
+
+              <div ref={chatBottomRef} />
+            </div>
+
+            {/* Tailoring Suggestions Diff Card (if present) */}
+            {tailoringSuggestions.length > 0 && selectedSuggestionId && (
               (() => {
-                const suggestion = tailoringSuggestions.find((item) => item.suggestionId === selectedSuggestionId)!;
+                const suggestion = tailoringSuggestions.find((item) => item.suggestionId === selectedSuggestionId);
+                if (!suggestion) return null;
                 const isApplying = applyingSuggestionId === suggestion.suggestionId;
                 const isPending = suggestion.status === "pending";
                 return (
-              <div className="space-y-3">
-                {tailoringSuggestions.length > 1 && (
-                  <div className="flex flex-wrap gap-1.5">
-                    {tailoringSuggestions.map((item) => (
-                      <button
-                        key={item.suggestionId}
-                        onClick={() => setSelectedSuggestionId(item.suggestionId)}
-                        className={`px-2 py-1 rounded-md border text-[10px] ${
-                          item.suggestionId === suggestion.suggestionId
-                            ? "border-amber-400/40 bg-amber-400/10 text-amber-200"
-                            : "border-white/10 text-neutral-400 hover:text-white"
-                        }`}
-                      >
-                        {item.status === "accepted" ? "✓ " : ""}{item.requirement}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              <div className="rounded-xl border border-amber-400/30 bg-[#111116] p-3.5 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-amber-300 text-xs flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" /> Enhanced Bullet
-                  </span>
-                  <span className="text-[10px] font-mono text-neutral-500">
-                    High Confidence
-                  </span>
-                </div>
+                  <div className="pt-3 border-t border-white/[0.08] space-y-3">
+                    <div className="rounded-xl border border-amber-400/30 bg-[#111116] p-3.5 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-amber-300 text-xs flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5" /> Tailoring Suggestion
+                        </span>
+                        <span className="text-[10px] font-mono text-neutral-500">
+                          {suggestion.status}
+                        </span>
+                      </div>
 
-                <div className="space-y-2 text-xs">
-                  <div className="pl-2 border-l-2 border-rose-500/40 text-neutral-400 line-through leading-relaxed">
-                    {suggestion.before}
-                  </div>
-                  <div className="pl-2 border-l-2 border-amber-400 text-white font-medium leading-relaxed">
-                    {suggestion.after}
-                  </div>
-                </div>
+                      <div className="space-y-2 text-xs">
+                        {suggestion.before && (
+                          <div className="pl-2 border-l-2 border-rose-500/40 text-neutral-400 line-through leading-relaxed">
+                            {suggestion.before}
+                          </div>
+                        )}
+                        {suggestion.after && (
+                          <div className="pl-2 border-l-2 border-amber-400 text-white font-medium leading-relaxed">
+                            {suggestion.after}
+                          </div>
+                        )}
+                      </div>
 
-                <div className="p-2.5 rounded-lg bg-black/40 border border-white/[0.04] text-[11px] text-neutral-400 space-y-1">
-                  <span className="text-neutral-300 font-medium">Why: </span>
-                  {suggestion.reason}
-                </div>
-                <div className="text-[10px] text-neutral-500">
-                  Requirement: <span className="text-neutral-300">{suggestion.requirement}</span>
-                  {suggestion.evidence[0] && <> · Evidence: {suggestion.evidence[0].fileName}:{suggestion.evidence[0].lineStart}</>}
-                </div>
+                      <div className="p-2.5 rounded-lg bg-black/40 border border-white/[0.04] text-[11px] text-neutral-400">
+                        <span className="text-neutral-300 font-medium">Why: </span>
+                        {suggestion.reason}
+                      </div>
 
-                <div className="flex items-center justify-end gap-2 pt-1">
-                  {!isPending && (
-                    <span className={`text-[10px] font-mono ${suggestion.status === "accepted" ? "text-emerald-400" : "text-rose-400"}`}>
-                      {suggestion.status === "accepted" ? "✓ Applied" : "Rejected"}
-                    </span>
-                  )}
-                  {isPending && <Button
-                    variant="ghost"
-                    size="sm"
-                    disabled={isApplying}
-                    onClick={async () => {
-                      setApplyingSuggestionId(suggestion.suggestionId);
-                      setSuggestionError(null);
-                      try { await rejectTailoringSuggestionById(suggestion.suggestionId); } catch (error) {
-                        setSuggestionError(error instanceof Error ? error.message : "Unable to reject suggestion.");
-                      } finally { setApplyingSuggestionId(null); }
-                    }}
-                  >
-                    Reject
-                  </Button>}
-                  {isPending && <Button
-                    variant="primary"
-                    size="sm"
-                    disabled={isApplying || !currentVersionId}
-                    onClick={async () => {
-                      setApplyingSuggestionId(suggestion.suggestionId);
-                      setSuggestionError(null);
-                      try { await acceptTailoringSuggestionById(suggestion.suggestionId); } catch (error) {
-                        setSuggestionError(error instanceof Error ? error.message : "Unable to apply suggestion.");
-                      } finally { setApplyingSuggestionId(null); }
-                    }}
-                  >
-                    <Check className="w-3.5 h-3.5" />
-                    <span>{isApplying ? "Applying…" : "Apply Diff"}</span>
-                  </Button>}
-                </div>
-                {suggestionError && <p className="text-[10px] text-rose-300">{suggestionError}</p>}
-              </div>
-              </div>
+                      {isPending && (
+                        <div className="flex items-center justify-end gap-2 pt-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            disabled={isApplying}
+                            onClick={async () => {
+                              setApplyingSuggestionId(suggestion.suggestionId);
+                              try { await rejectTailoringSuggestionById(suggestion.suggestionId); } finally { setApplyingSuggestionId(null); }
+                            }}
+                          >
+                            Reject
+                          </Button>
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            disabled={isApplying || !currentVersionId}
+                            onClick={async () => {
+                              setApplyingSuggestionId(suggestion.suggestionId);
+                              try { await acceptTailoringSuggestionById(suggestion.suggestionId); } finally { setApplyingSuggestionId(null); }
+                            }}
+                          >
+                            <Check className="w-3.5 h-3.5" />
+                            <span>{isApplying ? "Applying…" : "Apply Diff"}</span>
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 );
               })()
-            ) : (
-              <div className="p-6 rounded-xl border border-white/[0.06] bg-[#0E0E12] text-center space-y-2">
-                <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mx-auto text-neutral-400">
-                  <FileText className="w-4 h-4" />
-                </div>
-                <h4 className="font-semibold text-white text-xs">No pending suggestions</h4>
-                <p className="text-neutral-400 text-[11px] leading-relaxed">
-                  Validated suggestions for this resume version will appear here.
-                </p>
-              </div>
             )}
           </div>
         )}
@@ -346,17 +372,31 @@ export function AIDrawer() {
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            disabled={isChatLoading}
             placeholder="Ask Copilot anything..."
-            className="w-full bg-transparent text-xs text-white placeholder-neutral-500 focus:outline-none"
+            className="w-full bg-transparent text-xs text-white placeholder-neutral-500 focus:outline-none disabled:opacity-50"
           />
           <button
-            className="p-1 rounded text-neutral-400 hover:text-white transition-colors"
+            onClick={handleSend}
+            disabled={!inputQuery.trim() || isChatLoading}
+            className="p-1 rounded text-neutral-400 hover:text-white transition-colors disabled:opacity-40"
             title="Send"
           >
-            <Send className="w-3.5 h-3.5 text-amber-400" />
+            {isChatLoading ? (
+              <Loader2 className="w-3.5 h-3.5 text-amber-400 animate-spin" />
+            ) : (
+              <Send className="w-3.5 h-3.5 text-amber-400" />
+            )}
           </button>
         </div>
       </div>
     </div>
   );
 }
+

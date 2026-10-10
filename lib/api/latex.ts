@@ -2,6 +2,27 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 import { LatexFileItem, LatexFolderItem } from "@/types/latex";
 
+/**
+ * Helper to execute fetch requests with network error handling.
+ * Throws a user-friendly error when the backend server is offline/unreachable.
+ */
+async function safeFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  try {
+    return await fetch(input, init);
+  } catch (err) {
+    if (
+      err instanceof TypeError ||
+      (err as Error)?.name === "TypeError" ||
+      (err as Error)?.message?.includes("Failed to fetch")
+    ) {
+      throw new Error(
+        `Unable to connect to backend server at ${API_URL}. Please ensure the backend server is running.`
+      );
+    }
+    throw err;
+  }
+}
+
 export interface UploadLatexProjectData {
   id: string;
   name: string;
@@ -59,7 +80,7 @@ export async function uploadLatexFile(
     formData.append("projectId", projectId);
   }
 
-  const response = await fetch(`${API_URL}/api/latex/upload`, {
+  const response = await safeFetch(`${API_URL}/api/latex/upload`, {
     method: "POST",
     body: formData,
   });
@@ -84,7 +105,7 @@ export async function uploadLatexFile(
  */
 export async function fetchLatestLatexFile(): Promise<UploadLatexResponse["data"] | null> {
   try {
-    const response = await fetch(`${API_URL}/api/latex/latest`, {
+    const response = await safeFetch(`${API_URL}/api/latex/latest`, {
       method: "GET",
       cache: "no-store",
     });
@@ -92,6 +113,7 @@ export async function fetchLatestLatexFile(): Promise<UploadLatexResponse["data"
     if (!response.ok) return null;
     const json = await response.json();
     if (json.success && json.data) {
+      if (!json.data.project?.id || !json.data.file?.id) return null;
       return json.data;
     }
     return null;
@@ -105,7 +127,7 @@ export async function fetchLatestLatexFile(): Promise<UploadLatexResponse["data"
  * Creates a new LaTeX project in MongoDB.
  */
 export async function createLatexProject(name: string): Promise<UploadLatexProjectData> {
-  const response = await fetch(`${API_URL}/api/latex/projects`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name }),
@@ -125,7 +147,7 @@ export async function createLatexProject(name: string): Promise<UploadLatexProje
 export async function fetchLatexProject(
   projectId: string
 ): Promise<UploadLatexProjectData> {
-  const response = await fetch(`${API_URL}/api/latex/projects/${projectId}`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}`, {
     method: "GET",
     cache: "no-store",
   });
@@ -142,7 +164,7 @@ export async function setLatexProjectEntryFile(
   projectId: string,
   entryFileId: string
 ): Promise<string> {
-  const response = await fetch(`${API_URL}/api/latex/projects/${projectId}/entry-file`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/entry-file`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ entryFileId }),
@@ -160,7 +182,7 @@ export async function setLatexProjectEntryFile(
 export async function fetchProjectFiles(
   projectId: string
 ): Promise<ProjectFilesResponseData> {
-  const response = await fetch(`${API_URL}/api/latex/projects/${projectId}/files`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/files`, {
     method: "GET",
     cache: "no-store",
   });
@@ -186,7 +208,7 @@ export async function fetchLatexFile(
   fileId: string
 ): Promise<UploadLatexFileData | null> {
   try {
-    const response = await fetch(`${API_URL}/api/latex/files/${fileId}`, {
+    const response = await safeFetch(`${API_URL}/api/latex/files/${fileId}`, {
       method: "GET",
       cache: "no-store",
     });
@@ -208,7 +230,7 @@ export async function createLatexFile(
   name: string,
   folderId?: string | null
 ): Promise<LatexFileItem> {
-  const response = await fetch(`${API_URL}/api/latex/projects/${projectId}/files`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/files`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, folderId: folderId ?? null }),
@@ -230,7 +252,7 @@ export async function createLatexFolder(
   name: string,
   parentFolderId?: string | null
 ): Promise<LatexFolderItem> {
-  const response = await fetch(`${API_URL}/api/latex/projects/${projectId}/folders`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/folders`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, parentFolderId: parentFolderId ?? null }),
@@ -248,7 +270,7 @@ export async function createLatexFolder(
  * Deletes a file.
  */
 export async function deleteLatexFile(fileId: string): Promise<void> {
-  const response = await fetch(`${API_URL}/api/latex/files/${fileId}`, {
+  const response = await safeFetch(`${API_URL}/api/latex/files/${fileId}`, {
     method: "DELETE",
   });
 
@@ -263,7 +285,7 @@ export async function deleteLatexFile(fileId: string): Promise<void> {
  * If folder is not empty, server returns 409 Conflict.
  */
 export async function deleteLatexFolder(folderId: string): Promise<void> {
-  const response = await fetch(`${API_URL}/api/latex/folders/${folderId}`, {
+  const response = await safeFetch(`${API_URL}/api/latex/folders/${folderId}`, {
     method: "DELETE",
   });
 
@@ -280,7 +302,7 @@ export async function renameLatexFile(
   fileId: string,
   name: string
 ): Promise<LatexFileItem> {
-  const response = await fetch(`${API_URL}/api/latex/files/${fileId}/name`, {
+  const response = await safeFetch(`${API_URL}/api/latex/files/${fileId}/name`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name }),
@@ -301,7 +323,7 @@ export async function renameLatexFolder(
   folderId: string,
   name: string
 ): Promise<LatexFolderItem> {
-  const response = await fetch(`${API_URL}/api/latex/folders/${folderId}/name`, {
+  const response = await safeFetch(`${API_URL}/api/latex/folders/${folderId}/name`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name }),
@@ -323,7 +345,7 @@ export async function updateLatexFile(
   fileId: string,
   content: string
 ): Promise<void> {
-  const response = await fetch(`${API_URL}/api/latex/files/${fileId}`, {
+  const response = await safeFetch(`${API_URL}/api/latex/files/${fileId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content }),
@@ -360,7 +382,7 @@ export async function acceptTailoringSuggestion(
   projectId: string,
   versionId: string
 ): Promise<AcceptedTailoringSuggestion> {
-  const response = await fetch(`${API_URL}/api/tailoring/suggestions/${encodeURIComponent(suggestionId)}/accept`, {
+  const response = await safeFetch(`${API_URL}/api/tailoring/suggestions/${encodeURIComponent(suggestionId)}/accept`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ projectId, versionId }),
@@ -432,7 +454,7 @@ export function getLatexPdfUrl(projectId: string): string {
  */
 export async function checkCompilerStatus(): Promise<CompilerStatusData> {
   try {
-    const response = await fetch(`${API_URL}/api/latex/compiler/status`, {
+    const response = await safeFetch(`${API_URL}/api/latex/compiler/status`, {
       method: "GET",
       cache: "no-store",
     });
@@ -462,7 +484,7 @@ export async function compileLatexProject(
   projectId: string,
   entryFileId?: string
 ): Promise<CompileProjectResult> {
-  const response = await fetch(`${API_URL}/api/latex/projects/${projectId}/compile`, {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/compile`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(entryFileId ? { entryFileId } : {}),
@@ -487,7 +509,7 @@ export async function fetchLatestCompilation(
   projectId: string
 ): Promise<CompilationState | null> {
   try {
-    const response = await fetch(
+    const response = await safeFetch(
       `${API_URL}/api/latex/projects/${projectId}/compilation/latest`,
       {
         method: "GET",

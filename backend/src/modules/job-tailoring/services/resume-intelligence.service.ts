@@ -1,5 +1,6 @@
 import { LatexFile } from "../../../models/LatexFile";
 import { LatexProject } from "../../../models/LatexProject";
+import { AppError } from "../../../middleware/error.middleware";
 import ResumeEvidence from "../models/ResumeEvidence";
 import { ResumeEvidenceData } from "../types";
 import {
@@ -86,7 +87,7 @@ export class ResumeIntelligenceService {
 
   private async parseProject(projectId: string, versionId: string): Promise<ParsedEvidenceResult & { filesProcessed: number }> {
     const project = await LatexProject.findById(projectId).select({ _id: 1 }).lean();
-    if (!project) throw new Error("Resume project not found");
+    if (!project) throw new AppError("Resume project not found", 404, "PROJECT_NOT_FOUND");
 
     const files = await LatexFile.find({
       projectId,

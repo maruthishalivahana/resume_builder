@@ -12,6 +12,7 @@ export class MatchAnalysisService {
   async analyze(input: {
     projectId: string;
     versionId: string;
+    analysisId?: string;
     requirementIds?: string[];
   }): Promise<{ matches: Array<{
     requirementId: string;
@@ -23,6 +24,7 @@ export class MatchAnalysisService {
     const filter: Record<string, unknown> = {
       projectId: input.projectId,
       versionId: input.versionId,
+      ...(input.analysisId ? { analysisId: input.analysisId } : {}),
       ...(input.requirementIds?.length ? { requirementId: { $in: input.requirementIds } } : {}),
     };
     const requirements = await JobRequirement.find(filter).lean();
@@ -50,11 +52,12 @@ export class MatchAnalysisService {
         normalizedTerms: requirement.normalizedTerms,
       }, evidence);
       await ResumeMatch.updateOne(
-        { projectId: input.projectId, versionId: input.versionId, requirementId: requirement.requirementId },
+        { jobTargetId: requirement.jobTargetId, requirementId: requirement.requirementId },
         {
           $set: {
             projectId: input.projectId,
             versionId: input.versionId,
+            jobTargetId: requirement.jobTargetId,
             requirementId: requirement.requirementId,
             classification: result.classification,
             confidence: result.confidence,

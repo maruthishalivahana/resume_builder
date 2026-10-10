@@ -21,8 +21,7 @@ import { MatchClassifierService } from "../services/match-classifier.service";
 import { GroundedGenerationService } from "../services/grounded-generation.service";
 import { SourcePatchService } from "../services/source-patch.service";
 import { hashSourceText } from "../utils/source-hash.util";
-import { DeterministicTailoringGenerator } from "../providers/interfaces";
-import { OpenRouterLLMProvider } from "../providers/openrouter-llm.provider";
+import { resolveTailoringProviderConfig } from "../config/tailoring-provider.config";
 import { randomUUID } from "crypto";
 
 const orchestrator = new TailoringOrchestratorService();
@@ -43,10 +42,11 @@ const hybridRetrieval = new HybridRetrievalService(
   }
 );
 const matchAnalysis = new MatchAnalysisService(hybridRetrieval, new MatchClassifierService());
-const generationProvider = process.env.LLM_PROVIDER === "openrouter"
-  ? new OpenRouterLLMProvider()
-  : new DeterministicTailoringGenerator();
-const groundedGeneration = new GroundedGenerationService(generationProvider);
+const providerConfig = resolveTailoringProviderConfig();
+const groundedGeneration = new GroundedGenerationService(
+  providerConfig.primaryProvider,
+  providerConfig.fallbackProvider
+);
 const sourcePatch = new SourcePatchService();
 
 function requireString(value: unknown, name: string): string {
@@ -157,7 +157,7 @@ export async function analyzeMatches(req: Request, res: Response, next: NextFunc
 
     res.json({
       success: true,
-      data: await matchAnalysis.analyze({ projectId, versionId, requirementIds }),
+      data: await matchAnalysis.analyze({ projectId, versionId, analysisId: req.body.analysisId, requirementIds }),
     });
   } catch (error) {
     next(error);
@@ -169,9 +169,10 @@ export async function generateSuggestion(req: Request, res: Response, next: Next
     const projectId = requireString(req.body.projectId, "projectId");
     const versionId = requireString(req.body.versionId, "versionId");
     const requirementId = requireString(req.body.requirementId, "requirementId");
-    const requirementRecord = await JobRequirement.findOne({ projectId, versionId, requirementId }).lean();
+    const analysisId = typeof req.body.analysisId === "string" ? req.body.analysisId : undefined;
+    const requirementRecord = await JobRequirement.findOne({ projectId, versionId, requirementId, ...(analysisId ? { analysisId } : {}) }).lean();
     if (!requirementRecord) throw new AppError("Requirement not found", 404, "REQUIREMENT_NOT_FOUND");
-    const matchRecord = await ResumeMatch.findOne({ projectId, versionId, requirementId }).lean();
+    const matchRecord = await ResumeMatch.findOne({ jobTargetId: requirementRecord.jobTargetId, requirementId }).lean();
     if (!matchRecord) throw new AppError("Match not found; analyze matches before generating", 409, "MATCH_NOT_FOUND");
     const retrieved = await hybridRetrieval.search({ projectId, versionId, query: requirementRecord.text, limit: 20 });
     const evidenceRecords = await ResumeEvidence.find({ projectId, versionId, evidenceId: { $in: matchRecord.evidenceIds } }).lean();
@@ -223,7 +224,7 @@ export async function generateSuggestion(req: Request, res: Response, next: Next
       ? before.replace(generatedBefore, result.suggestion.after)
       : result.suggestion.after;
     const suggestion = await TailoringSuggestion.create({
-      ...result.suggestion, projectId, versionId, suggestionId: randomUUID(), analysisId: requirementRecord.analysisId,
+      ...result.suggestion, projectId, versionId, jobTargetId: requirementRecord.jobTargetId, suggestionId: randomUUID(), analysisId: requirementRecord.analysisId,
       requirementId, status: "pending", validation: "PASS",
       sourcePatch: {
         fileId: sourceRecord.source.fileId,
@@ -256,7 +257,23 @@ export async function getAnalysis(req: Request, res: Response, next: NextFunctio
     const analysisId = requireString(req.params.analysisId, "analysisId");
     const analysis = await TailoringAnalysis.findOne({ analysisId }).lean();
     if (!analysis) throw new AppError("Analysis not found", 404, "ANALYSIS_NOT_FOUND");
-    res.json({ success: true, data: analysis });
+    const [requirements, matches, suggestions] = await Promise.all([
+      JobRequirement.find({ analysisId }).lean(),
+      ResumeMatch.find({ analysisId }).lean(),
+      TailoringSuggestion.find({ analysisId }).lean(),
+    ]);
+    const matchByRequirement = new Map(matches.map((match) => [match.requirementId, match]));
+    res.json({
+      success: true,
+      data: {
+        ...analysis,
+        requirements: requirements.map((requirement) => ({
+          ...requirement,
+          match: matchByRequirement.get(requirement.requirementId) ?? null,
+        })),
+        suggestions,
+      },
+    });
   } catch (error) {
     next(error);
   }
@@ -282,10 +299,19 @@ export async function getScopedSuggestions(req: Request, res: Response, next: Ne
     try {
       const projectId = requireString(req.query.projectId, "projectId");
       const versionId = requireString(req.query.versionId, "versionId");
+      const requestedAnalysisId = typeof req.query.analysisId === "string" ? req.query.analysisId : undefined;
+      const latestAnalysis = requestedAnalysisId
+        ? null
+        : await TailoringAnalysis.findOne({ resumeId: projectId, resumeVersionId: versionId })
+          .sort({ createdAt: -1 })
+          .select({ analysisId: 1 })
+          .lean();
+      const analysisId = requestedAnalysisId ?? latestAnalysis?.analysisId;
+      const scope = { projectId, versionId, analysisId: analysisId ?? "__no_analysis__" };
       const [suggestions, requirements, matches, evidence] = await Promise.all([
-        TailoringSuggestion.find({ projectId, versionId }).sort({ createdAt: -1 }).lean(),
-        JobRequirement.find({ projectId, versionId }).lean(),
-        ResumeMatch.find({ projectId, versionId }).lean(),
+        TailoringSuggestion.find(scope).sort({ createdAt: -1 }).lean(),
+        JobRequirement.find(scope).lean(),
+        ResumeMatch.find(scope).lean(),
         ResumeEvidence.find({ projectId, versionId }).lean(),
       ]);
       const requirementById = new Map(requirements.map((item) => [item.requirementId, item]));

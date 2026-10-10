@@ -4,6 +4,7 @@ import { JobRequirementData } from "../types";
 export interface IJobRequirement extends Omit<JobRequirementData, "id">, Document {
   requirementId: string;
   analysisId: string;
+  jobTargetId: string;
   projectId?: string;
   versionId?: string;
 }
@@ -12,9 +13,12 @@ const schema = new Schema<IJobRequirement>(
   {
     requirementId: { type: String, required: true },
     analysisId: { type: String, required: true, index: true },
+    jobTargetId: { type: String, required: true, index: true },
     projectId: { type: String, index: true },
     versionId: { type: String, index: true },
     text: { type: String, required: true },
+    originalText: String,
+    cleanText: String,
     category: { type: String, required: true },
     importance: { type: String, required: true },
     extractedTerms: [String],

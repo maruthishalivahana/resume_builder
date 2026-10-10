@@ -89,6 +89,7 @@ export class ResumeEvidenceParserService {
     const flush = (endLine: number): void => {
       const text = pendingParts.join(" ").replace(/\s+/g, " ").trim();
       if (pendingStart !== null && this.isMeaningful(text)) {
+        const rawText = lines.slice(pendingStart - 1, endLine).join("\n");
         const id = this.identity(projectId, versionId, file.id, pendingStart, endLine, text);
         const technologies = this.extractTechnologies(text);
         const normalizedTechnologies = technologies.map((technology) => this.normalizeTechnology(technology));
@@ -102,6 +103,7 @@ export class ResumeEvidenceParserService {
           originalSectionName,
           type: this.evidenceType(currentSection, text),
           text,
+          rawText,
           source: { fileId: file.id, fileName: file.name, lineStart: pendingStart, lineEnd: endLine },
           technologies,
           normalizedTechnologies,

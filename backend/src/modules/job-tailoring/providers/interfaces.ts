@@ -160,15 +160,94 @@ export class DeterministicTailoringGenerator implements LLMProvider {
     constraints: StrictGenerationConstraints;
   }): Promise<GroundedSuggestion | null> {
     if (!input.constraints.mustReferenceEvidence || input.evidence.length === 0) return null;
-    const evidence = input.evidence[0];
+
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { tailoringDiagnostic } = require("../utils/tailoring-diagnostic.util");
+    tailoringDiagnostic("deterministic_generator.started", {
+      requirementCategory: input.requirement.category,
+      evidenceCount: input.evidence.length,
+    });
+
+    // 1. Select the evidence item that best matches the requirement terms or category
+    const terms = (input.requirement.extractedTerms ?? []).map((t) => t.toLowerCase());
+    let bestEvidence = input.evidence[0];
+    let maxOverlap = -1;
+
+    for (const ev of input.evidence) {
+      const evLower = ev.text.toLowerCase();
+      let overlap = 0;
+      for (const term of terms) {
+        if (evLower.includes(term)) overlap += 1;
+      }
+      if (overlap > maxOverlap) {
+        maxOverlap = overlap;
+        bestEvidence = ev;
+      }
+    }
+
+    const before = bestEvidence.rawText ?? bestEvidence.text;
+
+    // 2. Safely tailor evidence without inventing unverified technology claims
+    const rawTerms = input.requirement.extractedTerms ?? [];
+    const matchedTerms: string[] = [];
+    const evTextLower = bestEvidence.text.toLowerCase();
+
+    for (const term of rawTerms) {
+      if (term.trim() && evTextLower.includes(term.toLowerCase().trim())) {
+        if (!matchedTerms.some((t) => t.toLowerCase() === term.toLowerCase())) {
+          const match = bestEvidence.text.match(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
+          matchedTerms.push(match ? match[0] : term.trim());
+        }
+      }
+    }
+
+    if (matchedTerms.length === 0) {
+      const stopWords = new Set(["experience", "with", "and", "or", "in", "to", "for", "the", "a", "an", "of", "on", "at", "by", "is", "are", "as"]);
+      const reqWords = input.requirement.text.split(/[^a-zA-Z0-9.+/#-]/).filter((w) => w.length > 2 && !stopWords.has(w.toLowerCase()));
+      for (const word of reqWords) {
+        if (evTextLower.includes(word.toLowerCase())) {
+          if (!matchedTerms.some((t) => t.toLowerCase() === word.toLowerCase())) {
+            matchedTerms.push(word);
+          }
+        }
+      }
+    }
+
+    let enhancement: string;
+    if (matchedTerms.length > 0) {
+      const focusTerms = matchedTerms.slice(0, 2).join(" and ");
+      enhancement = `, with emphasis on verified ${focusTerms}`;
+    } else if (bestEvidence.technologies && bestEvidence.technologies.length > 0) {
+      enhancement = `, with specialized focus on ${bestEvidence.technologies[0]}`;
+    } else {
+      enhancement = `, tailored for target ${input.requirement.category} alignment`;
+    }
+
+    const isLatex = before.includes("\\item") || before.includes("{");
+    let after: string;
+
+    if (isLatex) {
+      const lastBraceIndex = before.lastIndexOf("}");
+      if (lastBraceIndex !== -1) {
+        const contentBeforeBrace = before.substring(0, lastBraceIndex).replace(/\.$/, "").trimEnd();
+        after = `${contentBeforeBrace}${enhancement}${before.substring(lastBraceIndex)}`;
+      } else {
+        after = `${before.replace(/\.$/, "").trimEnd()}${enhancement}`;
+      }
+    } else {
+      after = `${before.replace(/\.$/, "").trimEnd()}${enhancement}`;
+    }
+
+    if (after.trim() === before.trim()) return null;
+
     return {
-      type: "highlight",
-      targetEvidenceId: evidence.id,
-      before: evidence.text,
-      after: evidence.text,
-      reason: "Highlight existing resume evidence relevant to this job requirement.",
-      evidenceIds: [evidence.id],
-      confidence: Math.min(1, evidence.score),
+      type: "rewrite",
+      targetEvidenceId: bestEvidence.id,
+      before,
+      after,
+      reason: `Tailors ${bestEvidence.section} to highlight ${input.requirement.category} requirement: ${input.requirement.text}`,
+      evidenceIds: [bestEvidence.id],
+      confidence: Math.min(1, Math.max(0.5, bestEvidence.score)),
     };
   }
 }

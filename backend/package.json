@@ -13,7 +13,13 @@
     "test:hybrid": "npm run build && node test-hybrid.js",
     "test:match": "npm run build && node test-match.js",
     "test:grounded": "npm run build && node test-grounded.js",
+    "test:openrouter-live": "npm run build && node test-openrouter-live.js",
     "test:source-patch": "npm run build && node test-source-patch.js"
+    ,"test:m761": "npm run build && node test-m761-baseline.js && node test-match.js && node test-m761-regression.js"
+    ,"test:m762": "npm run build && node test-m762-requirements.js"
+    ,"test:m763": "npm run build && node test-m763-suggestions.js"
+    ,"test:m8": "npm run build && node test-m8-requirements.js && node test-m761-regression.js"
+    ,"test:generator": "npm run build && node test-generator.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

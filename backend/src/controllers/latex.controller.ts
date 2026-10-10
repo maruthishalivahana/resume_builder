@@ -138,8 +138,19 @@ export async function getLatestLatexFile(
   next: NextFunction
 ): Promise<void> {
   try {
-    const file = await LatexFile.findOne().sort({ updatedAt: -1, createdAt: -1 });
-    if (!file) {
+    const files = await LatexFile.find().sort({ updatedAt: -1, createdAt: -1 }).limit(50);
+    let file: (typeof files)[number] | null = null;
+    let project: (typeof LatexProject.prototype) | null = null;
+    for (const candidate of files) {
+      const candidateProject = await LatexProject.findById(candidate.projectId);
+      if (candidateProject) {
+        file = candidate;
+        project = candidateProject;
+        break;
+      }
+    }
+
+    if (!file || !project) {
       res.status(200).json({
         success: true,
         data: null,
@@ -147,16 +158,14 @@ export async function getLatestLatexFile(
       return;
     }
 
-    const project = await LatexProject.findById(file.projectId);
-
     res.status(200).json({
       success: true,
       data: {
         project: {
-          id: project?._id.toString() || "",
-          name: project?.name || file.name.replace(/\.tex$/i, ""),
-          compiler: project?.compiler || "pdflatex",
-          entryFileId: project?.entryFileId?.toString() || null,
+          id: project._id.toString(),
+          name: project.name,
+          compiler: project.compiler,
+          entryFileId: project.entryFileId?.toString() || null,
         },
         file: {
           id: file._id.toString(),

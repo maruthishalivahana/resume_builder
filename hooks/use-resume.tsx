@@ -30,7 +30,36 @@ import {
   CompileErrorItem,
   CompilerStatusData,
 } from "@/lib/api/latex";
-import { fetchTailoringSuggestions, rejectTailoringSuggestion, TailoringSuggestionView } from "@/lib/api/tailoring";
+import {
+  analyzeTailoring,
+  extractTailoringRequirements,
+  fetchTailoringSuggestions,
+  indexTailoringResume,
+  rejectTailoringSuggestion,
+  TailoringSuggestionView,
+  TailoringAnalysisView,
+  fetchTailoringAnalysis,
+} from "@/lib/api/tailoring";
+import { sendChatMessageApi } from "@/lib/api/chat";
+
+export interface ChatMessageEntry {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp?: string;
+}
+
+export interface ActiveJdSession {
+  analysisId: string | null;
+  jobDescription: string | null;
+  submittedAt: string;
+  status: "idle" | "indexing" | "extracting" | "analyzing" | "completed" | "failed";
+  progressStep: string;
+  summary: Record<string, number> | null;
+  requirements: Array<{ requirementId: string; text: string; classification?: string; reason?: string }>;
+  suggestions: TailoringSuggestionView[];
+  error: string | null;
+}
 
 interface ResumeContextType {
   resume: Resume;
@@ -153,7 +182,19 @@ interface ResumeContextType {
   refreshTailoringSuggestions: () => Promise<void>;
   acceptTailoringSuggestionById: (suggestionId: string) => Promise<void>;
   rejectTailoringSuggestionById: (suggestionId: string) => Promise<void>;
+  generateTailoringSuggestions: (jobDescription: string) => Promise<void>;
+  activeJdSession: ActiveJdSession | null;
+  startNewJdAnalysis: () => void;
   currentVersionId: string | null;
+  tailoringAnalysisSummary: Record<string, number> | null;
+  tailoringAnalysisStatus: "idle" | "completed" | "failed";
+  tailoringAnalysisRequirements: Array<{ requirementId: string; text: string; classification?: string; reason?: string }>;
+  chatMessages: ChatMessageEntry[];
+  isChatLoading: boolean;
+  chatError: string | null;
+  sendChatMessage: (message: string) => Promise<void>;
+  startNewChat: () => void;
+  clearChatMessages: () => void;
 }
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
@@ -167,6 +208,10 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [tailoringSuggestions, setTailoringSuggestions] = useState<TailoringSuggestionView[]>([]);
   const [tailoringSuggestionsLoading, setTailoringSuggestionsLoading] = useState(false);
   const [tailoringSuggestionsError, setTailoringSuggestionsError] = useState<string | null>(null);
+  const [tailoringAnalysisSummary, setTailoringAnalysisSummary] = useState<Record<string, number> | null>(null);
+  const [tailoringAnalysisStatus, setTailoringAnalysisStatus] = useState<"idle" | "completed" | "failed">("idle");
+  const [tailoringAnalysisId, setTailoringAnalysisId] = useState<string | null>(null);
+  const [tailoringAnalysisRequirements, setTailoringAnalysisRequirements] = useState<Array<{ requirementId: string; text: string; classification?: string; reason?: string }>>([]);
   const currentVersionId = resume.versions[0]?.id ?? null;
 
   // Compilation state
@@ -201,6 +246,85 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>("idle");
   const [uploadMessage, setUploadMessage] = useState<string | null>(null);
   const [atsScore, setAtsScore] = useState<number>(mockATSEvaluation.readinessScore || 87);
+
+  // Chat State
+  const [chatMessages, setChatMessages] = useState<ChatMessageEntry[]>([
+    {
+      id: "initial-assistant-msg",
+      role: "assistant",
+      content: "Hello! I am your RESUME.ENG AI Copilot. How can I help you refine your resume or formatting today?",
+      timestamp: new Date().toISOString(),
+    },
+  ]);
+  const [isChatLoading, setIsChatLoading] = useState<boolean>(false);
+  const [chatError, setChatError] = useState<string | null>(null);
+  const chatRequestSeqRef = useRef<number>(0);
+
+  const sendChatMessage = useCallback(
+    async (messageText: string) => {
+      const trimmed = messageText.trim();
+      if (!trimmed || isChatLoading) return;
+
+      const seq = ++chatRequestSeqRef.current;
+      setChatError(null);
+      setIsChatLoading(true);
+
+      const userMsg: ChatMessageEntry = {
+        id: `user-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+        role: "user",
+        content: trimmed,
+        timestamp: new Date().toISOString(),
+      };
+
+      setChatMessages((prev) => [...prev, userMsg]);
+
+      try {
+        const historySnapshot = [...chatMessages, userMsg].slice(-10).map((m) => ({
+          role: m.role,
+          content: m.content,
+        }));
+        const res = await sendChatMessageApi(trimmed, historySnapshot, projectId || undefined);
+        if (seq !== chatRequestSeqRef.current) return;
+
+        const assistantMsg: ChatMessageEntry = {
+          id: `assistant-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+          role: "assistant",
+          content: res.message,
+          timestamp: new Date().toISOString(),
+        };
+        setChatMessages((prev) => [...prev, assistantMsg]);
+      } catch (err) {
+        if (seq !== chatRequestSeqRef.current) return;
+        setChatError(err instanceof Error ? err.message : "Failed to send chat message.");
+      } finally {
+        if (seq === chatRequestSeqRef.current) {
+          setIsChatLoading(false);
+        }
+      }
+    },
+    [isChatLoading, chatMessages, projectId]
+  );
+
+  const startNewChat = useCallback(() => {
+    chatRequestSeqRef.current += 1;
+    setIsChatLoading(false);
+    setChatError(null);
+    setChatMessages([
+      {
+        id: `msg-${Date.now()}`,
+        role: "assistant",
+        content: "Hello! I am your RESUME.ENG AI Copilot. How can I help you refine your resume or formatting today?",
+        timestamp: new Date().toISOString(),
+      },
+    ]);
+  }, []);
+
+  const clearChatMessages = useCallback(() => {
+    chatRequestSeqRef.current += 1;
+    setIsChatLoading(false);
+    setChatError(null);
+    setChatMessages([]);
+  }, []);
 
   // Persistent editing state
   const [fileSaveStatus, setFileSaveStatus] = useState<"saved" | "saving" | "unsaved" | "error">("saved");
@@ -463,7 +587,7 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     });
   }, [pdfState]);
 
-  const refreshTailoringSuggestions = useCallback(async () => {
+  const refreshTailoringSuggestions = useCallback(async (requestedAnalysisId?: string) => {
     if (!projectId || !currentVersionId) {
       setTailoringSuggestions([]);
       return;
@@ -471,13 +595,28 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setTailoringSuggestionsLoading(true);
     setTailoringSuggestionsError(null);
     try {
-      setTailoringSuggestions(await fetchTailoringSuggestions(projectId, currentVersionId));
+      setTailoringSuggestions(await fetchTailoringSuggestions(projectId, currentVersionId, requestedAnalysisId ?? tailoringAnalysisId ?? undefined));
     } catch (error) {
       setTailoringSuggestionsError(error instanceof Error ? error.message : "Unable to load suggestions");
     } finally {
       setTailoringSuggestionsLoading(false);
     }
-  }, [projectId, currentVersionId]);
+  }, [projectId, currentVersionId, tailoringAnalysisId]);
+
+  const [activeJdSession, setActiveJdSession] = useState<ActiveJdSession | null>(null);
+  const jdRequestSeqRef = useRef<number>(0);
+
+  const startNewJdAnalysis = useCallback(() => {
+    jdRequestSeqRef.current += 1;
+    setActiveJdSession(null);
+    setTailoringSuggestions([]);
+    setTailoringSuggestionsLoading(false);
+    setTailoringSuggestionsError(null);
+    setTailoringAnalysisSummary(null);
+    setTailoringAnalysisRequirements([]);
+    setTailoringAnalysisStatus("idle");
+    setTailoringAnalysisId(null);
+  }, []);
 
   const acceptTailoringSuggestionById = useCallback(async (suggestionId: string) => {
     if (!projectId || !currentVersionId) throw new Error("Resume version is not available yet.");
@@ -489,6 +628,12 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setTailoringSuggestions((previous) => previous.map((item) =>
       item.suggestionId === suggestionId ? { ...item, status: "accepted" } : item
     ));
+    setActiveJdSession((prev) => prev ? {
+      ...prev,
+      suggestions: prev.suggestions.map((item) =>
+        item.suggestionId === suggestionId ? { ...item, status: "accepted" } : item
+      ),
+    } : null);
   }, [projectId, currentVersionId, applyAcceptedSuggestion]);
 
   const rejectTailoringSuggestionById = useCallback(async (suggestionId: string) => {
@@ -497,6 +642,94 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
     setTailoringSuggestions((previous) => previous.map((item) =>
       item.suggestionId === suggestionId ? { ...item, status: "rejected" } : item
     ));
+    setActiveJdSession((prev) => prev ? {
+      ...prev,
+      suggestions: prev.suggestions.map((item) =>
+        item.suggestionId === suggestionId ? { ...item, status: "rejected" } : item
+      ),
+    } : null);
+  }, [projectId, currentVersionId]);
+
+  const generateTailoringSuggestions = useCallback(async (jobDescription: string) => {
+    if (!projectId || !currentVersionId) throw new Error("Resume project and version are not available yet.");
+    const trimmedJd = jobDescription.trim();
+    if (!trimmedJd) throw new Error("Job description cannot be empty.");
+
+    const requestProjectId = projectId;
+    const requestVersionId = currentVersionId;
+    const seq = ++jdRequestSeqRef.current;
+
+    setActiveJdSession({
+      analysisId: null,
+      jobDescription: trimmedJd,
+      submittedAt: new Date().toISOString(),
+      status: "indexing",
+      progressStep: "Indexing resume evidence...",
+      summary: null,
+      requirements: [],
+      suggestions: [],
+      error: null,
+    });
+    setTailoringSuggestionsLoading(true);
+    setTailoringSuggestionsError(null);
+    setTailoringAnalysisStatus("idle");
+
+    try {
+      await indexTailoringResume(requestProjectId, requestVersionId);
+      if (seq !== jdRequestSeqRef.current) return;
+
+      setActiveJdSession((prev) => prev ? { ...prev, status: "extracting", progressStep: "Extracting job requirements..." } : prev);
+      const requirements = await extractTailoringRequirements(trimmedJd);
+      if (seq !== jdRequestSeqRef.current) return;
+      if (requirements.length === 0) throw new Error("No job requirements were extracted.");
+
+      setActiveJdSession((prev) => prev ? { ...prev, status: "analyzing", progressStep: "Analyzing matches & generating grounded suggestions..." } : prev);
+      const analysis = await analyzeTailoring(requestProjectId, requestVersionId, trimmedJd);
+      if (seq !== jdRequestSeqRef.current) return;
+
+      setActiveJdSession((prev) => prev ? { ...prev, progressStep: "Loading verified suggestions..." } : prev);
+      const [persistedAnalysis, suggestions] = await Promise.all([
+        fetchTailoringAnalysis(analysis.analysisId),
+        fetchTailoringSuggestions(requestProjectId, requestVersionId, analysis.analysisId),
+      ]);
+      if (seq !== jdRequestSeqRef.current) return;
+
+      const mappedRequirements = persistedAnalysis.requirements.map((item: TailoringAnalysisView["requirements"][number]) => ({
+        requirementId: item.requirementId,
+        text: item.cleanText ?? item.text,
+        classification: item.match?.classification,
+        reason: item.match?.reason,
+      }));
+
+      setActiveJdSession({
+        analysisId: analysis.analysisId,
+        jobDescription: trimmedJd,
+        submittedAt: new Date().toISOString(),
+        status: "completed",
+        progressStep: "Analysis complete",
+        summary: analysis.summary,
+        requirements: mappedRequirements,
+        suggestions,
+        error: null,
+      });
+
+      setTailoringAnalysisId(analysis.analysisId);
+      setTailoringAnalysisSummary(analysis.summary);
+      setTailoringAnalysisStatus("completed");
+      setTailoringAnalysisRequirements(mappedRequirements);
+      setTailoringSuggestions(suggestions);
+    } catch (error) {
+      if (seq !== jdRequestSeqRef.current) return;
+      const errMsg = error instanceof Error ? error.message : "Unable to generate grounded suggestions.";
+      setActiveJdSession((prev) => prev ? { ...prev, status: "failed", error: errMsg, progressStep: "Analysis failed" } : null);
+      setTailoringAnalysisStatus("failed");
+      setTailoringSuggestionsError(errMsg);
+      throw error;
+    } finally {
+      if (seq === jdRequestSeqRef.current) {
+        setTailoringSuggestionsLoading(false);
+      }
+    }
   }, [projectId, currentVersionId]);
 
   const setEditorContent = useCallback((content: string) => {
@@ -743,8 +976,11 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
   const [isFullDiagnosticsOpen, setIsFullDiagnosticsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isAIAssistantOpen) void refreshTailoringSuggestions();
-  }, [isAIAssistantOpen, refreshTailoringSuggestions]);
+    if (!projectId || !currentVersionId) {
+      setTailoringSuggestions([]);
+      setActiveJdSession(null);
+    }
+  }, [projectId, currentVersionId]);
 
   useEffect(() => {
     try {
@@ -1106,9 +1342,13 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
         tailoringSuggestions,
         tailoringSuggestionsLoading,
         tailoringSuggestionsError,
+        tailoringAnalysisSummary,
+        tailoringAnalysisStatus,
+        tailoringAnalysisRequirements,
         refreshTailoringSuggestions,
         acceptTailoringSuggestionById,
         rejectTailoringSuggestionById,
+        generateTailoringSuggestions,
         currentVersionId,
         compilerInfo,
         saveStatus,
@@ -1187,6 +1427,14 @@ export function ResumeProvider({ children }: { children: React.ReactNode }) {
         setPdfScale,
         setPdfPage,
         resetToMaster,
+        chatMessages,
+        isChatLoading,
+        chatError,
+        sendChatMessage,
+        startNewChat,
+        clearChatMessages,
+        activeJdSession,
+        startNewJdAnalysis,
       }}
     >
       {children}

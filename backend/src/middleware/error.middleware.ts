@@ -21,6 +21,7 @@ export function errorMiddleware(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ): void {
+  const requestId = typeof res.locals.requestId === "string" ? res.locals.requestId : "unknown";
   // Multer errors
   if (err instanceof multer.MulterError) {
     if (err.code === "LIMIT_FILE_SIZE") {
@@ -49,6 +50,7 @@ export function errorMiddleware(
     res.status(err.statusCode).json({
       success: false,
       message: err.message,
+      requestId,
       ...(err.code ? { code: err.code, error: { code: err.code, message: err.message } } : {}),
     });
     return;
@@ -75,7 +77,14 @@ export function errorMiddleware(
 
   // Standard Error instance
   if (err instanceof Error) {
-    console.error(`[Server Error] ${err.name}: ${err.message}`);
+    console.error(JSON.stringify({
+      scope: "http",
+      event: "request.failed",
+      requestId,
+      errorType: err.name,
+      errorMessage: err.message,
+      stack: err.stack,
+    }));
     // Check if error message matches common client errors
     if (
       err.message.includes(".tex") ||
@@ -85,6 +94,7 @@ export function errorMiddleware(
       res.status(400).json({
         success: false,
         message: err.message,
+        requestId,
       });
       return;
     }
@@ -92,14 +102,22 @@ export function errorMiddleware(
     res.status(500).json({
       success: false,
       message: "An unexpected server error occurred",
+      requestId,
     });
     return;
   }
 
   // Fallback for unknown exceptions
-  console.error("[Server Error] Unknown error:", err);
+  console.error(JSON.stringify({
+    scope: "http",
+    event: "request.failed",
+    requestId,
+    errorType: "unknown",
+    errorMessage: "unknown error",
+  }));
   res.status(500).json({
     success: false,
     message: "An unexpected server error occurred",
+    requestId,
   });
 }
