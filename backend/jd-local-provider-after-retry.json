@@ -1,0 +1,442 @@
+{
+  "database": "resume_eng_jd_audit_f3029c5b12f944bcbd069e1fb83d1eb9",
+  "mode": "controlled",
+  "providerCalls": 0,
+  "files": [
+    {
+      "_id": "6ad0bda31d619ec667f32fc9",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 2,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T11:48:51.967Z",
+      "updatedAt": "2026-10-15T11:50:34.473Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad0bda41d619ec667f32fce",
+      "projectId": "6ad0bda41d619ec667f32fcc",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Node.js REST APIs for JD_AUDIT_BRAVO_731.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 0,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T11:48:52.018Z",
+      "updatedAt": "2026-10-15T11:48:52.018Z",
+      "__v": 0
+    }
+  ],
+  "analyses": [
+    {
+      "_id": "6ad0bdcd1d619ec667f32fee",
+      "analysisId": "f4ef79bf-af70-43c8-9b66-1ef486a4fe5e",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bdcd1d619ec667f32fec",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:49:33.986Z",
+      "createdAt": "2026-10-15T11:49:33.987Z",
+      "updatedAt": "2026-10-15T11:49:38.766Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:49:38.764Z",
+      "durationMs": 4795,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1
+      }
+    },
+    {
+      "_id": "6ad0bdee1d619ec667f33013",
+      "analysisId": "68938228-7a43-4d56-baf7-a737550edd2c",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bdee1d619ec667f33011",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:50:06.483Z",
+      "createdAt": "2026-10-15T11:50:06.484Z",
+      "updatedAt": "2026-10-15T11:50:09.129Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:50:09.129Z",
+      "durationMs": 2650,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1
+      }
+    },
+    {
+      "_id": "6ad0bf3b1d619ec667f3305d",
+      "analysisId": "40a2e1a6-0a4e-4302-8b98-9a4685761c58",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bf3b1d619ec667f3305b",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:55:39.742Z",
+      "createdAt": "2026-10-15T11:55:39.743Z",
+      "updatedAt": "2026-10-15T11:55:39.782Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:55:39.782Z",
+      "durationMs": 46,
+      "summary": {
+        "total": 1,
+        "strong": 0,
+        "partial": 0,
+        "weak": 0,
+        "missing": 1,
+        "conflict": 0,
+        "safeSuggestions": 0
+      }
+    },
+    {
+      "_id": "6ad0bf4d1d619ec667f3307e",
+      "analysisId": "c0af187c-8994-42b2-9733-c9065a7e4e7d",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bf4d1d619ec667f3307c",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:55:57.83Z",
+      "createdAt": "2026-10-15T11:55:57.831Z",
+      "updatedAt": "2026-10-15T11:55:57.885Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:55:57.885Z",
+      "diagnosticReasons": {
+        "PROVIDER_ERROR": 1
+      },
+      "durationMs": 57,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "PROVIDER_ERROR": 1
+        }
+      }
+    },
+    {
+      "_id": "6ad0bf561d619ec667f3309f",
+      "analysisId": "19a9fbac-09b2-4d70-8ed5-d59041c5dbed",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bf561d619ec667f3309d",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:56:06.612Z",
+      "createdAt": "2026-10-15T11:56:06.612Z",
+      "updatedAt": "2026-10-15T11:56:06.635Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:56:06.634Z",
+      "diagnosticReasons": {
+        "PROVIDER_ERROR": 1
+      },
+      "durationMs": 24,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "PROVIDER_ERROR": 1
+        }
+      }
+    },
+    {
+      "_id": "6ad0bf581d619ec667f330c0",
+      "analysisId": "c876c470-fd33-4e6f-863d-6bde364273bc",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bf581d619ec667f330be",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:56:08.227Z",
+      "createdAt": "2026-10-15T11:56:08.228Z",
+      "updatedAt": "2026-10-15T11:56:08.254Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:56:08.254Z",
+      "diagnosticReasons": {
+        "PROVIDER_ERROR": 1
+      },
+      "durationMs": 32,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "PROVIDER_ERROR": 1
+        }
+      }
+    },
+    {
+      "_id": "6ad0bf591d619ec667f330e1",
+      "analysisId": "5d675ade-f384-4d28-bdec-011412abdcf7",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bf591d619ec667f330df",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:56:09.541Z",
+      "createdAt": "2026-10-15T11:56:09.541Z",
+      "updatedAt": "2026-10-15T11:56:09.578Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:56:09.577Z",
+      "diagnosticReasons": {
+        "PROVIDER_ERROR": 1
+      },
+      "durationMs": 39,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "PROVIDER_ERROR": 1
+        }
+      }
+    },
+    {
+      "_id": "6ad0bf8b1d619ec667f33102",
+      "analysisId": "d7c75200-f461-4d08-8e30-8e03291eafb8",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bf8b1d619ec667f33100",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:56:59.44Z",
+      "createdAt": "2026-10-15T11:56:59.44Z",
+      "updatedAt": "2026-10-15T11:57:14.447Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:57:14.442Z",
+      "diagnosticReasons": {
+        "INVALID_PROVIDER_OUTPUT": 1
+      },
+      "durationMs": 15005,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "INVALID_PROVIDER_OUTPUT": 1
+        }
+      }
+    }
+  ],
+  "suggestions": [
+    {
+      "_id": "6ad0bdd21d619ec667f32ffa",
+      "suggestionId": "798d53cd-d785-4161-93de-20052271f46b",
+      "analysisId": "f4ef79bf-af70-43c8-9b66-1ef486a4fe5e",
+      "jobTargetId": "6ad0bdcd1d619ec667f32fec",
+      "requirementId": "requirement-1",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "versionId": "ver_master",
+      "type": "highlight",
+      "targetEvidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+      "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "reason": "Highlight existing resume text relevant to this requirement.",
+      "evidenceIds": [
+        "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea"
+      ],
+      "confidence": 0.5,
+      "status": "rejected",
+      "validation": "PASS",
+      "reasonCode": "PERSISTED",
+      "sourcePatch": {
+        "fileId": "6ad0bda31d619ec667f32fc9",
+        "fileName": "resume.tex",
+        "evidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+        "lineStart": 5,
+        "lineEnd": 5,
+        "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "beforeHash": "f34db9fa1ee71024676d09ec3d59b60fc6bd1e98939990e9eb6a46d131ef9a18"
+      },
+      "createdAt": "2026-10-15T11:49:38.714Z",
+      "updatedAt": "2026-10-15T11:50:00.72Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad0bdf11d619ec667f3301f",
+      "suggestionId": "68916ba9-d8a5-4dcd-968f-771ae8d8ab1e",
+      "analysisId": "68938228-7a43-4d56-baf7-a737550edd2c",
+      "jobTargetId": "6ad0bdee1d619ec667f33011",
+      "requirementId": "requirement-1",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "versionId": "ver_master",
+      "type": "highlight",
+      "targetEvidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+      "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "reason": "Highlight existing resume text relevant to this requirement.",
+      "evidenceIds": [
+        "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea"
+      ],
+      "confidence": 0.5,
+      "status": "accepted",
+      "validation": "PASS",
+      "reasonCode": "PERSISTED",
+      "sourcePatch": {
+        "fileId": "6ad0bda31d619ec667f32fc9",
+        "fileName": "resume.tex",
+        "evidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+        "lineStart": 5,
+        "lineEnd": 5,
+        "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "beforeHash": "f34db9fa1ee71024676d09ec3d59b60fc6bd1e98939990e9eb6a46d131ef9a18"
+      },
+      "createdAt": "2026-10-15T11:50:09.123Z",
+      "updatedAt": "2026-10-15T11:50:34.462Z",
+      "__v": 0,
+      "appliedAfterHash": "226107d03e48fd442bdd5b7a340b228365109416a05b138a4fad1904e8ebe2ae",
+      "appliedAt": "2026-10-15T11:50:34.461Z",
+      "appliedBeforeHash": "f34db9fa1ee71024676d09ec3d59b60fc6bd1e98939990e9eb6a46d131ef9a18",
+      "appliedFileId": "6ad0bda31d619ec667f32fc9",
+      "appliedLineEnd": 5,
+      "appliedLineStart": 5
+    }
+  ],
+  "evidence": [
+    {
+      "_id": "6ad0bf3bbae0ae9aa0f344dc",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "evidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+      "versionId": "ver_master",
+      "__v": 0,
+      "createdAt": "2026-10-15T11:55:39.648Z",
+      "entities": [],
+      "metadata": {
+        "technologies": [
+          "Python"
+        ],
+        "normalizedTechnologies": [
+          "python"
+        ],
+        "entities": []
+      },
+      "normalizedTechnologies": [
+        "python"
+      ],
+      "originalSectionName": "Experience",
+      "rawText": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "section": "experience",
+      "source": {
+        "fileId": "6ad0bda31d619ec667f32fc9",
+        "fileName": "resume.tex",
+        "lineStart": 5,
+        "lineEnd": 5
+      },
+      "technologies": [
+        "Python"
+      ],
+      "text": "Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "type": "experience",
+      "updatedAt": "2026-10-15T11:56:59.452Z",
+      "embedding": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0.25,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0.5,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0
+      ],
+      "embeddingDimensions": 64,
+      "embeddingModel": "mock-hash-v1"
+    }
+  ]
+}

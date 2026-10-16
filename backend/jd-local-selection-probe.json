@@ -1,0 +1,28 @@
+[
+  {
+    "text": "Docker",
+    "proposal": {
+      "type": "highlight",
+      "targetEvidenceId": "long-persisted-evidence-id-731",
+      "highlightText": "Docker",
+      "evidenceIds": [
+        "long-persisted-evidence-id-731"
+      ],
+      "reason": "Highlight existing resume text relevant to this requirement.",
+      "confidence": 0.5
+    }
+  },
+  {
+    "text": "Experience building Python REST APIs.",
+    "proposal": {
+      "type": "highlight",
+      "targetEvidenceId": "long-persisted-evidence-id-731",
+      "highlightText": "Python REST APIs",
+      "evidenceIds": [
+        "long-persisted-evidence-id-731"
+      ],
+      "reason": "Highlight existing resume text relevant to this requirement.",
+      "confidence": 0.5
+    }
+  }
+]

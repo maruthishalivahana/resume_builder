@@ -19,12 +19,16 @@ import { Button } from "@/components/ui/button";
 export function AppHeader() {
   const pathname = usePathname();
   const {
+    resumeBasePath,
     resume,
     saveStatus,
     toggleSidebar,
     isSidebarCollapsed,
     isCompiling,
     compileLatex,
+    entryFileId,
+    compileTargetId,
+    files,
   } = useResume();
 
   const isLatexPage = pathname.includes("/latex");
@@ -57,7 +61,7 @@ export function AppHeader() {
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-neutral-400">
           <Link
-            href="/resume/demo/overview"
+            href={`${resumeBasePath}/overview`}
             className="flex items-center gap-1.5 hover:text-neutral-200 transition-colors"
           >
             <Layers className="w-3.5 h-3.5 text-neutral-500" />
@@ -85,11 +89,15 @@ export function AppHeader() {
               <Loader2 className="w-3 h-3 animate-spin text-amber-400" />
               <span>Saving...</span>
             </>
-          ) : (
+          ) : saveStatus === "saved" ? (
             <>
               <Check className="w-3 h-3 text-emerald-400" />
               <span className="text-neutral-400">Saved</span>
             </>
+          ) : (
+            <span className={saveStatus === "error" ? "text-rose-400" : "text-amber-400"}>
+              {saveStatus === "error" ? "Save failed" : "Unsaved"}
+            </span>
           )}
         </div>
 
@@ -100,6 +108,7 @@ export function AppHeader() {
             size="sm"
             onClick={compileLatex}
             disabled={isCompiling}
+            title={`Compile entry: ${files.find(file => file.id === (compileTargetId ?? entryFileId))?.path ?? "select a .tex entry file in the editor"}`}
             className="font-medium"
           >
             {isCompiling ? (
@@ -107,7 +116,7 @@ export function AppHeader() {
             ) : (
               <Play className="w-3.5 h-3.5 fill-current" />
             )}
-            <span>{isCompiling ? "Compiling..." : "Compile"}</span>
+            <span className="truncate max-w-[220px]">{isCompiling ? "Compiling" : "Compile entry"}: {files.find(file => file.id === (compileTargetId ?? entryFileId))?.path ?? "not selected"}</span>
             <kbd className="hidden sm:inline-block ml-1 font-mono text-[9px] px-1 rounded bg-black/30">
               ⌘↵
             </kbd>
@@ -115,7 +124,7 @@ export function AppHeader() {
         )}
 
         {/* Export PDF */}
-        <Link href="/resume/demo/preview">
+        <Link href={`${resumeBasePath}/preview`}>
           <Button variant="primary" size="sm">
             <Download className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Export PDF</span>

@@ -18,24 +18,26 @@ async function runTests() {
     { id: "req-4", text: "Database tuning", category: "experience", extractedTerms: ["Database", "tuning"] },
   ];
 
-  const constraints = { mustReferenceEvidence: true };
+  const constraints = { mustReferenceEvidence: true, mayInventFacts: false, mayChangeMeaning: false };
+  const originalEvidence = structuredClone(evidence);
 
-  const results = [];
   for (const req of requirements) {
     const result = await generator.generate({ requirement: req, evidence, constraints });
-    assert.ok(result, `Should generate result for ${req.text}`);
-    results.push(result);
+    assert.equal(result, null, `Must abstain instead of appending filler for ${req.text}`);
   }
+  assert.deepEqual(evidence, originalEvidence);
 
-  // Assert distinct target evidence
-  assert.equal(results[0].targetEvidenceId, "ev-1");
-  assert.equal(results[1].targetEvidenceId, "ev-2");
-  assert.equal(results[2].targetEvidenceId, "ev-3");
-  assert.equal(results[3].targetEvidenceId, "ev-4");
-
-  // Assert distinct reasoning and after states
-  const uniqueEvidenceIds = new Set(results.map(r => r.targetEvidenceId));
-  assert.equal(uniqueEvidenceIds.size, 4, "All edits should target distinct evidence");
+  for (const rawText of [
+    String.raw`\textbf{Languages:} Python, Java`,
+    String.raw`\resumeItem{Built \textbf{Node.js} REST APIs.}`,
+    String.raw`\item Built React components.`,
+  ]) {
+    const latexEvidence = [{ ...evidence[0], rawText }];
+    const original = structuredClone(latexEvidence);
+    assert.equal(await generator.generate({ requirement: requirements[0], evidence: latexEvidence, constraints }), null);
+    assert.deepEqual(latexEvidence, original, "LaTeX labels, nested braces and content must remain exact");
+  }
+  assert.equal(await generator.generate({ requirement: requirements[0], evidence: [], constraints }), null);
 
   console.log("DeterministicTailoringGenerator tests passed");
 }

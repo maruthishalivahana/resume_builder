@@ -13,6 +13,9 @@ export interface LatexFileItem {
   name: string;
   path: string;
   content: string;
+  contentRevision?: number;
+  recoveryPending?: boolean;
+  contentLoaded?: boolean;
   folderId?: string | null;
   language?: string;
   lineCount?: number;

@@ -20,7 +20,7 @@ import { MatchAnalysisService } from "../services/match-analysis.service";
 import { MatchClassifierService } from "../services/match-classifier.service";
 import { GroundedGenerationService } from "../services/grounded-generation.service";
 import { SourcePatchService } from "../services/source-patch.service";
-import { hashSourceText } from "../utils/source-hash.util";
+import { createEvidenceSourcePatch } from "../utils/source-range.util";
 import { resolveTailoringProviderConfig } from "../config/tailoring-provider.config";
 import { randomUUID } from "crypto";
 
@@ -181,7 +181,7 @@ export async function generateSuggestion(req: Request, res: Response, next: Next
       const score = scoreById.get(record.evidenceId);
       return {
         id: record.evidenceId, resumeId: record.resumeId, versionId: record.versionId, projectId: record.projectId,
-        section: record.section, originalSectionName: record.originalSectionName, type: record.type, text: record.text,
+        section: record.section, originalSectionName: record.originalSectionName, type: record.type, text: record.text, rawText: record.rawText,
         source: record.source, technologies: record.technologies, entities: record.entities,
         normalizedTechnologies: record.normalizedTechnologies, metadata: record.metadata,
         score: score?.hybridScore ?? 0, lexicalScore: score?.lexicalScore ?? 0,
@@ -201,41 +201,21 @@ export async function generateSuggestion(req: Request, res: Response, next: Next
       evidence,
     });
     if (!result) throw new AppError("No safe grounded suggestion was generated", 422, "SUGGESTION_NOT_SAFE");
-    const sourceRecord = await ResumeEvidence.findOne({
-      evidenceId: result.suggestion.targetEvidenceId,
-      projectId,
-      versionId,
-    }).lean();
+    // Use the same evidence snapshot supplied to generation, not a later index refresh.
+    const sourceRecord = evidenceRecords.find(record => record.evidenceId === result.suggestion.targetEvidenceId);
     if (!sourceRecord) throw new AppError("Suggestion target evidence was not found", 422, "EVIDENCE_NOT_FOUND");
     const sourceFile = await LatexFile.findOne({
       _id: sourceRecord.source.fileId,
       projectId,
     }).lean();
     if (!sourceFile) throw new AppError("Suggestion source file was not found", 404, "FILE_NOT_FOUND");
-    const sourceLines = sourceFile.content.split(/\r?\n/);
-    const before = sourceLines.slice(sourceRecord.source.lineStart - 1, sourceRecord.source.lineEnd).join("\n");
-    const generatedBefore = result.suggestion.before;
-    const occurrences = generatedBefore ? before.split(generatedBefore).length - 1 : 0;
-    if (occurrences > 1) throw new AppError("Suggestion text is ambiguous within the source range", 422, "AMBIGUOUS_SOURCE");
-    if (occurrences === 0 && before !== generatedBefore) {
-      throw new AppError("Suggestion text could not be mapped to the source range", 422, "SOURCE_NOT_FOUND");
-    }
-    const sourceAfter = occurrences === 1 && generatedBefore
-      ? before.replace(generatedBefore, result.suggestion.after)
-      : result.suggestion.after;
+    const patch = createEvidenceSourcePatch(sourceFile.content, {
+      id: sourceRecord.evidenceId, rawText: sourceRecord.rawText, source: sourceRecord.source,
+    }, result.suggestion);
     const suggestion = await TailoringSuggestion.create({
       ...result.suggestion, projectId, versionId, jobTargetId: requirementRecord.jobTargetId, suggestionId: randomUUID(), analysisId: requirementRecord.analysisId,
       requirementId, status: "pending", validation: "PASS",
-      sourcePatch: {
-        fileId: sourceRecord.source.fileId,
-        fileName: sourceRecord.source.fileName,
-        evidenceId: sourceRecord.evidenceId,
-        lineStart: sourceRecord.source.lineStart,
-        lineEnd: sourceRecord.source.lineEnd,
-        before,
-        after: sourceAfter,
-        beforeHash: hashSourceText(before),
-      },
+      sourcePatch: patch,
     });
     res.status(201).json({ success: true, data: suggestion });
   } catch (error) {

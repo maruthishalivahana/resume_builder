@@ -1,0 +1,82 @@
+[
+  {
+    "suite": "test-evidence-negation.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-paraphrase-retrieval.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-match.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-hybrid.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-tailoring-quality.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-tailoring.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-claim-validator.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-grounded.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-generator.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-highlight-generation.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-source-mapping.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-source-patch.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-m761-regression.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-generation-diagnostics.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-jd-provider-status.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-jd-analysis-guards.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-openrouter-provider.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-ollama-provider.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-autosave.js",
+    "exit": 0
+  },
+  {
+    "suite": "test-autosave-recovery.js",
+    "exit": 0
+  }
+]

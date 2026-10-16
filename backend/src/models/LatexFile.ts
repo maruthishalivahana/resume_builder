@@ -6,6 +6,10 @@ export interface ILatexFile extends Document {
   name: string;
   path: string;
   content: string;
+  contentRevision: number;
+  treeVersion?: number;
+  pendingDelete?: boolean;
+  pendingWrite?: { suggestionId?: string; evidenceId?: string; versionId?: string; lineStart?: number; lineEnd?: number; beforeHash?: string; afterHash?: string };
   language: string;
   createdAt: Date;
   updatedAt: Date;
@@ -39,6 +43,10 @@ const LatexFileSchema = new Schema<ILatexFile>(
       type: String,
       default: "",
     },
+    contentRevision: { type: Number, default: 0, min: 0 },
+    treeVersion: { type: Number, default: 0 },
+    pendingWrite: { type: Schema.Types.Mixed, default: undefined },
+    pendingDelete: { type: Boolean, default: undefined },
     language: {
       type: String,
       default: "latex",

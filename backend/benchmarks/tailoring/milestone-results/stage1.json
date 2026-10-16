@@ -1,0 +1,756 @@
+{
+  "datasetVersion": 1,
+  "datasetSha256": "fbbfe5e9e8ffdb42339f58c4d11a4a10c2190326521c6eaa318626992387381e",
+  "implementationSha256": "afdd227499114180d92a11b0ebb418cba148645b6c3a8a6cd8b512bc5a985b01",
+  "scope": "synthetic; real deterministic services; scripted provider; no DB/browser/compiler",
+  "cases": {
+    "retrieval": [
+      {
+        "id": "sqlite-punctuation",
+        "requirement": "Experience with SQLite.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "main:3:3"
+        ],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [
+          "main:3:3"
+        ],
+        "verified": [
+          "main:3:3"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "java-vs-javascript",
+        "requirement": "Java.",
+        "expected": "MISSING",
+        "actual": "MISSING",
+        "goldRelevant": [],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [],
+        "verified": [],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "sql-vs-nosql",
+        "requirement": "SQL.",
+        "expected": "MISSING",
+        "actual": "MISSING",
+        "goldRelevant": [],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [],
+        "verified": [],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "missing-kubernetes",
+        "requirement": "Kubernetes.",
+        "expected": "MISSING",
+        "actual": "MISSING",
+        "goldRelevant": [],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [],
+        "verified": [],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "related-react-native",
+        "requirement": "React.",
+        "expected": "PARTIAL",
+        "actual": "PARTIAL",
+        "goldRelevant": [
+          "main:3:3"
+        ],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [
+          "main:3:3"
+        ],
+        "verified": [
+          "main:3:3"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "production-qualification",
+        "requirement": "Production Node.js experience.",
+        "expected": "PARTIAL",
+        "actual": "PARTIAL",
+        "goldRelevant": [
+          "main:3:3"
+        ],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [
+          "main:3:3"
+        ],
+        "verified": [],
+        "missed": [],
+        "verificationMisses": [
+          "main:3:3"
+        ]
+      },
+      {
+        "id": "paraphrase-maintenance",
+        "requirement": "Maintain CI/CD pipelines.",
+        "expected": "STRONG",
+        "actual": "MISSING",
+        "goldRelevant": [
+          "main:3:3"
+        ],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [],
+        "verified": [],
+        "missed": [
+          "main:3:3"
+        ],
+        "verificationMisses": [
+          "main:3:3"
+        ]
+      },
+      {
+        "id": "paraphrase-leadership",
+        "requirement": "Lead a team.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "main:3:3"
+        ],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [
+          "main:3:3"
+        ],
+        "verified": [
+          "main:3:3"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "negated-skill",
+        "requirement": "Python.",
+        "expected": "CONFLICT",
+        "actual": "CONFLICT",
+        "goldRelevant": [
+          "main:3:3"
+        ],
+        "parsed": [
+          "main:3:3"
+        ],
+        "retrieved": [
+          "main:3:3"
+        ],
+        "verified": [],
+        "missed": [],
+        "verificationMisses": [
+          "main:3:3"
+        ]
+      },
+      {
+        "id": "multi-file-multi-evidence",
+        "requirement": "SQLite.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "database:3:3",
+          "tests:3:3"
+        ],
+        "parsed": [
+          "database:3:3",
+          "tests:3:3",
+          "container:3:3",
+          "noise:3:3"
+        ],
+        "retrieved": [
+          "tests:3:3",
+          "database:3:3"
+        ],
+        "verified": [
+          "tests:3:3",
+          "database:3:3"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "multi-file-multi-evidence",
+        "requirement": "Docker.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "container:3:3"
+        ],
+        "parsed": [
+          "database:3:3",
+          "tests:3:3",
+          "container:3:3",
+          "noise:3:3"
+        ],
+        "retrieved": [
+          "container:3:3"
+        ],
+        "verified": [
+          "container:3:3"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "formatted-crlf",
+        "requirement": "Node.js REST APIs.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "nested:3:4"
+        ],
+        "parsed": [
+          "nested:3:4"
+        ],
+        "retrieved": [
+          "nested:3:4"
+        ],
+        "verified": [
+          "nested:3:4"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "skills-label",
+        "requirement": "Redis.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "skills:2:2"
+        ],
+        "parsed": [
+          "skills:2:2"
+        ],
+        "retrieved": [
+          "skills:2:2"
+        ],
+        "verified": [
+          "skills:2:2"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "education",
+        "requirement": "Bachelor's degree.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "education:2:2"
+        ],
+        "parsed": [
+          "education:2:2"
+        ],
+        "retrieved": [
+          "education:2:2"
+        ],
+        "verified": [
+          "education:2:2"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      },
+      {
+        "id": "custom-macro",
+        "requirement": "Python.",
+        "expected": "STRONG",
+        "actual": "STRONG",
+        "goldRelevant": [
+          "project:2:2"
+        ],
+        "parsed": [
+          "project:2:2"
+        ],
+        "retrieved": [
+          "project:2:2"
+        ],
+        "verified": [
+          "project:2:2"
+        ],
+        "missed": [],
+        "verificationMisses": []
+      }
+    ],
+    "claims": [
+      {
+        "id": "supported-verbatim",
+        "category": "supported",
+        "expectedValid": true,
+        "actualValid": true,
+        "reasons": []
+      },
+      {
+        "id": "supported-formatting",
+        "category": "supported",
+        "expectedValid": true,
+        "actualValid": true,
+        "reasons": []
+      },
+      {
+        "id": "unsupported-technology",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "unsupported-production",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "unsupported-metric",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "unsupported-expertise",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "unsupported-award",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "conservative-paraphrase",
+        "category": "conservativePolicy",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "mixed-unknown-id",
+        "category": "invalidReference",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Evidence reference must resolve uniquely within the supplied verified evidence."
+        ]
+      },
+      {
+        "id": "unknown-only-id",
+        "category": "invalidReference",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Evidence reference must resolve uniquely within the supplied verified evidence.",
+          "Target evidence is not among the supplied verified evidence."
+        ]
+      },
+      {
+        "id": "empty-ids",
+        "category": "invalidReference",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Suggestion must reference supplied verified evidence.",
+          "Target evidence is not among the supplied verified evidence."
+        ]
+      },
+      {
+        "id": "malformed-id",
+        "category": "invalidReference",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Evidence reference is malformed."
+        ]
+      },
+      {
+        "id": "outside-evidence-set",
+        "category": "invalidReference",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Evidence reference must resolve uniquely within the supplied verified evidence.",
+          "Target evidence is not among the supplied verified evidence."
+        ]
+      },
+      {
+        "id": "dropped-qualification",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "unsupported-metric-transfer",
+        "category": "unsupportedClaim",
+        "expectedValid": false,
+        "actualValid": false,
+        "reasons": [
+          "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+        ]
+      },
+      {
+        "id": "supported-metric",
+        "category": "supported",
+        "expectedValid": true,
+        "actualValid": true,
+        "reasons": []
+      }
+    ],
+    "mapping": [
+      {
+        "id": "lf-exact",
+        "expected": "exact-patch",
+        "parsedTarget": true,
+        "generated": true,
+        "patchFile": "target",
+        "exact": true,
+        "passed": true,
+        "actual": "\\section{Experience}\n\\item Built \\textbf{SQLite} storage."
+      },
+      {
+        "id": "crlf-multiline",
+        "expected": "exact-patch",
+        "parsedTarget": true,
+        "generated": true,
+        "patchFile": "target",
+        "exact": true,
+        "passed": true,
+        "actual": "\\section{Experience}\r\n\\item Built \\textbf{SQLite} storage\r\n  for a coursework project."
+      },
+      {
+        "id": "formatted-surroundings",
+        "expected": "exact-patch",
+        "parsedTarget": true,
+        "generated": true,
+        "patchFile": "target",
+        "exact": true,
+        "passed": true,
+        "actual": "\\section{Experience}\n\\item Built \\textbf{Node.js} REST APIs using \\textbf{SQLite}."
+      },
+      {
+        "id": "unicode",
+        "expected": "exact-patch",
+        "parsedTarget": true,
+        "generated": true,
+        "patchFile": "target",
+        "exact": true,
+        "passed": true,
+        "actual": "\\section{Experience}\n\\item Built \\textbf{SQLite} tools for café records."
+      },
+      {
+        "id": "same-text-other-file",
+        "expected": "exact-patch",
+        "parsedTarget": true,
+        "generated": true,
+        "patchFile": "target",
+        "exact": true,
+        "passed": true,
+        "actual": "\\section{Experience}\n\\item Built \\textbf{SQLite} storage."
+      },
+      {
+        "id": "label-braces",
+        "expected": "reject",
+        "parsedTarget": true,
+        "generated": false,
+        "patchFile": null,
+        "exact": false,
+        "passed": true,
+        "actual": null
+      },
+      {
+        "id": "already-bold",
+        "expected": "reject",
+        "parsedTarget": true,
+        "generated": false,
+        "patchFile": null,
+        "exact": false,
+        "passed": true,
+        "actual": null
+      },
+      {
+        "id": "repeated-span",
+        "expected": "reject",
+        "parsedTarget": true,
+        "generated": false,
+        "patchFile": null,
+        "exact": false,
+        "passed": true,
+        "actual": null
+      },
+      {
+        "id": "custom-macro-opaque",
+        "expected": "reject",
+        "parsedTarget": true,
+        "generated": false,
+        "patchFile": null,
+        "exact": false,
+        "passed": true,
+        "actual": null
+      }
+    ],
+    "outcomes": [
+      {
+        "id": "explicit-null",
+        "expected": "NO_EDIT_NEEDED",
+        "actual": "NO_EDIT_NEEDED",
+        "primaryCalls": 1,
+        "fallbackCalls": 0,
+        "passed": true
+      },
+      {
+        "id": "provider-timeout",
+        "expected": "PROVIDER_ERROR",
+        "actual": "PROVIDER_ERROR",
+        "primaryCalls": 1,
+        "fallbackCalls": 0,
+        "passed": true
+      },
+      {
+        "id": "invalid-structured-output",
+        "expected": "INVALID_PROVIDER_OUTPUT",
+        "actual": "INVALID_PROVIDER_OUTPUT",
+        "primaryCalls": 1,
+        "fallbackCalls": 0,
+        "passed": true
+      },
+      {
+        "id": "unsupported-proposal",
+        "expected": "CLAIM_VALIDATION_FAILED",
+        "actual": "CLAIM_VALIDATION_FAILED",
+        "primaryCalls": 1,
+        "fallbackCalls": 0,
+        "passed": true
+      },
+      {
+        "id": "valid-proposal",
+        "expected": null,
+        "actual": null,
+        "primaryCalls": 1,
+        "fallbackCalls": 0,
+        "passed": true
+      }
+    ]
+  },
+  "metrics": {
+    "extraction": {
+      "goldRequirementsRecovered": {
+        "numerator": 15,
+        "denominator": 15,
+        "value": 1
+      },
+      "extraRequirements": 0
+    },
+    "retrieval": {
+      "microPrecision": {
+        "numerator": 12,
+        "denominator": 12,
+        "value": 1
+      },
+      "microRecall": {
+        "numerator": 12,
+        "denominator": 13,
+        "value": 0.9230769230769231
+      },
+      "recallAt3": {
+        "numerator": 12,
+        "denominator": 13,
+        "value": 0.9230769230769231
+      },
+      "missedRelevant": 1,
+      "verifiedRelevantCoverage": {
+        "numerator": 10,
+        "denominator": 13,
+        "value": 0.7692307692307693
+      },
+      "verifiedStrongRecall": {
+        "numerator": 9,
+        "denominator": 10,
+        "value": 0.9
+      },
+      "verifiedRelevantPrecision": {
+        "numerator": 10,
+        "denominator": 10,
+        "value": 1
+      },
+      "rawSourcePreservation": {
+        "numerator": 13,
+        "denominator": 13,
+        "value": 1
+      }
+    },
+    "classification": {
+      "exact": {
+        "numerator": 14,
+        "denominator": 15,
+        "value": 0.9333333333333333
+      },
+      "falsePositiveStrong": {
+        "numerator": 0,
+        "denominator": 6,
+        "value": 0
+      },
+      "falseNegativeStrong": {
+        "numerator": 1,
+        "denominator": 9,
+        "value": 0.1111111111111111
+      },
+      "contradictionsMissed": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0
+      },
+      "confusion": {
+        "STRONG": {
+          "STRONG": 8,
+          "MISSING": 1
+        },
+        "MISSING": {
+          "MISSING": 3
+        },
+        "PARTIAL": {
+          "PARTIAL": 2
+        },
+        "CONFLICT": {
+          "CONFLICT": 1
+        }
+      }
+    },
+    "claims": {
+      "unsafeProposalsAccepted": {
+        "numerator": 0,
+        "denominator": 13,
+        "value": 0
+      },
+      "unsupportedClaimsAccepted": {
+        "numerator": 0,
+        "denominator": 7,
+        "value": 0
+      },
+      "conservativePolicyAccepted": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0
+      },
+      "supportedRejected": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": 0
+      },
+      "invalidReferencesAccepted": {
+        "numerator": 0,
+        "denominator": 5,
+        "value": 0
+      }
+    },
+    "mapping": {
+      "expectedEditsProducedExactly": {
+        "numerator": 5,
+        "denominator": 5,
+        "value": 1
+      },
+      "wrongAcceptedPatches": 0,
+      "unsafeSpansAccepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "value": 0
+      },
+      "staleSourceRejected": {
+        "numerator": 5,
+        "denominator": 5,
+        "value": 1
+      }
+    },
+    "outcomes": {
+      "correct": {
+        "numerator": 5,
+        "denominator": 5,
+        "value": 1
+      },
+      "fallbackCalls": 0
+    }
+  },
+  "failures": [
+    {
+      "id": "paraphrase-maintenance",
+      "stage": "retrieval",
+      "expected": [
+        "main:3:3"
+      ],
+      "actual": []
+    },
+    {
+      "id": "paraphrase-maintenance",
+      "stage": "verifiedSupportingEvidence",
+      "expected": [
+        "main:3:3"
+      ],
+      "actual": []
+    },
+    {
+      "id": "paraphrase-maintenance",
+      "stage": "classification",
+      "expected": "STRONG",
+      "actual": "MISSING"
+    }
+  ],
+  "networkAttempts": 0,
+  "acceptance": {
+    "extraction": true,
+    "retrievalRecall": false,
+    "verifiedStrongRecall": false,
+    "top3Recall": false,
+    "retrievalPrecision": true,
+    "classificationExact": true,
+    "noFalseStrong": true,
+    "noMissedContradictions": true,
+    "falseNegativeStrong": false,
+    "claimSafety": true,
+    "rawSource": true,
+    "mapping": true,
+    "outcomes": true
+  }
+}

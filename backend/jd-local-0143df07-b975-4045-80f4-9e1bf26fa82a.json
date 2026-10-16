@@ -1,0 +1,245 @@
+{
+  "model": "qwen3:1.7b",
+  "base": "http://127.0.0.1:11435",
+  "syntheticOnly": true,
+  "databaseUsed": false,
+  "cloudRequests": false,
+  "appConfigChanged": false,
+  "timeoutMs": 120000,
+  "contextLength": 4096,
+  "think": false,
+  "numGpu": 0,
+  "cases": [
+    {
+      "name": "supported-node-cold",
+      "expected": "suggestion",
+      "jd": "Experience building Node.js REST APIs",
+      "runtimeMetrics": {
+        "totalMs": 24369.5317,
+        "loadMs": 4130.2856,
+        "promptEvalMs": 10467.832,
+        "generationMs": 9652.62,
+        "promptTokens": 434,
+        "outputTokens": 100,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\n  \"suggestion\": {\n    \"targetEvidenceId\": \"e1\",\n    \"reason\": \"The evidence directly matches the required skill of building Node.js REST APIs.\",\n    \"evidenceIds\": [\"e1\"],\n    \"confidence\": 1.0,\n    \"type\": \"rewrite\",\n    \"before\": \"Built REST APIs using Node.js for a synthetic inventory project\",\n    \"after\": \"Built REST APIs using Node.js for a synthetic inventory project\"\n  }\n}",
+      "proposal": {
+        "type": "rewrite",
+        "targetEvidenceId": "e1",
+        "before": "Built REST APIs using Node.js for a synthetic inventory project",
+        "after": "Built REST APIs using Node.js for a synthetic inventory project",
+        "reason": "The evidence directly matches the required skill of building Node.js REST APIs.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 1
+      },
+      "elapsedMs": 24386,
+      "outcome": "NO_OP_EDIT",
+      "meetsExpected": false,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "supported-node-warm",
+      "expected": "suggestion",
+      "jd": "Experience building Node.js REST APIs",
+      "runtimeMetrics": {
+        "totalMs": 9120.6396,
+        "loadMs": 32.7477,
+        "promptEvalMs": 105.191,
+        "generationMs": 8953.674,
+        "promptTokens": 434,
+        "outputTokens": 100,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\n  \"suggestion\": {\n    \"targetEvidenceId\": \"e1\",\n    \"reason\": \"The evidence directly matches the required skill of building Node.js REST APIs.\",\n    \"evidenceIds\": [\"e1\"],\n    \"confidence\": 1.0,\n    \"type\": \"rewrite\",\n    \"before\": \"Built REST APIs using Node.js for a synthetic inventory project\",\n    \"after\": \"Built REST APIs using Node.js for a synthetic inventory project\"\n  }\n}",
+      "proposal": {
+        "type": "rewrite",
+        "targetEvidenceId": "e1",
+        "before": "Built REST APIs using Node.js for a synthetic inventory project",
+        "after": "Built REST APIs using Node.js for a synthetic inventory project",
+        "reason": "The evidence directly matches the required skill of building Node.js REST APIs.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 1
+      },
+      "elapsedMs": 9130,
+      "outcome": "NO_OP_EDIT",
+      "meetsExpected": false,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "supported-docker-multiple-evidence",
+      "expected": "suggestion",
+      "jd": "Experience with Docker",
+      "runtimeMetrics": {
+        "totalMs": 10112.4959,
+        "loadMs": 43.3924,
+        "promptEvalMs": 4741.954,
+        "generationMs": 5307.848,
+        "promptTokens": 528,
+        "outputTokens": 71,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\n  \"suggestion\": {\n    \"targetEvidenceId\": \"e2\",\n    \"reason\": \"Experience with Docker\",\n    \"evidenceIds\": [\"e2\"],\n    \"confidence\": 0.95,\n    \"type\": \"highlight\",\n    \"highlightText\": \"Used Docker for a synthetic coursework project.\"\n  }\n}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Used Docker for a synthetic coursework project.",
+        "targetEvidenceId": "e2",
+        "reason": "Experience with Docker",
+        "evidenceIds": [
+          "e2"
+        ],
+        "confidence": 0.95
+      },
+      "elapsedMs": 10129,
+      "outcome": "validated_suggestion",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "e2",
+        "before": "\\item Used Docker for a synthetic coursework project.",
+        "after": "\\item \\textbf{Used Docker for a synthetic coursework project.}",
+        "reason": "Experience with Docker",
+        "evidenceIds": [
+          "e2"
+        ],
+        "confidence": 0.95
+      },
+      "sourcePatch": {
+        "fileId": "synthetic",
+        "fileName": "synthetic.tex",
+        "evidenceId": "e2",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "before": "\\item Used Docker for a synthetic coursework project.",
+        "after": "\\item \\textbf{Used Docker for a synthetic coursework project.}",
+        "beforeHash": "4aa153d4f7012e8b0ec5b606499e42f04b074b38d12029498d71750193244570"
+      },
+      "meetsExpected": true,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "unsupported-tensorflow",
+      "expected": "abstain",
+      "jd": "Professional TensorFlow machine learning experience",
+      "runtimeMetrics": {
+        "totalMs": 13905.4677,
+        "loadMs": 18.4764,
+        "promptEvalMs": 4170.55,
+        "generationMs": 9626.429,
+        "promptTokens": 433,
+        "outputTokens": 117,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\n  \"suggestion\": {\n    \"targetEvidenceId\": \"e1\",\n    \"reason\": \"The evidence indicates experience with building REST APIs using Node.js, which is relevant to a professional TensorFlow machine learning experience.\",\n    \"evidenceIds\": [\"e1\"],\n    \"confidence\": 0.85,\n    \"type\": \"rewrite\",\n    \"before\": \"Built REST APIs using Node.js for a synthetic inventory project\",\n    \"after\": \"Developed REST APIs using Node.js for a synthetic inventory project with experience in TensorFlow machine learning\"\n  }\n}",
+      "proposal": {
+        "type": "rewrite",
+        "targetEvidenceId": "e1",
+        "before": "Built REST APIs using Node.js for a synthetic inventory project",
+        "after": "Developed REST APIs using Node.js for a synthetic inventory project with experience in TensorFlow machine learning",
+        "reason": "The evidence indicates experience with building REST APIs using Node.js, which is relevant to a professional TensorFlow machine learning experience.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.85
+      },
+      "elapsedMs": 13936,
+      "outcome": "CLAIM_VALIDATION_FAILED",
+      "meetsExpected": false,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "unsupported-production-metric",
+      "expected": "abstain",
+      "jd": "Production application experience reducing latency by 50%",
+      "runtimeMetrics": {
+        "totalMs": 13212.6619,
+        "loadMs": 16.5469,
+        "promptEvalMs": 3286.056,
+        "generationMs": 9891.134,
+        "promptTokens": 437,
+        "outputTokens": 127,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\n  \"suggestion\": {\n    \"targetEvidenceId\": \"e1\",\n    \"reason\": \"The evidence directly relates to reducing latency in a production application, aligning with the requirement of 'Production application experience reducing latency by 50%'.\",\n    \"evidenceIds\": [\"e1\"],\n    \"confidence\": 0.95,\n    \"type\": \"rewrite\",\n    \"before\": \"Built REST APIs using Node.js for a synthetic inventory project.\",\n    \"after\": \"Built REST APIs using Node.js for a production inventory system, achieving a 50% reduction in latency.\"\n  }\n}",
+      "proposal": {
+        "type": "rewrite",
+        "targetEvidenceId": "e1",
+        "before": "Built REST APIs using Node.js for a synthetic inventory project.",
+        "after": "Built REST APIs using Node.js for a production inventory system, achieving a 50% reduction in latency.",
+        "reason": "The evidence directly relates to reducing latency in a production application, aligning with the requirement of 'Production application experience reducing latency by 50%'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.95
+      },
+      "elapsedMs": 13219,
+      "outcome": "CLAIM_VALIDATION_FAILED",
+      "meetsExpected": false,
+      "fitsExisting30SecondDeadline": true
+    }
+  ],
+  "limitations": [
+    "Generation-only trial with forced STRONG classification, including unsupported cases to test abstention; not an end-to-end retrieval test.",
+    "Local structured envelope constrains JSON syntax; evidence/claim/source correctness still uses existing validators.",
+    "120-second experimental deadline does not change the application's 30-second deadline."
+  ],
+  "runtime": {
+    "version": "0.40.4"
+  },
+  "installedModels": {
+    "models": [
+      {
+        "name": "qwen3:1.7b",
+        "model": "qwen3:1.7b",
+        "modified_at": "2026-10-15T16:49:34.901622+05:30",
+        "size": 1359293444,
+        "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "2.0B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 40960,
+          "embedding_length": 2048,
+          "runner": "ggml"
+        },
+        "capabilities": [
+          "completion",
+          "tools",
+          "thinking"
+        ]
+      }
+    ]
+  },
+  "loadedModel": {
+    "models": [
+      {
+        "name": "qwen3:1.7b",
+        "model": "qwen3:1.7b",
+        "size": 1886629395,
+        "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "2.0B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-15T16:52:55.046373+05:30",
+        "size_vram": 0,
+        "context_length": 4096,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+}

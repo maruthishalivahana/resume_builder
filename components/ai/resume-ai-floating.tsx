@@ -155,6 +155,7 @@ export function ResumeAIFloating() {
     activeJdSession?.status === "indexing" ||
     activeJdSession?.status === "extracting" ||
     activeJdSession?.status === "analyzing";
+  const providerUnavailable = (activeJdSession?.diagnosticReasons?.PROVIDER_ERROR ?? 0) > 0;
 
   const submitRequest = async () => {
     if (actionInProgress) return;
@@ -574,6 +575,12 @@ export function ResumeAIFloating() {
                       </div>
                     )}
 
+                    {providerUnavailable && visibleSuggestions.length > 0 && (
+                      <p role="status" className="rounded-lg border border-amber-500/20 p-3 text-[11px] text-amber-300">
+                        Some suggestion generation failed or timed out. The suggestions below passed validation; other requirements may need another analysis.
+                      </p>
+                    )}
+
                     {/* Suggestions Section Header */}
                     <div className="flex items-center justify-between text-[10px] font-semibold tracking-[0.14em] text-neutral-500">
                       <span>
@@ -591,11 +598,20 @@ export function ResumeAIFloating() {
                     {visibleSuggestions.length === 0 ? (
                       <div className="rounded-xl border border-white/[0.06] bg-[#14151a] p-4 text-center">
                         <h3 className="text-xs font-medium text-neutral-200">
-                          Analysis completed with no safe suggestions
+                          {providerUnavailable ? "Suggestion generation unavailable" : "Analysis completed with no safe suggestions"}
                         </h3>
                         <p className="mt-1.5 text-[11px] leading-relaxed text-neutral-400">
-                          The analysis extracted {activeJdSession.requirements.length} requirements, but no modifications could be made without risking unsupported claims.
+                          {providerUnavailable
+                            ? "The AI provider failed or timed out. No source changes were applied. You can retry this analysis."
+                            : "No validated source changes were produced. Your resume has not been modified."}
                         </p>
+                        {providerUnavailable && activeJdSession.jobDescription && (
+                          <button type="button" className="mt-3 inline-flex items-center gap-1 text-xs text-amber-400"
+                            onClick={() => void generateTailoringSuggestions(activeJdSession.jobDescription!).catch(error =>
+                              setRequestError(error instanceof Error ? error.message : "Unable to retry analysis."))}>
+                            <RefreshCw className="h-3 w-3" /> Retry Analysis
+                          </button>
+                        )}
                       </div>
                     ) : (
                       /* Suggestion Cards */

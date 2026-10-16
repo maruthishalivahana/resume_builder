@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-10-15T02:02:07.774Z",
+  "syntheticOnly": true,
+  "databaseUsed": false,
+  "productionConfigChanged": false,
+  "automaticRetries": false,
+  "cases": [],
+  "catalog": [],
+  "limitations": [
+    "Exploratory sample, one request per model/evidence-count cell; not a percentile or reliability estimate.",
+    "Headers include connection, network, server queueing and processing; body includes remaining inference and transfer.",
+    "Extended-deadline trials are separate fresh requests, not continuations of timed-out requests."
+  ],
+  "interrupted": {
+    "name": "TypeError",
+    "message": "fetch failed"
+  }
+}

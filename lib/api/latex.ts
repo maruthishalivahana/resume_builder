@@ -37,6 +37,8 @@ export interface UploadLatexFileData {
   name: string;
   path: string;
   content: string;
+  contentRevision?: number;
+  recoveryPending?: boolean;
   folderId?: string | null;
   lineCount?: number;
   language?: string;
@@ -187,14 +189,15 @@ export async function fetchProjectFiles(
     cache: "no-store",
   });
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch project files (status ${response.status})`);
+  const json = await response.json().catch(() => null);
+  if (!response.ok || !json?.success || !Array.isArray(json.data?.files) || !Array.isArray(json.data?.folders)) {
+    throw new Error(json?.message || `Failed to fetch project files (status ${response.status})`);
   }
-  const json = await response.json();
   return {
-    files: (json.data?.files ?? []).map((f: any) => ({
+    files: (json.data?.files ?? []).map((f: LatexFileItem) => ({
       ...f,
       content: f.content ?? "",
+      contentLoaded: false,
       lineCount: f.lineCount ?? 0,
     })),
     folders: json.data?.folders ?? [],
@@ -215,7 +218,7 @@ export async function fetchLatexFile(
 
     if (!response.ok) return null;
     const json = await response.json();
-    return (json.data?.file ?? null) as UploadLatexFileData | null;
+    return json.data?.file ? { ...json.data.file, contentLoaded: true } : null;
   } catch (err) {
     console.error("fetchLatexFile error:", err);
     return null;
@@ -241,7 +244,7 @@ export async function createLatexFile(
     throw new Error(json?.message || `Failed to create file (status ${response.status})`);
   }
 
-  return json.data.file;
+  return { ...json.data.file, contentLoaded: true };
 }
 
 /**
@@ -269,9 +272,11 @@ export async function createLatexFolder(
 /**
  * Deletes a file.
  */
-export async function deleteLatexFile(fileId: string): Promise<void> {
+export async function deleteLatexFile(fileId: string, expectedRevision: number): Promise<void> {
   const response = await safeFetch(`${API_URL}/api/latex/files/${fileId}`, {
     method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ expectedRevision }),
   });
 
   if (!response.ok) {
@@ -339,16 +344,18 @@ export async function renameLatexFolder(
 
 /**
  * PATCHes the content of a LaTeX file in MongoDB.
- * Race-condition safe: the caller should pass the fileId + content snapshot.
+ * Saves a snapshot only if its expected content revision is still current.
+ * A 409 conflict leaves local buffers intact; never retry with a guessed revision.
  */
 export async function updateLatexFile(
   fileId: string,
-  content: string
-): Promise<void> {
+  content: string,
+  expectedRevision: number
+): Promise<{ contentRevision: number; content?: string; recoveryPending?: boolean }> {
   const response = await safeFetch(`${API_URL}/api/latex/files/${fileId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ content }),
+    body: JSON.stringify({ content, expectedRevision }),
   });
 
   if (!response.ok) {
@@ -359,8 +366,10 @@ export async function updateLatexFile(
     } catch {
       // ignore parse error
     }
-    throw new Error(msg);
+    throw Object.assign(new Error(msg), { status: response.status });
   }
+  const json = await response.json();
+  return { contentRevision: json.data.file.contentRevision, content: json.data.file.content, recoveryPending: json.data.file.recoveryPending };
 }
 
 // Alias for updateLatexFile to maintain backward compatibility
@@ -374,6 +383,8 @@ export interface AcceptedTailoringSuggestion {
   changedLineStart: number;
   changedLineEnd: number;
   updatedContent: string;
+  contentRevision: number;
+  recoveryPending?: boolean;
   pdfStale: true;
 }
 
@@ -402,9 +413,18 @@ export interface CompileErrorItem {
   message: string;
 }
 
+export interface SourceCaptureMetadata {
+  version: 1; hash: string; capturedAt: string; entryFileId: string; sourceVersion: number; treeVersion: number;
+  files: { fileId: string; path: string; folderId: string | null; contentRevision: number; sha256: string; byteLength: number }[];
+  folders: { folderId: string; path: string; parentFolderId: string | null }[];
+}
+
 export interface CompileProjectResult {
   compilationId: string;
   projectId: string;
+  entryFileId: string;
+  entryFilePath: string;
+  sourceCapture?: SourceCaptureMetadata;
   status: "success" | "failed" | "timeout";
   durationMs: number;
   pdf?: {
@@ -433,6 +453,20 @@ export interface CompilationState {
     fileName: string;
     url: string;
   } | null;
+}
+
+export interface CompilationBuild {
+  _id: string; projectId: string; compiledEntryFileId?: string; mainFile: string;
+  status: "success" | "failed" | "timeout"; sourceVersion: number; createdAt: string; durationMs: number;
+  pdfPath?: string | null; stdout?: string; stderr?: string; compileErrors?: CompileErrorItem[];
+  sourceCapture?: SourceCaptureMetadata;
+}
+export interface CompilationHistory { builds: CompilationBuild[]; page: number; hasMore: boolean }
+export async function fetchCompilationHistory(projectId: string, entryFileId: string, page = 1): Promise<CompilationHistory> {
+  const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/compilations?entryFileId=${encodeURIComponent(entryFileId)}&page=${page}`, { cache: "no-store" });
+  const json = await response.json();
+  if (!response.ok || !json.success) throw new Error(json.message || "Could not load build history");
+  return json.data;
 }
 
 export interface CompilerStatusData {
@@ -478,7 +512,8 @@ export async function checkCompilerStatus(): Promise<CompilerStatusData> {
 }
 
 /**
- * Triggers compilation of a LaTeX project.
+ * Compiles an explicit project entry without changing the default. Omission uses
+ * the configured default; invalid or missing targets fail without fallback.
  */
 export async function compileLatexProject(
   projectId: string,
@@ -487,7 +522,7 @@ export async function compileLatexProject(
   const response = await safeFetch(`${API_URL}/api/latex/projects/${projectId}/compile`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(entryFileId ? { entryFileId } : {}),
+    body: JSON.stringify(entryFileId !== undefined ? { entryFileId } : {}),
   });
 
   const json = await response.json().catch(() => null);
@@ -506,20 +541,23 @@ export async function compileLatexProject(
  * Fetches the latest compilation record for a project.
  */
 export async function fetchLatestCompilation(
-  projectId: string
+  projectId: string, entryFileId?: string
 ): Promise<CompilationState | null> {
   try {
     const response = await safeFetch(
-      `${API_URL}/api/latex/projects/${projectId}/compilation/latest`,
+      `${API_URL}/api/latex/projects/${projectId}/compilation/latest${entryFileId ? `?entryFileId=${encodeURIComponent(entryFileId)}` : ""}`,
       {
         method: "GET",
         cache: "no-store",
       }
     );
-    if (!response.ok) return null;
+    if (!response.ok) throw new Error("Could not load compilation state");
     const json = await response.json();
-    return json.data as CompilationState | null;
-  } catch {
-    return null;
+    const normalize = (record: CompilationBuild | null) => record ? ({ ...record, compilationId: record._id,
+      entryFileId: record.compiledEntryFileId ?? "", entryFilePath: record.mainFile, errors: record.compileErrors ?? [],
+      logs: { stdout: record.stdout ?? "", stderr: record.stderr ?? "" } }) : null;
+    return { ...json.data, latest: normalize(json.data.latest), successful: normalize(json.data.successful) };
+  } catch (error) {
+    throw error;
   }
 }

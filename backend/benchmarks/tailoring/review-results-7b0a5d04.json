@@ -1,0 +1,253 @@
+{
+  "runId": "7b0a5d04-f675-4a0c-901a-ca5b3cf44173",
+  "database": "resume_eng_model_review_7b0a5d04f6754a0c901aca5b3cf44173",
+  "syntheticOnly": true,
+  "cloudRequests": false,
+  "requests": [
+    {
+      "method": "POST",
+      "url": "/api/latex/projects/6ad1146c8c1860d4b4b0771f/compile",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "/api/tailoring/analyze",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "/api/tailoring/76069570-06a9-46ca-8f12-0ef77f417f44/suggestions",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "/api/tailoring/suggestions/84751aba-264e-4248-8284-5a526a1a7d4c/reject",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "/api/latex/files/6ad1146c8c1860d4b4b07721",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "/api/tailoring/analyze",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "/api/tailoring/6352e544-6865-4b75-8493-b6023a66fb3f/suggestions",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "/api/tailoring/suggestions/4395892e-dc68-489b-af3a-f5d0aa69d8c5/accept",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "/api/tailoring/suggestions/4395892e-dc68-489b-af3a-f5d0aa69d8c5/accept",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "url": "/api/latex/files/6ad1146c8c1860d4b4b07721",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "url": "/api/latex/files/6ad1146c8c1860d4b4b07721",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "url": "/api/latex/files/6ad1146c8c1860d4b4b07721",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "/api/latex/files/6ad1146c8c1860d4b4b07721",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "/api/latex/projects/6ad1146c8c1860d4b4b0771f/compile",
+      "status": 200
+    }
+  ],
+  "checks": [
+    "baseline revision 0 compiled and exact artifact downloaded",
+    "real suggestion rejected; source byte-identical at revision 0",
+    "accept commits revision 1; retry is idempotent; stale editor save rejected with 409",
+    "confirmed save revision 2 captured by real compiler",
+    "old build still returns original bytes",
+    "unknown compilation returns 404"
+  ],
+  "pdfs": [
+    {
+      "compilationId": "6ad1146e8c1860d4b4b0772c",
+      "url": "/api/latex/projects/6ad1146c8c1860d4b4b0771f/pdf?compilationId=6ad1146e8c1860d4b4b0772c",
+      "status": 200,
+      "contentType": "application/pdf",
+      "contentLength": "29603",
+      "byteLength": 29603,
+      "sha256": "8a1e3ca3d1d81112c1109a6c1f2e55218ad0fbb0a0941c7c19572611e59ed4a9",
+      "artifact": "C:\\Users\\kumma\\OneDrive\\Desktop\\resume_builder\\backend\\storage\\latex\\6ad1146c8c1860d4b4b0771f\\65a7e65b-e902-4492-89cb-596e97a140ed\\resume.pdf",
+      "pdfPath": "C:\\Users\\kumma\\OneDrive\\Desktop\\resume_builder\\storage\\benchmarks\\review-7b0a5d04-f675-4a0c-901a-ca5b3cf44173\\revision-0.pdf",
+      "sourceCapture": {
+        "version": 1,
+        "entryFileId": "6ad1146c8c1860d4b4b07721",
+        "sourceVersion": 0,
+        "treeVersion": 0,
+        "files": [
+          {
+            "fileId": "6ad1146c8c1860d4b4b07721",
+            "path": "resume.tex",
+            "folderId": null,
+            "contentRevision": 0,
+            "sha256": "57091a68d70221b1b27381b6c8bd5d635dcd4898e39769530e43d0c836e8974e",
+            "byteLength": 201
+          }
+        ],
+        "folders": [],
+        "hash": "7757227bd421f080570551117bbb41309c21e92b819e60e8f9f3f742df7cdec7",
+        "capturedAt": "2026-10-15T17:59:08.414Z"
+      }
+    },
+    {
+      "compilationId": "6ad114768c1860d4b4b07775",
+      "url": "/api/latex/projects/6ad1146c8c1860d4b4b0771f/pdf?compilationId=6ad114768c1860d4b4b07775",
+      "status": 200,
+      "contentType": "application/pdf",
+      "contentLength": "41012",
+      "byteLength": 41012,
+      "sha256": "1a77166e6ed29bfaaa618e95b54307d05360266ca0bec5aaee67cb130ecab21a",
+      "artifact": "C:\\Users\\kumma\\OneDrive\\Desktop\\resume_builder\\backend\\storage\\latex\\6ad1146c8c1860d4b4b0771f\\04a5719a-3b35-4211-99c8-3f44a1cd1ad2\\resume.pdf",
+      "pdfPath": "C:\\Users\\kumma\\OneDrive\\Desktop\\resume_builder\\storage\\benchmarks\\review-7b0a5d04-f675-4a0c-901a-ca5b3cf44173\\revision-2.pdf",
+      "sourceCapture": {
+        "version": 1,
+        "entryFileId": "6ad1146c8c1860d4b4b07721",
+        "sourceVersion": 2,
+        "treeVersion": 0,
+        "files": [
+          {
+            "fileId": "6ad1146c8c1860d4b4b07721",
+            "path": "resume.tex",
+            "folderId": null,
+            "contentRevision": 2,
+            "sha256": "fd0f26ee30dd9d5ed6e7c50a266a871d693aa238053ff52eec4aa499ee40ae53",
+            "byteLength": 246
+          }
+        ],
+        "folders": [],
+        "hash": "0fb4a8439d990ea06f2e699b740c812c98dfb03db28e58bd255570bebc6071ca",
+        "capturedAt": "2026-10-15T17:59:16.467Z"
+      }
+    }
+  ],
+  "topology": "standalone",
+  "origin": "http://127.0.0.1:62313",
+  "projectId": "6ad1146c8c1860d4b4b0771f",
+  "fileId": "6ad1146c8c1860d4b4b07721",
+  "analyses": [
+    {
+      "analysisId": "76069570-06a9-46ca-8f12-0ef77f417f44",
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1,
+        "diagnosticReasons": {}
+      },
+      "suggestions": [
+        {
+          "_id": "6ad114718c1860d4b4b0773f",
+          "suggestionId": "84751aba-264e-4248-8284-5a526a1a7d4c",
+          "analysisId": "76069570-06a9-46ca-8f12-0ef77f417f44",
+          "jobTargetId": "6ad1146e8c1860d4b4b07730",
+          "requirementId": "requirement-1",
+          "projectId": "6ad1146c8c1860d4b4b0771f",
+          "versionId": "v1",
+          "type": "highlight",
+          "targetEvidenceId": "09994b26f9d883628b007380a3e4cab2222ada7d43fae63647a0efc377281c71",
+          "before": "\\item Built Python REST APIs with SQLite for a coursework project.",
+          "after": "\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.",
+          "reason": "Highlight existing resume text relevant to this requirement.",
+          "evidenceIds": [
+            "09994b26f9d883628b007380a3e4cab2222ada7d43fae63647a0efc377281c71"
+          ],
+          "confidence": 0.5,
+          "status": "pending",
+          "validation": "PASS",
+          "reasonCode": "PERSISTED",
+          "sourcePatch": {
+            "fileId": "6ad1146c8c1860d4b4b07721",
+            "fileName": "resume.tex",
+            "evidenceId": "09994b26f9d883628b007380a3e4cab2222ada7d43fae63647a0efc377281c71",
+            "lineStart": 5,
+            "lineEnd": 5,
+            "before": "\\item Built Python REST APIs with SQLite for a coursework project.",
+            "after": "\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.",
+            "beforeHash": "e215421fd4f039898f946a0fc1abc3c553a4171ebfb9adce5a6875a3a6e3f0e3"
+          },
+          "createdAt": "2026-10-15T17:59:13.504Z",
+          "updatedAt": "2026-10-15T17:59:13.504Z",
+          "__v": 0
+        }
+      ]
+    },
+    {
+      "analysisId": "6352e544-6865-4b75-8493-b6023a66fb3f",
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1,
+        "diagnosticReasons": {}
+      },
+      "suggestions": [
+        {
+          "_id": "6ad114748c1860d4b4b07755",
+          "suggestionId": "4395892e-dc68-489b-af3a-f5d0aa69d8c5",
+          "analysisId": "6352e544-6865-4b75-8493-b6023a66fb3f",
+          "jobTargetId": "6ad114718c1860d4b4b07746",
+          "requirementId": "requirement-1",
+          "projectId": "6ad1146c8c1860d4b4b0771f",
+          "versionId": "v1",
+          "type": "highlight",
+          "targetEvidenceId": "09994b26f9d883628b007380a3e4cab2222ada7d43fae63647a0efc377281c71",
+          "before": "\\item Built Python REST APIs with SQLite for a coursework project.",
+          "after": "\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.",
+          "reason": "Highlight existing resume text relevant to this requirement.",
+          "evidenceIds": [
+            "09994b26f9d883628b007380a3e4cab2222ada7d43fae63647a0efc377281c71"
+          ],
+          "confidence": 0.5,
+          "status": "pending",
+          "validation": "PASS",
+          "reasonCode": "PERSISTED",
+          "sourcePatch": {
+            "fileId": "6ad1146c8c1860d4b4b07721",
+            "fileName": "resume.tex",
+            "evidenceId": "09994b26f9d883628b007380a3e4cab2222ada7d43fae63647a0efc377281c71",
+            "lineStart": 5,
+            "lineEnd": 5,
+            "before": "\\item Built Python REST APIs with SQLite for a coursework project.",
+            "after": "\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.",
+            "beforeHash": "e215421fd4f039898f946a0fc1abc3c553a4171ebfb9adce5a6875a3a6e3f0e3"
+          },
+          "createdAt": "2026-10-15T17:59:16.124Z",
+          "updatedAt": "2026-10-15T17:59:16.124Z",
+          "__v": 0
+        }
+      ]
+    }
+  ],
+  "completed": true
+}

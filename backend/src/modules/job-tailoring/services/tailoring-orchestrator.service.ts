@@ -16,7 +16,7 @@ import { RequirementExtractorService } from "./requirement-extractor.service";
 import { ResumeIntelligenceService } from "./resume-intelligence.service";
 import { RetrievalService } from "./retrieval.service";
 import { GroundedGenerationService } from "./grounded-generation.service";
-import { hashSourceText } from "../utils/source-hash.util";
+import { createEvidenceSourcePatch } from "../utils/source-range.util";
 import { tailoringDiagnostic, tailoringDiagnosticWarning } from "../utils/tailoring-diagnostic.util";
 import { SuggestionReasonCode } from "../types";
 
@@ -31,7 +31,6 @@ export class TailoringOrchestratorService {
   private readonly claimValidator = new ClaimValidatorService();
   private readonly llmProvider: LLMProvider;
   private readonly fallbackProvider?: LLMProvider;
-  private readonly groundedGenerator: GroundedGenerationService;
   private readonly providerName: string;
   private readonly modelName: string;
   private readonly retrieval = new RetrievalService(new DeterministicLexicalSearchProvider(), new EmptyVectorSearchProvider());
@@ -49,14 +48,11 @@ export class TailoringOrchestratorService {
       this.providerName = config.primaryProvider.constructor.name;
       this.modelName = config.model;
     }
-    this.groundedGenerator = new GroundedGenerationService(
-      this.llmProvider,
-      this.fallbackProvider,
-      this.claimValidator
-    );
   }
 
   async analyze(input: { resumeId: string; versionId: string; rawJobDescription: string; title?: string; company?: string }): Promise<{ analysisId: string; jobTargetId: string; summary: AnalysisSummary }> {
+    // Rejection diagnostics are mutable; never share them across analyses.
+    const groundedGenerator = new GroundedGenerationService(this.llmProvider, this.fallbackProvider, this.claimValidator);
     const analysisId = randomUUID();
     const startedAt = Date.now();
     const jobTarget = await JobTarget.create({
@@ -185,7 +181,7 @@ export class TailoringOrchestratorService {
             model: this.modelName,
             evidenceCount: verified.length,
           });
-          const generated = await this.groundedGenerator.generate({
+          const generated = await groundedGenerator.generate({
             requirement,
             match,
             evidence: verified,
@@ -201,24 +197,15 @@ export class TailoringOrchestratorService {
             });
             const target = verified.find((item) => item.id === generated.suggestion.targetEvidenceId);
             const targetFile = target ? await LatexFile.findOne({ _id: target.source.fileId, projectId: input.resumeId }).lean() : null;
-            const targetLines = targetFile?.content.split(/\r?\n/);
-            const sourceBefore = target && targetLines
-              ? targetLines.slice(target.source.lineStart - 1, target.source.lineEnd).join("\n")
-              : null;
-            const generatedBefore = generated.suggestion.before;
-            const sourceOccurrences = sourceBefore && generatedBefore ? sourceBefore.split(generatedBefore).length - 1 : 0;
-            const sourceAfter = sourceBefore && generatedBefore && sourceOccurrences === 1
-              ? sourceBefore.replace(generatedBefore, generated.suggestion.after)
-              : sourceBefore === generatedBefore ? generated.suggestion.after : null;
-            if (!target || !sourceBefore || !sourceAfter || sourceOccurrences > 1) {
+            let patch;
+            try {
+              if (!target || !targetFile) throw new Error("Suggestion source was not found");
+              patch = createEvidenceSourcePatch(targetFile.content, target, generated.suggestion);
+            } catch (error) {
               recordReason("SOURCE_PATCH_FAILED");
               tailoringDiagnosticWarning("suggestion.rejected.source_mapping", {
-                analysisId,
-                requirementId: requirement.id,
-                targetFound: Boolean(target),
-                sourceBeforeFound: Boolean(sourceBefore),
-                sourceAfterFound: Boolean(sourceAfter),
-                occurrences: sourceOccurrences,
+                analysisId, requirementId: requirement.id,
+                reason: error instanceof Error ? error.message : "Source mapping failed",
               });
               continue;
             }
@@ -233,16 +220,7 @@ export class TailoringOrchestratorService {
               status: "pending",
               validation: "PASS",
               reasonCode: "PERSISTED" as SuggestionReasonCode,
-              sourcePatch: {
-                fileId: target.source.fileId,
-                fileName: target.source.fileName,
-                evidenceId: target.id,
-                lineStart: target.source.lineStart,
-                lineEnd: target.source.lineEnd,
-                before: sourceBefore,
-                after: sourceAfter,
-                beforeHash: hashSourceText(sourceBefore),
-              },
+              sourcePatch: patch,
             });
             safeSuggestions += 1;
             tailoringDiagnostic("suggestion.persisted", {
@@ -251,11 +229,11 @@ export class TailoringOrchestratorService {
               safeSuggestionCount: safeSuggestions,
             });
           } else {
-            recordReason(this.groundedGenerator.getLastReasonCode() ?? "NO_EDIT_NEEDED");
+            recordReason(groundedGenerator.getLastReasonCode() ?? "NO_EDIT_NEEDED");
             tailoringDiagnostic("suggestion.skipped.no_safe_edit", {
               analysisId,
               requirementId: requirement.id,
-              reasonCode: this.groundedGenerator.getLastReasonCode() ?? "NO_EDIT_NEEDED",
+              reasonCode: groundedGenerator.getLastReasonCode() ?? "NO_EDIT_NEEDED",
             });
           }
         } else {

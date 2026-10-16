@@ -7,6 +7,7 @@
     "dev:backend": "npm --prefix backend run dev",
     "build": "next build",
     "start": "next start",
+    "test:routes": "node scripts/test-workspace-routes.mjs",
     "lint": "eslint"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "codemirror-lang-latex": "^0.6.1",
     "lucide-react": "^1.52.0",
     "next": "16.3.8",
+    "pdfjs-dist": "6.4.299",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwind-merge": "^3.7.0"

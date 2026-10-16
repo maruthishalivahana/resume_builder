@@ -1,0 +1,1135 @@
+{
+  "runId": "1d71ee7a-4786-4846-a27c-9f9ac66ea33d",
+  "syntheticOnly": true,
+  "cloudRequests": false,
+  "databaseUsed": false,
+  "retries": 0,
+  "timeoutMs": 30000,
+  "model": "qwen3:1.7b",
+  "datasetVersion": 2,
+  "cases": [
+    {
+      "id": "sqlite-punctuation",
+      "requirement": "Experience with SQLite.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "SQLite"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "b0b36c9a0b5da9e0c1d2a228d089b96151230563b45911d378732d6e3ef3fa13",
+        "highlightText": "SQLite",
+        "evidenceIds": [
+          "b0b36c9a0b5da9e0c1d2a228d089b96151230563b45911d378732d6e3ef3fa13"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 19338,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "b0b36c9a0b5da9e0c1d2a228d089b96151230563b45911d378732d6e3ef3fa13",
+        "before": "\\item Built Python REST APIs with SQLite for coursework.",
+        "after": "\\item Built Python REST APIs with \\textbf{SQLite} for coursework.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "b0b36c9a0b5da9e0c1d2a228d089b96151230563b45911d378732d6e3ef3fa13"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "SQLite"
+    },
+    {
+      "id": "java-vs-javascript",
+      "requirement": "Java.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "sql-vs-nosql",
+      "requirement": "SQL.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "missing-kubernetes",
+      "requirement": "Kubernetes.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "related-react-native",
+      "requirement": "React.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "46de4988e02a687d13b705796ab3b07ed8002cea3a6bb8b4974fee5db87e02d7",
+        "highlightText": "React Native",
+        "evidenceIds": [
+          "46de4988e02a687d13b705796ab3b07ed8002cea3a6bb8b4974fee5db87e02d7"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3267,
+      "generated": true,
+      "useful": false,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "46de4988e02a687d13b705796ab3b07ed8002cea3a6bb8b4974fee5db87e02d7",
+        "before": "\\item Built React Native mobile applications.",
+        "after": "\\item Built \\textbf{React Native} mobile applications.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "46de4988e02a687d13b705796ab3b07ed8002cea3a6bb8b4974fee5db87e02d7"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "React Native"
+    },
+    {
+      "id": "production-qualification",
+      "requirement": "Production Node.js experience.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "paraphrase-maintenance",
+      "requirement": "Maintain CI/CD pipelines.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "continuous integration and continuous delivery",
+        "continuous integration and continuous delivery workflows"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "132e197de9c80a3d4d478fb69df8c1b2f5cea313df29f47a0619722ab34f1ec3",
+        "highlightText": "continuous integration and continuous delivery workflows",
+        "evidenceIds": [
+          "132e197de9c80a3d4d478fb69df8c1b2f5cea313df29f47a0619722ab34f1ec3"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 4051,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "132e197de9c80a3d4d478fb69df8c1b2f5cea313df29f47a0619722ab34f1ec3",
+        "before": "\\item Kept continuous integration and continuous delivery workflows running.",
+        "after": "\\item Kept \\textbf{continuous integration and continuous delivery workflows} running.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "132e197de9c80a3d4d478fb69df8c1b2f5cea313df29f47a0619722ab34f1ec3"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "continuous integration and continuous delivery workflows"
+    },
+    {
+      "id": "paraphrase-leadership",
+      "requirement": "Lead a team.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Led a software team",
+        "Led a software team."
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "bfb1943a2786b08fd77b1b3784cd2a339425e0cb2b9ccef5eef0d9661da7821d",
+        "highlightText": "Led a team.",
+        "evidenceIds": [
+          "bfb1943a2786b08fd77b1b3784cd2a339425e0cb2b9ccef5eef0d9661da7821d"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 4017,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "INVALID_PROVIDER_OUTPUT"
+    },
+    {
+      "id": "negated-skill",
+      "requirement": "Python.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "multi-file-multi-evidence/SQLite.",
+      "requirement": "SQLite.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "SQLite"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "7550cfc29a2091eb877e8ef025e0c82bae43c2bec878c0089bcb3c725613d3ab",
+        "highlightText": "SQLite",
+        "evidenceIds": [
+          "7550cfc29a2091eb877e8ef025e0c82bae43c2bec878c0089bcb3c725613d3ab"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3706,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "7550cfc29a2091eb877e8ef025e0c82bae43c2bec878c0089bcb3c725613d3ab",
+        "before": "\\item Tested SQLite queries.",
+        "after": "\\item Tested \\textbf{SQLite} queries.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "7550cfc29a2091eb877e8ef025e0c82bae43c2bec878c0089bcb3c725613d3ab"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "SQLite"
+    },
+    {
+      "id": "multi-file-multi-evidence/Docker.",
+      "requirement": "Docker.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Docker"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "b4f365f85ceb87e227120c9d5b27853a951f3d10e5b8c63bc3408cad32249b21",
+        "highlightText": "Docker",
+        "evidenceIds": [
+          "b4f365f85ceb87e227120c9d5b27853a951f3d10e5b8c63bc3408cad32249b21"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3140,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "b4f365f85ceb87e227120c9d5b27853a951f3d10e5b8c63bc3408cad32249b21",
+        "before": "\\item Packaged coursework with Docker.",
+        "after": "\\item Packaged coursework with \\textbf{Docker}.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "b4f365f85ceb87e227120c9d5b27853a951f3d10e5b8c63bc3408cad32249b21"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Docker"
+    },
+    {
+      "id": "formatted-crlf",
+      "requirement": "Node.js REST APIs.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "REST APIs"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "75aaca50ff92da088bfc8faabfbe684817665b3242c7e7e5d271f5653c67a47a",
+        "highlightText": "Node.js",
+        "evidenceIds": [
+          "75aaca50ff92da088bfc8faabfbe684817665b3242c7e7e5d271f5653c67a47a"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 2978,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "INVALID_PROVIDER_OUTPUT"
+    },
+    {
+      "id": "skills-label",
+      "requirement": "Redis.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Redis"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "11a43034cee961d3806ad33c9174f18dd391d4854a9aefd2b9ee9ae8b5d5603c",
+        "highlightText": "Redis",
+        "evidenceIds": [
+          "11a43034cee961d3806ad33c9174f18dd391d4854a9aefd2b9ee9ae8b5d5603c"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3227,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "11a43034cee961d3806ad33c9174f18dd391d4854a9aefd2b9ee9ae8b5d5603c",
+        "before": "\\textbf{Tools:} Redis, SQLite, Docker",
+        "after": "\\textbf{Tools:} \\textbf{Redis}, SQLite, Docker",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "11a43034cee961d3806ad33c9174f18dd391d4854a9aefd2b9ee9ae8b5d5603c"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Redis"
+    },
+    {
+      "id": "education",
+      "requirement": "Bachelor's degree.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Bachelor of Science",
+        "Bachelor of Science degree",
+        "Bachelor of Science degree in Computer Science"
+      ],
+      "providerCalled": true,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 2279,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "NO_EDIT_NEEDED"
+    },
+    {
+      "id": "custom-macro",
+      "requirement": "Python.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "1ef1ad76d6278e745ffbeb802653e494179b355caadd8def2cac39b605df64ef",
+        "highlightText": "Python",
+        "evidenceIds": [
+          "1ef1ad76d6278e745ffbeb802653e494179b355caadd8def2cac39b605df64ef"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3437,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "INVALID_PROVIDER_OUTPUT"
+    },
+    {
+      "id": "expanded-cicd-list",
+      "requirement": "Continuous integration and continuous delivery.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "CI/CD"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "93fd3a95e71d89648895ea1e05fb9851548b8e7f79ad3941b16fcaf3370f8e96",
+        "highlightText": "CI/CD, Git",
+        "evidenceIds": [
+          "93fd3a95e71d89648895ea1e05fb9851548b8e7f79ad3941b16fcaf3370f8e96"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3567,
+      "generated": true,
+      "useful": false,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "93fd3a95e71d89648895ea1e05fb9851548b8e7f79ad3941b16fcaf3370f8e96",
+        "before": "\\textbf{Delivery:} CI/CD, Git.",
+        "after": "\\textbf{Delivery:} \\textbf{CI/CD, Git}.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "93fd3a95e71d89648895ea1e05fb9851548b8e7f79ad3941b16fcaf3370f8e96"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "CI/CD, Git"
+    },
+    {
+      "id": "expanded-maintenance-summary",
+      "requirement": "Maintain CI/CD pipelines.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "continuous integration and continuous delivery",
+        "continuous integration and continuous delivery pipelines",
+        "maintaining continuous integration and continuous delivery pipelines"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "c45c4c7503bd182d6753dd1d30afe1862edfcfdeea058a70c54daf68821b3b64",
+        "highlightText": "continuous integration and continuous delivery pipelines",
+        "evidenceIds": [
+          "c45c4c7503bd182d6753dd1d30afe1862edfcfdeea058a70c54daf68821b3b64"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3428,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "c45c4c7503bd182d6753dd1d30afe1862edfcfdeea058a70c54daf68821b3b64",
+        "before": "Engineer maintaining continuous integration and continuous delivery pipelines.",
+        "after": "Engineer maintaining \\textbf{continuous integration and continuous delivery pipelines}.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "c45c4c7503bd182d6753dd1d30afe1862edfcfdeea058a70c54daf68821b3b64"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "continuous integration and continuous delivery pipelines"
+    },
+    {
+      "id": "expanded-project-pair",
+      "requirement": "Maintain continuous integration and continuous delivery workflows.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "26f4261294a93849399ada8392a8b8b23f83f6c9e5aee0cd4dcf0308eb083362",
+        "highlightText": "CI/CD pipelines",
+        "evidenceIds": [
+          "26f4261294a93849399ada8392a8b8b23f83f6c9e5aee0cd4dcf0308eb083362"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3228,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "INVALID_PROVIDER_OUTPUT"
+    },
+    {
+      "id": "expanded-ci-only",
+      "requirement": "CI/CD.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-delivery-not-deployment",
+      "requirement": "Continuous deployment.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-related-cloud",
+      "requirement": "AWS Lambda.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-missing-ml",
+      "requirement": "TensorFlow.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-colon-none",
+      "requirement": "Python.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-mixed-contradiction",
+      "requirement": "Python.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-unrelated-negation",
+      "requirement": "Java.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Java"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "b4742ba60fb289418e58bc54374e13380528eab633b9d9ba9737c252d6bb027e",
+        "highlightText": "Java",
+        "evidenceIds": [
+          "b4742ba60fb289418e58bc54374e13380528eab633b9d9ba9737c252d6bb027e"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3029,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "b4742ba60fb289418e58bc54374e13380528eab633b9d9ba9737c252d6bb027e",
+        "before": "\\item Built Java applications.",
+        "after": "\\item Built \\textbf{Java} applications.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "b4742ba60fb289418e58bc54374e13380528eab633b9d9ba9737c252d6bb027e"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Java"
+    },
+    {
+      "id": "expanded-certification",
+      "requirement": "AWS certification.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "AWS Certified Developer",
+        "AWS Certified Developer certification"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "8300b4951b3094bb4afe7caa1b0cd07331068e4f4d60945f24e53b35efb5af9e",
+        "highlightText": "AWS Certified Developer certification",
+        "evidenceIds": [
+          "8300b4951b3094bb4afe7caa1b0cd07331068e4f4d60945f24e53b35efb5af9e"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3201,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "8300b4951b3094bb4afe7caa1b0cd07331068e4f4d60945f24e53b35efb5af9e",
+        "before": "\\item AWS Certified Developer certification.",
+        "after": "\\item \\textbf{AWS Certified Developer certification}.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "8300b4951b3094bb4afe7caa1b0cd07331068e4f4d60945f24e53b35efb5af9e"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "AWS Certified Developer certification"
+    },
+    {
+      "id": "expanded-learning",
+      "requirement": "Python.",
+      "classification": "PARTIAL",
+      "expectedSpans": [
+        "Python"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "4fdc4a1384461485be8c1afc17aad5c7b3c6c5a9a6c99e37c4d1e0625fd55f4f",
+        "highlightText": "Python",
+        "evidenceIds": [
+          "4fdc4a1384461485be8c1afc17aad5c7b3c6c5a9a6c99e37c4d1e0625fd55f4f"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 2367,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "4fdc4a1384461485be8c1afc17aad5c7b3c6c5a9a6c99e37c4d1e0625fd55f4f",
+        "before": "\\item Introductory Python exercises.",
+        "after": "\\item Introductory \\textbf{Python} exercises.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "4fdc4a1384461485be8c1afc17aad5c7b3c6c5a9a6c99e37c4d1e0625fd55f4f"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Python"
+    },
+    {
+      "id": "expanded-expertise",
+      "requirement": "Expert Python skills.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-unknown-tech",
+      "requirement": "TensorFlow.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "TensorFlow"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "e436b2efef9e4c0c6c6cfe7472ca6d4b294cf4e359075d41e1571ba25068936b",
+        "highlightText": "TensorFlow",
+        "evidenceIds": [
+          "e436b2efef9e4c0c6c6cfe7472ca6d4b294cf4e359075d41e1571ba25068936b"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 2994,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "e436b2efef9e4c0c6c6cfe7472ca6d4b294cf4e359075d41e1571ba25068936b",
+        "before": "\\textbf{ML tools:} TensorFlow, NumPy.",
+        "after": "\\textbf{ML tools:} \\textbf{TensorFlow}, NumPy.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "e436b2efef9e4c0c6c6cfe7472ca6d4b294cf4e359075d41e1571ba25068936b"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "TensorFlow"
+    },
+    {
+      "id": "expanded-csharp-list",
+      "requirement": "C#.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "9b795bef466309ae9029d0a97ade1230aba0df498dcea5dd550d094c36c5c2b6",
+        "highlightText": "C#",
+        "evidenceIds": [
+          "9b795bef466309ae9029d0a97ade1230aba0df498dcea5dd550d094c36c5c2b6"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 2780,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "INVALID_PROVIDER_OUTPUT"
+    },
+    {
+      "id": "expanded-production-positive",
+      "requirement": "Production Node.js experience.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Node.js",
+        "REST APIs",
+        "Node.js REST APIs"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "9e8c8699db40322e4dea28b4fb49359d9010f56a3097fbce5e3ff6460da97353",
+        "highlightText": "Node.js",
+        "evidenceIds": [
+          "9e8c8699db40322e4dea28b4fb49359d9010f56a3097fbce5e3ff6460da97353"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 2634,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "9e8c8699db40322e4dea28b4fb49359d9010f56a3097fbce5e3ff6460da97353",
+        "before": "Built Node.js REST APIs in production.",
+        "after": "Built \\textbf{Node.js} REST APIs in production.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "9e8c8699db40322e4dea28b4fb49359d9010f56a3097fbce5e3ff6460da97353"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Node.js"
+    },
+    {
+      "id": "expanded-sql-mysql",
+      "requirement": "SQL.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-missing-php",
+      "requirement": "PHP.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-duration",
+      "requirement": "3 years of Python experience.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": null
+    },
+    {
+      "id": "expanded-multiline-rust",
+      "requirement": "Rust.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "7c696459d5d5f5d78c2c90da15018c0066a633ee70185521ae143cefbbd6192e",
+        "highlightText": "Rust",
+        "evidenceIds": [
+          "7c696459d5d5f5d78c2c90da15018c0066a633ee70185521ae143cefbbd6192e"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 4000,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "INVALID_PROVIDER_OUTPUT"
+    },
+    {
+      "id": "expanded-soft-skill-ambiguity",
+      "requirement": "Team communication.",
+      "classification": "PARTIAL",
+      "expectedSpans": [
+        "Team communication"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "f328ef95bbb603503d8cf21a6833f295d645a0b2a5d735b6968443436f039bfa",
+        "highlightText": "Team communication and collaboration.",
+        "evidenceIds": [
+          "f328ef95bbb603503d8cf21a6833f295d645a0b2a5d735b6968443436f039bfa"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3381,
+      "generated": true,
+      "useful": false,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "f328ef95bbb603503d8cf21a6833f295d645a0b2a5d735b6968443436f039bfa",
+        "before": "Team communication and collaboration.",
+        "after": "\\textbf{Team communication and collaboration.}",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "f328ef95bbb603503d8cf21a6833f295d645a0b2a5d735b6968443436f039bfa"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Team communication and collaboration."
+    },
+    {
+      "id": "expanded-svelte",
+      "requirement": "Svelte.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Svelte"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "43fad098fbde4b8878c85367e0d7dd4092b751560a9303abf0517ab64e8bcd0c",
+        "highlightText": "Svelte",
+        "evidenceIds": [
+          "43fad098fbde4b8878c85367e0d7dd4092b751560a9303abf0517ab64e8bcd0c"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 3105,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "43fad098fbde4b8878c85367e0d7dd4092b751560a9303abf0517ab64e8bcd0c",
+        "before": "\\item Developed a Svelte interface for a club.",
+        "after": "\\item Developed a \\textbf{Svelte} interface for a club.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "43fad098fbde4b8878c85367e0d7dd4092b751560a9303abf0517ab64e8bcd0c"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Svelte"
+    },
+    {
+      "id": "expanded-negated-pair",
+      "requirement": "CI/CD.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "expanded-uppercase",
+      "requirement": "REDIS.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Redis"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "5ea1075cd61aaf6b67bf1e9dbe1825da049620ded7b96e9f0f85ab6e972668cd",
+        "highlightText": "Redis",
+        "evidenceIds": [
+          "5ea1075cd61aaf6b67bf1e9dbe1825da049620ded7b96e9f0f85ab6e972668cd"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 2457,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "5ea1075cd61aaf6b67bf1e9dbe1825da049620ded7b96e9f0f85ab6e972668cd",
+        "before": "\\textbf{Caching:} Redis.",
+        "after": "\\textbf{Caching:} \\textbf{Redis}.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "5ea1075cd61aaf6b67bf1e9dbe1825da049620ded7b96e9f0f85ab6e972668cd"
+        ],
+        "confidence": 0.5
+      },
+      "selectedSpan": "Redis"
+    },
+    {
+      "id": "expanded-action-overlap",
+      "requirement": "Maintain CI/CD pipelines.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    }
+  ],
+  "runtime": {
+    "version": "0.40.4"
+  },
+  "modelMetadata": {
+    "name": "qwen3:1.7b",
+    "model": "qwen3:1.7b",
+    "modified_at": "2026-10-15T16:49:34.901622+05:30",
+    "size": 1359293444,
+    "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "2.0B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 2048,
+      "runner": "ggml"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "thinking"
+    ]
+  },
+  "metrics": {
+    "requirements": 40,
+    "providerCalls": 23,
+    "upstreamSkipped": 17,
+    "usefulSuggestions": {
+      "numerator": 13,
+      "denominator": 18,
+      "value": 0.7222222222222222
+    },
+    "validatedSuggestionUsefulness": {
+      "numerator": 13,
+      "denominator": 16,
+      "value": 0.8125
+    },
+    "unnecessaryEdits": {
+      "numerator": 3,
+      "denominator": 16,
+      "value": 0.1875
+    },
+    "unexpectedNoEditSuggestions": {
+      "numerator": 1,
+      "denominator": 22,
+      "value": 0.045454545454545456
+    },
+    "modelAbstentions": {
+      "numerator": 1,
+      "denominator": 23,
+      "value": 0.043478260869565216
+    },
+    "noSuggestionOnUsefulCases": 3,
+    "unmetUsefulExpectations": 5,
+    "invalidResponses": 0,
+    "timeouts": 0,
+    "contextLimitFailures": 0,
+    "otherProviderFailures": 0,
+    "downstreamGuardRejections": 6,
+    "unsupportedClaimsRejected": 0,
+    "generatedSourceSafety": {
+      "numerator": 16,
+      "denominator": 16,
+      "value": 1
+    },
+    "exactSourceMappings": {
+      "numerator": 16,
+      "denominator": 16,
+      "value": 1
+    },
+    "latencyMs": {
+      "sampleCount": 23,
+      "p50": 3227,
+      "p95": 4051,
+      "max": 19338
+    }
+  },
+  "transportRequests": 25,
+  "completed": true,
+  "metricsVersion": 2,
+  "metricsRecomputedWithoutInference": true,
+  "datasetSha256": "c299a8963eca019e6240f2104a227bf94d6279c5ae69e283769a7b0926a59e2e",
+  "oracleSha256": "5c845393da2c8dd1ff778e9b420104063326f9cf9c640aab2e5d7fc1a5de0d8e"
+}

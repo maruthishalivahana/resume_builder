@@ -20,7 +20,7 @@ import { mockATSEvaluation, mockJobMatches } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 
 export function ResumeOverview() {
-  const { resume, openAIAssistantForATS, openAIAssistantForJD } = useResume();
+  const { resumeBasePath,  resume, openAIAssistantForATS, openAIAssistantForJD } = useResume();
 
   return (
     <div className="w-full flex-1 overflow-y-auto bg-[#070709] px-6 py-6 md:px-12 md:py-8 select-none text-xs">
@@ -37,14 +37,14 @@ export function ResumeOverview() {
           </div>
 
           <div className="flex items-center gap-2.5">
-            <Link href="/resume/demo/latex">
+            <Link href={`${resumeBasePath}/latex`}>
               <Button variant="outline" size="sm">
                 <Code2 className="w-3.5 h-3.5 text-sky-400" />
                 <span>LaTeX IDE</span>
               </Button>
             </Link>
 
-            <Link href="/resume/demo/editor">
+            <Link href={`${resumeBasePath}/editor`}>
               <Button variant="primary" size="sm">
                 <FileText className="w-3.5 h-3.5" />
                 <span>Continue Editing</span>
@@ -77,7 +77,7 @@ export function ResumeOverview() {
 
             {/* Twin Metrics: ATS Readiness & JD Alignment */}
             <div className="flex items-center gap-4 bg-black/40 border border-white/[0.06] rounded-xl p-3">
-              <Link href="/resume/demo/ats" className="text-center px-3 group">
+              <Link href={`${resumeBasePath}/ats`} className="text-center px-3 group">
                 <div className="text-[10px] text-neutral-500 uppercase font-mono group-hover:text-neutral-300 transition-colors">
                   ATS Readiness
                 </div>
@@ -112,12 +112,12 @@ export function ResumeOverview() {
             </div>
 
             <div className="flex items-center gap-2">
-              <Link href="/resume/demo/preview" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
+              <Link href={`${resumeBasePath}/preview`} className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
                 <Eye className="w-3.5 h-3.5" />
                 <span>View PDF</span>
               </Link>
               <span className="text-neutral-700">·</span>
-              <Link href="/resume/demo/ats" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-medium">
+              <Link href={`${resumeBasePath}/ats`} className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-medium">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Diagnostics (87)</span>
               </Link>
@@ -138,7 +138,7 @@ export function ResumeOverview() {
               </div>
 
               <Link
-                href="/resume/demo/versions"
+                href={`${resumeBasePath}/versions`}
                 className="text-xs text-neutral-400 hover:text-white transition-colors"
               >
                 View all →
@@ -149,7 +149,7 @@ export function ResumeOverview() {
               {resume.versions.map((ver) => (
                 <Link
                   key={ver.id}
-                  href="/resume/demo/editor"
+                  href={`${resumeBasePath}/editor`}
                   className="p-3 rounded-lg bg-[#0E0E12] border border-white/[0.05] hover:border-white/15 flex items-center justify-between transition-all block group"
                 >
                   <div className="space-y-0.5">
@@ -182,7 +182,7 @@ export function ResumeOverview() {
               </div>
 
               <Link
-                href="/resume/demo/jobs"
+                href={`${resumeBasePath}/jobs`}
                 className="text-xs text-neutral-400 hover:text-white transition-colors"
               >
                 View targets →

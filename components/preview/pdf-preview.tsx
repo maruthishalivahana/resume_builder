@@ -26,9 +26,13 @@ export function PDFPreview({ showToolbar = true }: PDFPreviewProps) {
     compileDuration,
     lastCompiledAt,
     compileErrors,
+    entryFileId,
+    files,
+    compileTargetId, selectCompileTarget, buildHistory, loadBuildHistory, previewBuild, showCompilationBuild, targetLoadError,
   } = useResume();
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const entryName = files.find(file => file.id === (compileTargetId ?? entryFileId))?.path ?? "not selected";
 
   const handlePrint = () => {
     if (iframeRef.current?.contentWindow) {
@@ -135,6 +139,25 @@ export function PDFPreview({ showToolbar = true }: PDFPreviewProps) {
         </div>
       )}
 
+      <div className="px-3 py-2 text-[11px] text-neutral-400 border-b border-white/10 space-y-2">
+        <label>Compile target <select aria-label="Compile target" value={compileTargetId ?? entryFileId ?? ""}
+          className="bg-neutral-900 max-w-full" onChange={event => void selectCompileTarget(event.target.value)}>
+          <option value="" disabled>Select a .tex file</option>
+          {files.filter(file => file.path.toLowerCase().endsWith(".tex")).map(file => <option key={file.id} value={file.id}>{file.path}</option>)}
+        </select></label>
+        <div>Compilation entry: {entryName}</div>
+        {previewBuild && <div className="break-all">Displayed PDF: {previewBuild.path} · Build {previewBuild.id}</div>}
+        {targetLoadError && <p role="alert">{targetLoadError} <button className="underline" onClick={() => {
+          const target = compileTargetId ?? entryFileId; if (target) void selectCompileTarget(target);
+        }}>Retry target load</button></p>}
+        {buildHistory && <details><summary>Build history for {entryName}</summary>
+          {buildHistory.builds.length === 0 && <p>No builds for this target.</p>}
+          {buildHistory.builds.map(build => <button key={build._id} className="block underline break-all" disabled={isCompiling}
+            onClick={() => showCompilationBuild(build)}>{build.status} · {build.createdAt} · {build._id}</button>)}
+          <button disabled={buildHistory.page <= 1} onClick={() => void loadBuildHistory(buildHistory.page - 1)}>Previous</button>
+          <button disabled={!buildHistory.hasMore} onClick={() => void loadBuildHistory(buildHistory.page + 1)}>Next</button>
+        </details>}
+      </div>
       {/* ── Preview Viewport ── */}
       <div className="flex-1 relative bg-[#18191E] flex flex-col items-center justify-center overflow-hidden">
         {isCompiling ? (

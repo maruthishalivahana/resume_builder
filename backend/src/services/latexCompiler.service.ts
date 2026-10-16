@@ -4,16 +4,14 @@ import os from "os";
 import crypto from "crypto";
 import { spawn, execFile, execSync } from "child_process";
 import { LatexProject } from "../models/LatexProject";
-import { LatexFile } from "../models/LatexFile";
-import { LatexFolder } from "../models/LatexFolder";
 import {
   LatexCompilation,
   ILatexCompilation,
-  ICompileError,
+  ICompileError, SourceCapture,
 } from "../models/LatexCompilation";
 import { LatexErrorParserService } from "./latexErrorParser.service";
 import { AppError } from "../middleware/error.middleware";
-import { resolveEntryFile } from "./latexEntryFile.service";
+import { captureProjectSource } from "./latexSourceCapture.service";
 
 export interface CompileOptions {
   projectId: string;
@@ -24,6 +22,9 @@ export interface CompileResult {
   compilationId: string;
   projectId: string;
   status: "success" | "failed" | "timeout";
+  entryFileId: string;
+  entryFilePath: string;
+  sourceCapture: SourceCapture;
   durationMs: number;
   pdf?: {
     fileName: string;
@@ -220,30 +221,19 @@ export class LatexCompilerService {
 
     this.activeCompilations.add(projectId);
 
-    // 2. Fetch project metadata and files from MongoDB
-    const project = await LatexProject.findById(projectId);
-    if (!project) {
-      this.activeCompilations.delete(projectId);
-      throw new AppError("Project not found", 404);
-    }
-
-    const files = await LatexFile.find({ projectId });
-    const folders = await LatexFolder.find({ projectId });
-
-    // 3. Resolve the configured entry file from project.entryFileId
-    let entryFile: InstanceType<typeof LatexFile>;
-    try {
-      entryFile = await resolveEntryFile(project, files, options.entryFileId) as any;
-    } catch (entryErr) {
-      this.activeCompilations.delete(projectId);
-      throw entryErr;
-    }
+    // 2–3. Capture one stable saved project state before workspace assembly.
+    let capture: Awaited<ReturnType<typeof captureProjectSource>>;
+    try { capture = await captureProjectSource(projectId, options.entryFileId); }
+    catch (error) { this.activeCompilations.delete(projectId); throw error; }
+    const { project, files, folders, entry: entryFile, sourceCapture } = capture;
     const entryFilePath = entryFile.path;
-    const sourceVersion = project.sourceVersion ?? 0;
+    const sourceVersion = sourceCapture.sourceVersion;
     const compiledEntryFileUpdatedAt = entryFile.updatedAt;
 
     // 4. Check compiler availability
-    const compilerCheck = await this.checkCompilerAvailability();
+    let compilerCheck: Awaited<ReturnType<typeof LatexCompilerService.checkCompilerAvailability>>;
+    try { compilerCheck = await this.checkCompilerAvailability(); }
+    catch (error) { this.activeCompilations.delete(projectId); throw error; }
     if (!compilerCheck.available) {
       this.activeCompilations.delete(projectId);
       const msg = `${compilerCheck.compiler} is not installed in the current environment.`;
@@ -257,6 +247,7 @@ export class LatexCompilerService {
         compiledEntryFileId: entryFile._id,
         compiledEntryFileUpdatedAt,
         sourceVersion,
+        sourceCapture,
         stdout: "",
         stderr: msg,
         compileErrors: [
@@ -273,6 +264,9 @@ export class LatexCompilerService {
       return {
         compilationId: compilation._id.toString(),
         projectId,
+        entryFileId: entryFile._id.toString(),
+        entryFilePath,
+        sourceCapture,
         status: "failed",
         durationMs,
         errors: compilation.compileErrors,
@@ -421,7 +415,7 @@ export class LatexCompilerService {
       const parsedErrors = LatexErrorParserService.parse(combinedLogs);
 
       // Check if generated PDF exists
-      const mainBaseName = path.basename(entryFilePath, ".tex");
+      const mainBaseName = path.basename(entryFilePath, path.extname(entryFilePath));
       const possiblePdfPaths = [
         path.join(tempDir, `${mainBaseName}.pdf`),
         path.join(tempDir, path.dirname(entryFilePath), `${mainBaseName}.pdf`),
@@ -474,6 +468,7 @@ export class LatexCompilerService {
         compiledEntryFileId: entryFile._id,
         compiledEntryFileUpdatedAt,
         sourceVersion,
+        sourceCapture,
         pdfPath: savedPdfRelativePath || null,
         pdfFileName,
         stdout: stdout.slice(0, maxOutputBytes),
@@ -485,12 +480,15 @@ export class LatexCompilerService {
       return {
         compilationId: compilation._id.toString(),
         projectId,
+        entryFileId: entryFile._id.toString(),
+        entryFilePath,
+        sourceCapture,
         status,
         durationMs,
         pdf: status === "success" && pdfExists
           ? {
               fileName: pdfFileName,
-              url: `/api/latex/projects/${projectId}/pdf`,
+              url: `/api/latex/projects/${projectId}/pdf?compilationId=${compilation._id.toString()}`,
             }
           : undefined,
         errors: parsedErrors,
@@ -516,12 +514,14 @@ export class LatexCompilerService {
    * Retrieves the latest successfully generated PDF file for a project.
    */
   public static async getLatestSuccessfulPdf(
-    projectId: string
+    projectId: string,
+    compilationId?: string
   ): Promise<{ absolutePath: string; fileName: string } | null> {
     const latestSuccess = await LatexCompilation.findOne({
       projectId,
       status: "success",
       pdfPath: { $ne: null },
+      ...(compilationId ? { _id: compilationId } : {}),
     }).sort({ createdAt: -1 });
 
     if (!latestSuccess || !latestSuccess.pdfPath) {
@@ -548,17 +548,19 @@ export class LatexCompilerService {
     return LatexCompilation.findOne({ projectId }).sort({ createdAt: -1 });
   }
 
-  public static async getProjectCompilationState(projectId: string): Promise<{
+  public static async getProjectCompilationState(projectId: string, entryFileId?: string): Promise<{
     state: "none" | "valid" | "stale" | "failed-with-previous";
     latest: ILatexCompilation | null;
     successful: ILatexCompilation | null;
     pdf: { fileName: string; url: string } | null;
   }> {
+    const targetFilter = entryFileId ? { compiledEntryFileId: entryFileId } : {};
     const [project, latest, successful] = await Promise.all([
       LatexProject.findById(projectId),
-      LatexCompilation.findOne({ projectId }).sort({ createdAt: -1 }),
+      LatexCompilation.findOne({ projectId, ...targetFilter }).sort({ createdAt: -1 }),
       LatexCompilation.findOne({
         projectId,
+        ...targetFilter,
         status: "success",
         pdfPath: { $ne: null },
       }).sort({ createdAt: -1 }),
@@ -578,17 +580,16 @@ export class LatexCompilerService {
       return { state: "none", latest, successful, pdf: null };
     }
 
-    const successfulEntryMatches =
-      !!project.entryFileId &&
-      successful.compiledEntryFileId?.toString() === project.entryFileId.toString();
+    const targetId = entryFileId?.toLowerCase() ?? project.entryFileId?.toString();
+    const successfulEntryMatches = !!targetId && successful.compiledEntryFileId?.toString() === targetId;
     const successfulSourceMatches =
       successful.sourceVersion === (project.sourceVersion ?? 0);
     const failedCompilationIsCurrent =
       !!latest &&
       latest._id.toString() !== successful._id.toString() &&
       (latest.status === "failed" || latest.status === "timeout") &&
-      !!project.entryFileId &&
-      latest.compiledEntryFileId?.toString() === project.entryFileId.toString() &&
+      !!targetId &&
+      latest.compiledEntryFileId?.toString() === targetId &&
       latest.sourceVersion === (project.sourceVersion ?? 0);
     const state = failedCompilationIsCurrent
       ? "failed-with-previous"

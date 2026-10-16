@@ -1,0 +1,266 @@
+{
+  "requestedModel": "openrouter/free",
+  "databaseUsed": false,
+  "syntheticOnly": true,
+  "cases": [
+    {
+      "evidenceCount": 1,
+      "elapsedMs": 271,
+      "outcome": "PROVIDER_ERROR",
+      "rejections": [],
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 1,
+          "matchEvidenceIdsCount": 1,
+          "verifiedEvidenceCount": 1,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "7ca5316c-5e61-4e99-8b9f-8ccb467df351",
+          "requirementId": "probe-1",
+          "durationMs": 5,
+          "stage": "headers",
+          "promptBytes": 1532,
+          "requestBytes": 1822,
+          "model": "openrouter/free",
+          "evidenceCount": 1
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.failed",
+          "requestId": "7ca5316c-5e61-4e99-8b9f-8ccb467df351",
+          "requirementId": "probe-1",
+          "durationMs": 268,
+          "stage": "headers",
+          "promptBytes": 1532,
+          "requestBytes": 1822,
+          "reason": "network_error",
+          "message": "fetch failed"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.skipped.provider_error",
+          "errorType": "Error",
+          "reasonCode": "PROVIDER_ERROR",
+          "message": "OpenRouter request could not be completed: fetch failed"
+        }
+      ]
+    },
+    {
+      "evidenceCount": 3,
+      "elapsedMs": 16,
+      "outcome": "PROVIDER_ERROR",
+      "rejections": [],
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 3,
+          "matchEvidenceIdsCount": 3,
+          "verifiedEvidenceCount": 3,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "f70c2c9b-0219-4a51-af06-49939edf4c67",
+          "requirementId": "probe-3",
+          "durationMs": 3,
+          "stage": "headers",
+          "promptBytes": 2162,
+          "requestBytes": 2534,
+          "model": "openrouter/free",
+          "evidenceCount": 3
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.failed",
+          "requestId": "f70c2c9b-0219-4a51-af06-49939edf4c67",
+          "requirementId": "probe-3",
+          "durationMs": 14,
+          "stage": "headers",
+          "promptBytes": 2162,
+          "requestBytes": 2534,
+          "reason": "network_error",
+          "message": "fetch failed"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.skipped.provider_error",
+          "errorType": "Error",
+          "reasonCode": "PROVIDER_ERROR",
+          "message": "OpenRouter request could not be completed: fetch failed"
+        }
+      ]
+    },
+    {
+      "evidenceCount": 12,
+      "elapsedMs": 14,
+      "outcome": "PROVIDER_ERROR",
+      "rejections": [],
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 12,
+          "matchEvidenceIdsCount": 12,
+          "verifiedEvidenceCount": 12,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "4624a4e1-bf2d-4cf5-843a-6394bdbcc40a",
+          "requirementId": "probe-12",
+          "durationMs": 4,
+          "stage": "headers",
+          "promptBytes": 5009,
+          "requestBytes": 5750,
+          "model": "openrouter/free",
+          "evidenceCount": 12
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.failed",
+          "requestId": "4624a4e1-bf2d-4cf5-843a-6394bdbcc40a",
+          "requirementId": "probe-12",
+          "durationMs": 14,
+          "stage": "headers",
+          "promptBytes": 5009,
+          "requestBytes": 5750,
+          "reason": "network_error",
+          "message": "fetch failed"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.skipped.provider_error",
+          "errorType": "Error",
+          "reasonCode": "PROVIDER_ERROR",
+          "message": "OpenRouter request could not be completed: fetch failed"
+        }
+      ]
+    }
+  ],
+  "calibration": [
+    {
+      "evidenceCount": 1,
+      "elapsedMs": 11,
+      "outcome": "CLAIM_VALIDATION_FAILED",
+      "rejections": [
+        {
+          "suggestion": {
+            "type": "rewrite",
+            "targetEvidenceId": "synthetic-1",
+            "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+            "after": "\\item Built REST APIs using Node.js and TensorFlow in production.",
+            "evidenceIds": [
+              "synthetic-1"
+            ],
+            "reason": "Calibration",
+            "confidence": 0.8
+          },
+          "validation": {
+            "valid": false,
+            "unsupportedClaims": [
+              {
+                "claim": "\\item Built REST APIs using Node.js and TensorFlow in production.",
+                "reason": "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+              }
+            ],
+            "warnings": [],
+            "evidenceIds": [
+              "synthetic-1"
+            ]
+          },
+          "evidence": [
+            {
+              "id": "synthetic-1",
+              "text": "Built REST APIs using Node.js for synthetic inventory project 1.",
+              "rawText": "\\item Built REST APIs using Node.js for synthetic inventory project 1."
+            }
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 1,
+          "matchEvidenceIdsCount": 1,
+          "verifiedEvidenceCount": 1,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.rejected.claim_validation",
+          "requirementId": "probe-1",
+          "unsupportedClaimCount": 1,
+          "validationReasons": "[\"Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected.\"]",
+          "reasonCode": "CLAIM_VALIDATION_FAILED"
+        }
+      ]
+    },
+    {
+      "evidenceCount": 1,
+      "elapsedMs": 1,
+      "outcome": "CLAIM_VALIDATION_FAILED",
+      "rejections": [
+        {
+          "suggestion": {
+            "type": "rewrite",
+            "targetEvidenceId": "synthetic-1",
+            "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+            "after": "\\item Developed REST APIs using Node.js for synthetic inventory project 1.",
+            "evidenceIds": [
+              "synthetic-1"
+            ],
+            "reason": "Calibration",
+            "confidence": 0.8
+          },
+          "validation": {
+            "valid": false,
+            "unsupportedClaims": [
+              {
+                "claim": "\\item Developed REST APIs using Node.js for synthetic inventory project 1.",
+                "reason": "Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected."
+              }
+            ],
+            "warnings": [],
+            "evidenceIds": [
+              "synthetic-1"
+            ]
+          },
+          "evidence": [
+            {
+              "id": "synthetic-1",
+              "text": "Built REST APIs using Node.js for synthetic inventory project 1.",
+              "rawText": "\\item Built REST APIs using Node.js for synthetic inventory project 1."
+            }
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 1,
+          "matchEvidenceIdsCount": 1,
+          "verifiedEvidenceCount": 1,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.rejected.claim_validation",
+          "requirementId": "probe-1",
+          "unsupportedClaimCount": 1,
+          "validationReasons": "[\"Claim is not explicitly established by the supplied evidence; ambiguous paraphrases and added qualifications, experience, responsibilities or impact are rejected.\"]",
+          "reasonCode": "CLAIM_VALIDATION_FAILED"
+        }
+      ]
+    }
+  ]
+}

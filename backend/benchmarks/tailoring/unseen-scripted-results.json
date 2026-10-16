@@ -1,0 +1,815 @@
+{
+  "runId": "fa13c39e-7fd4-4167-9d5b-d992588eace0",
+  "metricsVersion": 3,
+  "syntheticOnly": true,
+  "cloudRequests": false,
+  "databaseUsed": false,
+  "retries": 0,
+  "timeoutMs": 30000,
+  "model": "qwen3:1.7b",
+  "datasetVersion": "unseen-1",
+  "datasetSha256": "3fcfe7510e7cd25ffbd97d74b9b495db212d0ed53995a35b71de0515dcc1083f",
+  "oracleSha256": "89a59549c26281fffa769cea88351afaddd521e05050e0c7b3b2acfd9d8e7229",
+  "cases": [
+    {
+      "id": "unseen-elixir-project",
+      "requirement": "Elixir.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Elixir"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "a6325a2d97c71ead2d40d52f6ef476537334b09b914df5ed7f0db9203c0fdc33",
+        "highlightText": "Elixir",
+        "evidenceIds": [
+          "a6325a2d97c71ead2d40d52f6ef476537334b09b914df5ed7f0db9203c0fdc33"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 5,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "a6325a2d97c71ead2d40d52f6ef476537334b09b914df5ed7f0db9203c0fdc33",
+        "before": "\\item Implemented Elixir workers for a student timetable.",
+        "after": "\\item Implemented \\textbf{Elixir} workers for a student timetable.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "a6325a2d97c71ead2d40d52f6ef476537334b09b914df5ed7f0db9203c0fdc33"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "Elixir"
+    },
+    {
+      "id": "unseen-postgres-category",
+      "requirement": "PostgreSQL.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "PostgreSQL"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "f71f54e554d4d6db52cb739eea75e955dd209d1835cd38cc9876c6f3982e348d",
+        "highlightText": "PostgreSQL",
+        "evidenceIds": [
+          "f71f54e554d4d6db52cb739eea75e955dd209d1835cd38cc9876c6f3982e348d"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 0,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "f71f54e554d4d6db52cb739eea75e955dd209d1835cd38cc9876c6f3982e348d",
+        "before": "\\textbf{Databases:} PostgreSQL; Neo4j.",
+        "after": "\\textbf{Databases:} \\textbf{PostgreSQL}; Neo4j.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "f71f54e554d4d6db52cb739eea75e955dd209d1835cd38cc9876c6f3982e348d"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "PostgreSQL"
+    },
+    {
+      "id": "unseen-redis-summary",
+      "requirement": "Redis.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Redis"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "7366ea8a53a8bddfc170315aef44c14699dd7237e84e88277c78ae06e851892d",
+        "highlightText": "Redis",
+        "evidenceIds": [
+          "7366ea8a53a8bddfc170315aef44c14699dd7237e84e88277c78ae06e851892d"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 1,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "7366ea8a53a8bddfc170315aef44c14699dd7237e84e88277c78ae06e851892d",
+        "before": "Built Redis caches for a campus notice board.",
+        "after": "Built \\textbf{Redis} caches for a campus notice board.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "7366ea8a53a8bddfc170315aef44c14699dd7237e84e88277c78ae06e851892d"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "Redis"
+    },
+    {
+      "id": "unseen-bash-coursework",
+      "requirement": "Bash.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Bash"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "f264597fd610d53de05ab279f82d1b79b4b44c63198886e997c17df73c848186",
+        "highlightText": "Bash",
+        "evidenceIds": [
+          "f264597fd610d53de05ab279f82d1b79b4b44c63198886e997c17df73c848186"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 1,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "f264597fd610d53de05ab279f82d1b79b4b44c63198886e997c17df73c848186",
+        "before": "\\item Wrote Bash scripts to archive laboratory reports.",
+        "after": "\\item Wrote \\textbf{Bash} scripts to archive laboratory reports.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "f264597fd610d53de05ab279f82d1b79b4b44c63198886e997c17df73c848186"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "Bash"
+    },
+    {
+      "id": "unseen-kotlin-not-java",
+      "requirement": "Java.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "MISSING",
+      "relevant": [],
+      "retrievedAnchors": [],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-nosql-language",
+      "requirement": "SQL.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "MISSING",
+      "relevant": [],
+      "retrievedAnchors": [],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-k8s-missing",
+      "requirement": "Kubernetes.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "MISSING",
+      "relevant": [],
+      "retrievedAnchors": [],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-denial-ruby",
+      "requirement": "Ruby.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "CONFLICT",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-denial-go",
+      "requirement": "Go.",
+      "classification": "CONFLICT",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "CONFLICT",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-learning-python",
+      "requirement": "Python.",
+      "classification": "PARTIAL",
+      "expectedSpans": [
+        "Python"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "32210e847cd3f22c21386e37158450e3ca1f285b9aa51fc9a8ebada03cc377d9",
+        "highlightText": "Python",
+        "evidenceIds": [
+          "32210e847cd3f22c21386e37158450e3ca1f285b9aa51fc9a8ebada03cc377d9"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 1,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "PARTIAL",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "32210e847cd3f22c21386e37158450e3ca1f285b9aa51fc9a8ebada03cc377d9",
+        "before": "\\item Introductory Python notebook exercises.",
+        "after": "\\item Introductory \\textbf{Python} notebook exercises.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "32210e847cd3f22c21386e37158450e3ca1f285b9aa51fc9a8ebada03cc377d9"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "Python"
+    },
+    {
+      "id": "unseen-production-rust",
+      "requirement": "Production Rust experience.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "PARTIAL",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-proficiency-js",
+      "requirement": "Expert JavaScript skills.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "PARTIAL",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": "NO_EDIT_NEEDED"
+    },
+    {
+      "id": "unseen-cicd-summary",
+      "requirement": "CI/CD.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "continuous integration and continuous delivery"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "63b4b4972cbf1c8db3c0dedd0b50420d031d287191b3f0dd3a9f25b779d5dd43",
+        "highlightText": "continuous integration and continuous delivery",
+        "evidenceIds": [
+          "63b4b4972cbf1c8db3c0dedd0b50420d031d287191b3f0dd3a9f25b779d5dd43"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 1,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "63b4b4972cbf1c8db3c0dedd0b50420d031d287191b3f0dd3a9f25b779d5dd43",
+        "before": "Supported continuous integration and continuous delivery for a seminar demo.",
+        "after": "Supported \\textbf{continuous integration and continuous delivery} for a seminar demo.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "63b4b4972cbf1c8db3c0dedd0b50420d031d287191b3f0dd3a9f25b779d5dd43"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "continuous integration and continuous delivery"
+    },
+    {
+      "id": "unseen-deployment-not-delivery",
+      "requirement": "Continuous deployment.",
+      "classification": "MISSING",
+      "expectedSpans": [],
+      "providerCalled": false,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 0,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "MISSING",
+      "relevant": [],
+      "retrievedAnchors": [],
+      "supportingAnchors": [],
+      "reason": "SUGGESTION_SCOPE_MISMATCH"
+    },
+    {
+      "id": "unseen-opaque-environment",
+      "requirement": "Terraform.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 1,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": "NO_EDIT_NEEDED"
+    },
+    {
+      "id": "unseen-existing-emphasis",
+      "requirement": "GraphQL.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 1,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": "NO_EDIT_NEEDED"
+    },
+    {
+      "id": "unseen-crlf-continuation",
+      "requirement": "Svelte.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "Svelte"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "7239b163894c009f5dfae7bad4cfcb81858d6f425039d36d5e6bdbca81527e24",
+        "highlightText": "Svelte",
+        "evidenceIds": [
+          "7239b163894c009f5dfae7bad4cfcb81858d6f425039d36d5e6bdbca81527e24"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 1,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "resume:2:3"
+      ],
+      "retrievedAnchors": [
+        "resume:2:3"
+      ],
+      "supportingAnchors": [
+        "resume:2:3"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "7239b163894c009f5dfae7bad4cfcb81858d6f425039d36d5e6bdbca81527e24",
+        "before": "\\item Built a Svelte dashboard\r\n  for café volunteers.",
+        "after": "\\item Built a \\textbf{Svelte} dashboard\r\n  for café volunteers.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "7239b163894c009f5dfae7bad4cfcb81858d6f425039d36d5e6bdbca81527e24"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "Svelte"
+    },
+    {
+      "id": "unseen-label-only",
+      "requirement": "Python.",
+      "classification": "STRONG",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 1,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "MISSING",
+      "relevant": [],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": "NO_EDIT_NEEDED"
+    },
+    {
+      "id": "unseen-qualification-denial",
+      "requirement": "Docker.",
+      "classification": "PARTIAL",
+      "expectedSpans": [],
+      "providerCalled": true,
+      "proposal": null,
+      "providerError": null,
+      "providerMs": 1,
+      "generated": false,
+      "useful": false,
+      "sourceSafe": null,
+      "mappingExact": null,
+      "extracted": true,
+      "expectedClassification": "PARTIAL",
+      "relevant": [
+        "resume:2:2"
+      ],
+      "retrievedAnchors": [
+        "resume:2:2"
+      ],
+      "supportingAnchors": [
+        "resume:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": "NO_EDIT_NEEDED"
+    },
+    {
+      "id": "unseen-multiple-files",
+      "requirement": "DuckDB.",
+      "classification": "STRONG",
+      "expectedSpans": [
+        "DuckDB"
+      ],
+      "providerCalled": true,
+      "proposal": {
+        "type": "highlight",
+        "targetEvidenceId": "1bc4cabf97d9fea9726c60a6579bf40c203055de328e6023768a5e12fab6d444",
+        "highlightText": "DuckDB",
+        "evidenceIds": [
+          "1bc4cabf97d9fea9726c60a6579bf40c203055de328e6023768a5e12fab6d444"
+        ],
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "confidence": 0.5
+      },
+      "providerError": null,
+      "providerMs": 1,
+      "generated": true,
+      "useful": true,
+      "sourceSafe": true,
+      "mappingExact": true,
+      "extracted": true,
+      "expectedClassification": "STRONG",
+      "relevant": [
+        "target:2:2"
+      ],
+      "retrievedAnchors": [
+        "target:2:2"
+      ],
+      "supportingAnchors": [
+        "target:2:2"
+      ],
+      "inferenceRequests": 0,
+      "reason": null,
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "1bc4cabf97d9fea9726c60a6579bf40c203055de328e6023768a5e12fab6d444",
+        "before": "\\item Queried DuckDB datasets for a reading group.",
+        "after": "\\item Queried \\textbf{DuckDB} datasets for a reading group.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "1bc4cabf97d9fea9726c60a6579bf40c203055de328e6023768a5e12fab6d444"
+        ],
+        "confidence": 0.5
+      },
+      "referencesValid": true,
+      "selectedSpan": "DuckDB"
+    }
+  ],
+  "mode": "scripted-first-candidate",
+  "metrics": {
+    "requirements": 20,
+    "providerCalls": 13,
+    "upstreamSkipped": 7,
+    "usefulSuggestions": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1
+    },
+    "validatedSuggestionUsefulness": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1
+    },
+    "unnecessaryEdits": {
+      "numerator": 0,
+      "denominator": 8,
+      "value": 0
+    },
+    "unexpectedNoEditSuggestions": {
+      "numerator": 0,
+      "denominator": 12,
+      "value": 0
+    },
+    "inferenceCalls": 0,
+    "noCandidateAbstentions": 5,
+    "modelAbstentions": {
+      "numerator": 0,
+      "denominator": 0,
+      "value": null
+    },
+    "noSuggestionOnUsefulCases": 0,
+    "unmetUsefulExpectations": 0,
+    "invalidResponses": 0,
+    "timeouts": 0,
+    "contextLimitFailures": 0,
+    "otherProviderFailures": 0,
+    "downstreamGuardRejections": 0,
+    "unsupportedClaimsRejected": 0,
+    "generatedSourceSafety": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1
+    },
+    "exactSourceMappings": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1
+    },
+    "latencyMs": {
+      "sampleCount": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "evidenceMetrics": {
+    "extraction": {
+      "numerator": 20,
+      "denominator": 20,
+      "value": 1
+    },
+    "classification": {
+      "numerator": 19,
+      "denominator": 20,
+      "value": 0.95
+    },
+    "falseStrong": {
+      "numerator": 1,
+      "denominator": 11,
+      "value": 0.09090909090909091
+    },
+    "missedStrong": {
+      "numerator": 0,
+      "denominator": 9,
+      "value": 0
+    },
+    "retrievalPrecision": {
+      "numerator": 15,
+      "denominator": 16,
+      "value": 0.9375
+    },
+    "retrievalRecall": {
+      "numerator": 15,
+      "denominator": 15,
+      "value": 1
+    },
+    "missedEvidence": [],
+    "falseSupportingRecords": 1,
+    "forbiddenSupportCases": 7,
+    "invalidSuggestionReferences": 0
+  },
+  "transportRequests": 0,
+  "completed": true,
+  "acceptance": {
+    "extraction": true,
+    "classification": true,
+    "noFalseStrong": false,
+    "noFalseSupport": false,
+    "retrievalRecall": true,
+    "useful": true,
+    "noUnnecessaryEdits": true,
+    "references": true,
+    "exactSource": true,
+    "noProviderErrors": true
+  }
+}

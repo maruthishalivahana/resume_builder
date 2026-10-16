@@ -5,6 +5,7 @@ export interface ILatexFolder extends Document {
   name: string;
   path: string;
   parentFolderId: Types.ObjectId | null;
+  treeVersion?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,6 +33,7 @@ const LatexFolderSchema = new Schema<ILatexFolder>(
       ref: "LatexFolder",
       default: null,
     },
+    treeVersion: { type: Number, default: 0 },
   },
   {
     timestamps: true,

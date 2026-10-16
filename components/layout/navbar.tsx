@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { resume, saveStatus, isAIAssistantOpen, toggleAIAssistant } = useResume();
+  const { resumeBasePath,  resume, saveStatus, isAIAssistantOpen, toggleAIAssistant } = useResume();
 
   const isEditor = pathname.includes("/editor");
   const isLatex = pathname.includes("/latex");
@@ -68,11 +68,15 @@ export function Navbar() {
               <Loader2 className="w-3 h-3 animate-spin text-amber-400" />
               <span>Saving...</span>
             </>
-          ) : (
+          ) : saveStatus === "saved" ? (
             <>
               <Check className="w-3 h-3 text-emerald-400" />
               <span className="text-neutral-500">Saved</span>
             </>
+          ) : (
+            <span className={saveStatus === "error" ? "text-rose-400" : "text-amber-400"}>
+              {saveStatus === "error" ? "Save failed" : "Unsaved"}
+            </span>
           )}
         </div>
       </div>
@@ -80,7 +84,7 @@ export function Navbar() {
       {/* Center: Mode Switcher Tabs (Strict Top Nav Architecture) */}
       <div className="hidden md:flex items-center p-1 rounded-lg bg-black/50 border border-white/[0.06] text-xs">
         <Link
-          href="/resume/demo/editor"
+          href={`${resumeBasePath}/editor`}
           className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
             isEditor
               ? "bg-[#1C1C1F] text-white shadow-sm font-medium border border-white/10"
@@ -92,7 +96,7 @@ export function Navbar() {
         </Link>
 
         <Link
-          href="/resume/demo/latex"
+          href={`${resumeBasePath}/latex`}
           className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
             isLatex
               ? "bg-[#1C1C1F] text-white shadow-sm font-medium border border-white/10"
@@ -104,7 +108,7 @@ export function Navbar() {
         </Link>
 
         <Link
-          href="/resume/demo/preview"
+          href={`${resumeBasePath}/preview`}
           className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
             isPreview
               ? "bg-[#1C1C1F] text-white shadow-sm font-medium border border-white/10"
@@ -116,7 +120,7 @@ export function Navbar() {
         </Link>
 
         <Link
-          href="/resume/demo/ats"
+          href={`${resumeBasePath}/ats`}
           className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
             isATS
               ? "bg-[#1C1C1F] text-white shadow-sm font-medium border border-white/10"
@@ -161,7 +165,7 @@ export function Navbar() {
           <span className="font-mono text-[11px]">⌘K</span>
         </button>
 
-        <Link href="/resume/demo/preview">
+        <Link href={`${resumeBasePath}/preview`}>
           <Button variant="primary" size="sm">
             <Download className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Export PDF</span>

@@ -18,15 +18,21 @@ import {
 import { useResume } from "@/hooks/use-resume";
 import { PDFPreview } from "@/components/preview/pdf-preview";
 import { LatexCodeEditor } from "@/components/latex/latex-code-editor";
+import { SaveConflictPanel } from "@/components/latex/save-conflict-panel";
 
 export function LatexWorkspace() {
   const {
     activeFile,
     files,
     entryFileId,
+    compileTargetId, selectCompileTarget,
+    setEntryFile,
     editorContent,
     onEditorChange,
     fileSaveStatus,
+    fileSaveError,
+    saveConflicts, recoveryDrafts, draftRecoveryError, fileOperationBusy,
+    refreshSaveConflict, resolveSaveConflict, editSaveConflict, discardRecoveryDraft, selectFile,
     flushSave,
     uploadStatus,
     uploadFile,
@@ -45,7 +51,7 @@ export function LatexWorkspace() {
   } = useResume();
 
   const entryFileName =
-    files.find((file) => file.id === entryFileId)?.path || "configured entry file";
+    files.find((file) => file.id === (compileTargetId ?? entryFileId))?.path || "selected target";
 
   const [activeLine, setActiveLine] = useState<number>(1);
   const [activeCol, setActiveCol] = useState<number>(1);
@@ -53,6 +59,17 @@ export function LatexWorkspace() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isWrapLines, setIsWrapLines] = useState<boolean>(false);
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
+  const [mobilePreview, setMobilePreview] = useState(false);
+  const [isSelectingEntry, setIsSelectingEntry] = useState(false);
+  const [entryError, setEntryError] = useState<string | null>(null);
+  const entryFiles = files.filter(file => file.path.toLowerCase().endsWith(".tex"));
+
+  const handleEntryChange = async (fileId: string) => {
+    setIsSelectingEntry(true); setEntryError(null);
+    try { await setEntryFile(fileId); }
+    catch (error) { setEntryError(error instanceof Error ? error.message : "Could not save the entry selection."); }
+    finally { setIsSelectingEntry(false); }
+  };
 
   const handleCursorChange = useCallback((line: number, col: number) => {
     setActiveLine(line);
@@ -122,9 +139,14 @@ export function LatexWorkspace() {
         </div>
       )}
       {/* Main 2-Way Split: CodeMirror 6 Editor + PDF Preview */}
+      <div className="lg:hidden px-3 py-2 border-b border-white/10">
+        <button onClick={() => { setMobilePreview(value => !value); setIsMaximized(false); }} className="text-xs underline">
+          {mobilePreview ? "Show editor" : "Show PDF preview"}
+        </button>
+      </div>
       <div className="flex-1 flex overflow-hidden">
         {/* Left/Center: Monospace CodeMirror 6 Editor */}
-        <div className="flex-1 flex flex-col bg-[#070709] border-r border-white/[0.08] min-w-0 overflow-hidden">
+        <div className={`${mobilePreview ? "hidden lg:flex" : "flex"} flex-1 flex-col bg-[#070709] border-r border-white/[0.08] min-w-0 overflow-hidden`}>
           {/* Editor Header Bar */}
           <div className="h-9 border-b border-white/[0.06] px-3 bg-[#0B0B0E] flex items-center justify-between text-[11px] text-neutral-400 font-mono shrink-0">
             <div className="flex items-center gap-2 min-w-0">
@@ -141,7 +163,7 @@ export function LatexWorkspace() {
               <button
                 type="button"
                 onClick={compileLatex}
-                disabled={isCompiling}
+                disabled={isCompiling || isSelectingEntry}
                 className={`cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-sans font-medium transition-colors shrink-0 disabled:opacity-60 ${
                   isCompiling
                     ? "bg-amber-400/20 text-amber-300 border border-amber-400/40"
@@ -151,11 +173,7 @@ export function LatexWorkspace() {
                     ? "bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40"
                     : "bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40"
                 }`}
-                title={
-                  isPdfStale
-                    ? "Changes since last compile — click to recompile"
-                    : "Compile LaTeX with pdflatex (⌘+Enter / Ctrl+Enter)"
-                }
+                title={`Compile entry: ${entryFileName} (⌘+Enter / Ctrl+Enter)`}
               >
                 {isCompiling ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-400" />
@@ -164,14 +182,14 @@ export function LatexWorkspace() {
                 ) : (
                   <Play className="w-3 h-3 fill-current" />
                 )}
-                <span>
+                <span className="truncate max-w-[220px]">
                   {isCompiling
                     ? "Compiling…"
                     : compileStatus === "error"
                     ? "Compile Failed"
                     : isPdfStale
                     ? "Recompile PDF"
-                    : "Compile PDF"}
+                    : "Compile entry"}: {entryFileName}
                 </span>
               </button>
 
@@ -282,6 +300,44 @@ export function LatexWorkspace() {
             </div>
           </div>
 
+          <div className="px-3 py-2 border-b border-white/[0.06] text-xs text-neutral-300 flex flex-wrap items-center gap-2">
+            <label htmlFor="compilation-entry">Default entry</label>
+            <select id="compilation-entry" value={entryFiles.some(file => file.id === entryFileId) ? entryFileId! : ""}
+              disabled={isCompiling || isSelectingEntry || entryFiles.length === 0}
+              onChange={event => void handleEntryChange(event.target.value)}
+              className="bg-[#0B0B0E] border border-white/10 rounded px-2 py-1 max-w-full">
+              <option value="" disabled>Select a .tex entry file</option>
+              {entryFiles.map(file => <option key={file.id} value={file.id}>{file.path}</option>)}
+            </select>
+            <label>Compile target <select aria-label="Editor compile target" value={compileTargetId ?? entryFileId ?? ""}
+              onChange={event => void selectCompileTarget(event.target.value)} className="bg-[#0B0B0E] border border-white/10 rounded px-2 py-1">
+              <option value="" disabled>Select a .tex file</option>
+              {entryFiles.map(file => <option key={file.id} value={file.id}>{file.path}</option>)}
+            </select></label>
+            <span className="text-neutral-500">{isSelectingEntry ? "Saving entry selection…" : "Opening a file does not change the compilation entry."}</span>
+          </div>
+          {activeFile && (compileTargetId ?? entryFileId) && activeFile.id !== (compileTargetId ?? entryFileId) && (
+            <div role="status" className="px-3 py-2 text-xs text-amber-300 bg-amber-500/10 border-b border-amber-500/20">
+              Editing {activeFile.path}. Compile builds {entryFileName}; edits appear in that PDF only if the entry includes this file.
+              {activeFile.path.toLowerCase().endsWith(".tex") && (
+                <button type="button" onClick={() => void selectCompileTarget(activeFile.id)} disabled={isCompiling || isSelectingEntry}
+                  className="ml-2 underline disabled:opacity-50">Use open file as compile target</button>
+              )}
+            </div>
+          )}
+          {entryError && <div role="alert" className="px-3 py-2 text-xs text-rose-300">{entryError}</div>}
+          {fileSaveError && <div role="alert" className="px-3 py-2 text-xs text-rose-300">{fileSaveError} Local edits are retained. {saveConflicts.length ? "Review the conflict below." : "Use Save to retry."}</div>}
+          {draftRecoveryError && <div role="alert" className="px-3 py-2 text-xs text-rose-300">{draftRecoveryError}</div>}
+          <div className="max-h-[50vh] overflow-auto">
+            {saveConflicts.map(conflict => <SaveConflictPanel key={conflict.id} conflict={conflict}
+              name={files.find(file => file.id === conflict.id)?.path ?? conflict.id} refresh={refreshSaveConflict} resolve={resolveSaveConflict} edit={editSaveConflict} />)}
+            {recoveryDrafts.map(draft => <section key={draft.id} className="p-3 text-xs space-y-2">
+              <p>Recovered draft for {files.find(file => file.id === draft.id)?.path ?? draft.id}. Open it to reconcile before compiling.</p>
+              <textarea readOnly value={draft.content} className="w-full h-24 bg-black select-text font-mono" aria-label="Recovered draft" />
+              {files.some(file => file.id === draft.id) && <button onClick={() => void selectFile(draft.id)}>Open recovered file</button>}
+              <button className="ml-3" onClick={() => discardRecoveryDraft(draft.id)}>Discard recovered draft</button>
+            </section>)}
+          </div>
           {/* Real CodeMirror 6 LaTeX Editor */}
           <div className="flex-1 min-w-0 overflow-hidden flex flex-col bg-[#070709] relative select-text">
             {activeFile ? (
@@ -291,7 +347,8 @@ export function LatexWorkspace() {
                 fileId={activeFile.id}
                 isWrapLines={isWrapLines}
                 onCursorChange={handleCursorChange}
-                onSave={flushSave}
+                onSave={() => { void flushSave().catch(() => {}); }}
+                readOnly={isCompiling || fileOperationBusy === activeFile.id || !activeFile.contentLoaded}
                 targetLine={activeErrorLine}
                 highlightRange={editorHighlightRange}
               />
@@ -389,7 +446,7 @@ export function LatexWorkspace() {
 
         {/* Right: PDF Preview (hidden when editor is maximized) */}
         {!isMaximized && (
-          <div className="w-[48%] shrink-0 hidden lg:block border-l border-white/[0.06]">
+          <div className={`${mobilePreview ? "block w-full" : "hidden"} lg:block lg:w-[48%] shrink-0 border-l border-white/[0.06]`}>
             <PDFPreview />
           </div>
         )}

@@ -15,7 +15,7 @@ import {
 import { useResume } from "@/hooks/use-resume";
 
 export function VersionList() {
-  const { resume } = useResume();
+  const { resumeBasePath,  resume } = useResume();
 
   return (
     <div className="rounded-xl border border-white/[0.08] bg-[#0A0A0E] p-5 space-y-4">
@@ -56,13 +56,13 @@ export function VersionList() {
 
             <div className="flex items-center gap-2 shrink-0">
               <Link
-                href="/resume/demo/editor"
+                href={`${resumeBasePath}/editor`}
                 className="px-2.5 py-1 rounded-md text-xs font-medium bg-white/[0.05] hover:bg-white/[0.1] text-neutral-300 hover:text-white transition-colors"
               >
                 Open
               </Link>
               <Link
-                href="/resume/demo/latex"
+                href={`${resumeBasePath}/latex`}
                 className="px-2.5 py-1 rounded-md text-xs font-medium text-neutral-500 hover:text-neutral-300 transition-colors"
               >
                 LaTeX

@@ -3,6 +3,8 @@ import {
   MatchClassificationResult,
   MatchReasonCode,
 } from "../types";
+import { evidenceTerms, containsEvidenceTerm, normalizeEvidenceText, isSubstantiveEvidenceTerm } from "../utils/evidence-terms.util";
+import { explicitlyNegatesRequirement } from "../utils/evidence-negation.util";
 
 export interface ClassifierEvidence {
   id: string;
@@ -65,7 +67,7 @@ export class MatchClassifierService {
       return this.result("MISSING", 0.99, [], evidenceScores, "No supporting resume evidence was found.");
     }
 
-    const conflict = evidence.filter((item) => this.hasConflict(requirement.text, item.text));
+    const conflict = evidence.filter((item) => explicitlyNegatesRequirement(requirement.text, item.text) || this.hasConflict(requirement.text, item.text));
     if (conflict.length > 0) {
       return this.result("CONFLICT", this.confidence(conflict[0], 0.95), conflict.map(e => e.id), evidenceScores, "Resume evidence explicitly contradicts the requested requirement.");
     }
@@ -78,6 +80,10 @@ export class MatchClassifierService {
         return requirementTechnologies.every((technology) => available.includes(technology));
       });
       if (exact.length > 0) {
+        const qualifications = evidenceTerms(requirement.text).filter(term => /^(production|professional|commercial|expert|advanced|proficient|senior|certified|certification)$/.test(term));
+        if (exact.every(item => qualifications.some(term => !containsEvidenceTerm(item.text, term)) || /\b(no|not|never|without|learning|introductory)\b/i.test(item.text))) {
+          return this.result("PARTIAL", this.confidence(exact[0], 0.5), exact.map(e => e.id), evidenceScores, "The technology is mentioned, but the requested qualifications or affirmative experience are not established.");
+        }
         if (requirement.category === "experience" && exact.every(e => /\b(coursework|class project|academic)\b/i.test(e.text))) {
           return this.result("PARTIAL", this.confidence(exact[0], 0.55), exact.map(e => e.id), evidenceScores, "The technology appears in coursework or academic context, not explicit professional experience.");
         }
@@ -109,20 +115,25 @@ export class MatchClassifierService {
 
     const terms = this.requirementTerms(requirement.text);
     const matched = evidence.filter((item) => this.matchingTerms(terms, item.text).length >= Math.max(1, Math.ceil(terms.length * 0.5)));
+    const exactSkill = matched.filter(item => terms.length > 0 && this.matchingTerms(terms, item.text).length === terms.length && !/\b(no|not|never|without|learning|introductory)\b/i.test(item.text));
+    if ((requirement.category === "skill" || requirement.category === "tool") && exactSkill.length > 0 && !this.requiresDuration(requirement.text)) {
+      return this.result("STRONG", this.confidence(exactSkill[0], 0.9), exactSkill.map(item => item.id), evidenceScores, "The requested skill terms are explicitly present in the evidence.");
+    }
     if (matched.length > 0 && (requirement.category === "education" || requirement.category === "certification")) {
       const strongEdu = matched.filter((item) => this.matchingTerms(terms, item.text).length >= Math.max(1, Math.ceil(terms.length * 0.5)));
       if (strongEdu.length > 0) {
         return this.result("STRONG", this.confidence(strongEdu[0], 0.9), strongEdu.map(e => e.id), evidenceScores, "Explicit evidence directly satisfies the education or certification requirement.");
       }
     }
-    const responsibilityMatches = matched.filter((item) => this.hasDirectResponsibilitySignal(requirement.text, item.text));
+    const responsibilityMatches = matched.filter((item) => this.hasDirectResponsibilitySignal(requirement.text, item.text) &&
+      this.matchingTerms(terms, item.text).length === terms.length);
     if (responsibilityMatches.length > 0) {
       return this.result("STRONG", this.confidence(responsibilityMatches[0], 0.9), responsibilityMatches.map(e => e.id), evidenceScores, "Explicit evidence directly demonstrates the requested responsibility or capability.");
     }
     if (matched.length > 0) {
       return this.result("PARTIAL", this.confidence(matched[0], 0.6), matched.map(e => e.id), evidenceScores, "Evidence supports an important part of the requirement but does not establish the complete requirement.");
     }
-    if ((best.hybridScore ?? best.score ?? 0) < 0.25 || this.matchingTerms(terms, best.text).length === 0) {
+    if ((best.hybridScore ?? best.score ?? 0) < 0.25 || !this.matchingTerms(terms, best.text).some(isSubstantiveEvidenceTerm)) {
       return this.result("MISSING", 0.9, [], evidenceScores, "No supporting resume evidence was found for this requirement.");
     }
     return this.result("WEAK", this.confidence(best, 0.3), [best.id], evidenceScores, "Related evidence was retrieved, but it does not sufficiently establish the requested capability.");
@@ -182,17 +193,16 @@ export class MatchClassifierService {
   }
 
   private requirementTerms(text: string): string[] {
-    return text.toLowerCase().split(/[^a-z0-9+#.]+/).filter((term) => term.length > 2 && !["experience", "years", "with", "and", "the"].includes(term));
+    return evidenceTerms(text);
   }
 
   private matchingTerms(terms: string[], text: string): string[] {
-    const lower = text.toLowerCase();
-    return terms.filter((term) => lower.includes(term));
+    return terms.filter((term) => containsEvidenceTerm(text, term));
   }
 
   private hasDirectResponsibilitySignal(requirement: string, evidence: string): boolean {
-    const requiredSignals = requirement.toLowerCase().match(/\b(develop\w*|build\w*|design\w*|manage\w*|lead\w*|maintain\w*|implement\w*|create\w*|deploy\w*)\b/g) ?? [];
-    const evidenceSignals = evidence.toLowerCase().match(/\b(develop\w*|build\w*|design\w*|manage\w*|lead\w*|led|maintain\w*|implement\w*|create\w*|deploy\w*)\b/g) ?? [];
+    const requiredSignals = normalizeEvidenceText(requirement).match(/\b(develop\w*|build\w*|design\w*|manage\w*|lead\w*|maintain\w*|implement\w*|create\w*|deploy\w*)\b/g) ?? [];
+    const evidenceSignals = normalizeEvidenceText(evidence).match(/\b(develop\w*|build\w*|design\w*|manage\w*|lead\w*|led|maintain\w*|implement\w*|create\w*|deploy\w*)\b/g) ?? [];
     const stems: Record<string, string[]> = {
       develop: ["develop", "built"],
       build: ["build", "built"],

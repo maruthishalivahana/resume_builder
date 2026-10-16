@@ -6,4 +6,18 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
+# RESUME.ENG Codex Instructions
+
+- Read the relevant existing code before editing.
+- Implement only the requested issue; avoid unrelated refactoring.
+- Preserve working architecture and previously verified safeguards.
+- Never weaken evidence grounding or restore fabricated fallback prose.
+- Preserve exact LaTeX source mapping, revision checks, and recovery behavior.
+- Prefer deterministic local tests. Never run database-writing tests against `resume_eng` without explicit authorization.
+- Run relevant regression tests, TypeScript checks, and targeted lint together.
+- Do not make paid/cloud model calls unless explicitly authorized.
+- Report changed files, exact commands and results, and unverified behavior.
+- Do not claim a feature is verified when only mocked tests passed.
+- Stop when the acceptance criteria pass; wait for approval before starting the next issue.
+
 <!-- END:nextjs-agent-rules -->

@@ -1,0 +1,819 @@
+{
+  "startedAt": "2026-10-15T02:02:17.998Z",
+  "syntheticOnly": true,
+  "databaseUsed": false,
+  "productionConfigChanged": false,
+  "automaticRetries": false,
+  "cases": [
+    {
+      "phase": "baseline",
+      "requestedModel": "openrouter/free",
+      "evidenceCount": 1,
+      "timeoutMs": 30000,
+      "elapsedMs": 13454,
+      "outcome": "validated_suggestion",
+      "providerReturned": true,
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js",
+        "targetEvidenceId": "synthetic-1",
+        "reason": "Emphasizes the candidate's direct experience building Node.js REST APIs, which strongly matches the job requirement.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0.95
+      },
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "synthetic-1",
+        "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js} for synthetic inventory project 1.",
+        "reason": "Emphasizes the candidate's direct experience building Node.js REST APIs, which strongly matches the job requirement.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0.95
+      },
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.completed",
+        "requestId": "8ca19bbe-e760-40ee-8c7f-db34c9ca584d",
+        "requirementId": "latency-1",
+        "durationMs": 13448,
+        "stage": "structured_output",
+        "headersDurationMs": 2210,
+        "bodyDurationMs": 11238,
+        "promptBytes": 1899,
+        "requestBytes": 2213,
+        "resolvedModel": "dots-studio/dots-3-note-preview:free",
+        "promptTokens": 411,
+        "completionTokens": 727,
+        "model": "openrouter/free",
+        "contentLength": 310
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 1,
+          "matchEvidenceIdsCount": 1,
+          "verifiedEvidenceCount": 1,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "8ca19bbe-e760-40ee-8c7f-db34c9ca584d",
+          "requirementId": "latency-1",
+          "durationMs": 2,
+          "stage": "headers",
+          "promptBytes": 1899,
+          "requestBytes": 2213,
+          "model": "openrouter/free",
+          "evidenceCount": 1
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.completed",
+          "requestId": "8ca19bbe-e760-40ee-8c7f-db34c9ca584d",
+          "requirementId": "latency-1",
+          "durationMs": 13448,
+          "stage": "structured_output",
+          "headersDurationMs": 2210,
+          "bodyDurationMs": 11238,
+          "promptBytes": 1899,
+          "requestBytes": 2213,
+          "resolvedModel": "dots-studio/dots-3-note-preview:free",
+          "promptTokens": 411,
+          "completionTokens": 727,
+          "model": "openrouter/free",
+          "contentLength": 310
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+      "evidenceCount": 1,
+      "timeoutMs": 30000,
+      "elapsedMs": 4595,
+      "outcome": "validated_suggestion",
+      "providerReturned": true,
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js",
+        "targetEvidenceId": "synthetic-1",
+        "reason": "Matches required experience building Node.js REST APIs",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 1
+      },
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "synthetic-1",
+        "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js} for synthetic inventory project 1.",
+        "reason": "Matches required experience building Node.js REST APIs",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 1
+      },
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.completed",
+        "requestId": "074a7c81-2f0d-4e03-9a59-71b4b2c60d2d",
+        "requirementId": "latency-1",
+        "durationMs": 4595,
+        "stage": "structured_output",
+        "headersDurationMs": 260,
+        "bodyDurationMs": 4335,
+        "promptBytes": 1899,
+        "requestBytes": 2236,
+        "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+        "promptTokens": 458,
+        "completionTokens": 309,
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "contentLength": 223
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 1,
+          "matchEvidenceIdsCount": 1,
+          "verifiedEvidenceCount": 1,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "074a7c81-2f0d-4e03-9a59-71b4b2c60d2d",
+          "requirementId": "latency-1",
+          "durationMs": 1,
+          "stage": "headers",
+          "promptBytes": 1899,
+          "requestBytes": 2236,
+          "model": "nvidia/nemotron-3-super-120b-a12b:free",
+          "evidenceCount": 1
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.completed",
+          "requestId": "074a7c81-2f0d-4e03-9a59-71b4b2c60d2d",
+          "requirementId": "latency-1",
+          "durationMs": 4595,
+          "stage": "structured_output",
+          "headersDurationMs": 260,
+          "bodyDurationMs": 4335,
+          "promptBytes": 1899,
+          "requestBytes": 2236,
+          "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+          "promptTokens": 458,
+          "completionTokens": 309,
+          "model": "nvidia/nemotron-3-super-120b-a12b:free",
+          "contentLength": 223
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "liquid/lfm-2.5-2.6b:free",
+      "evidenceCount": 1,
+      "timeoutMs": 30000,
+      "elapsedMs": 3171,
+      "outcome": "PROVIDER_ERROR",
+      "providerReturned": false,
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.failed",
+        "requestId": "65a072f0-40c2-4faa-8eee-55f30ac8ef15",
+        "requirementId": "latency-1",
+        "durationMs": 3171,
+        "stage": "structured_output",
+        "headersDurationMs": 538,
+        "bodyDurationMs": 2633,
+        "promptBytes": 1899,
+        "requestBytes": 2222,
+        "resolvedModel": "liquid/lfm-2.5-2.6b:free",
+        "promptTokens": 446,
+        "completionTokens": 441,
+        "reason": "invalid_structured_output"
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 1,
+          "matchEvidenceIdsCount": 1,
+          "verifiedEvidenceCount": 1,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "65a072f0-40c2-4faa-8eee-55f30ac8ef15",
+          "requirementId": "latency-1",
+          "durationMs": 0,
+          "stage": "headers",
+          "promptBytes": 1899,
+          "requestBytes": 2222,
+          "model": "liquid/lfm-2.5-2.6b:free",
+          "evidenceCount": 1
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.failed",
+          "requestId": "65a072f0-40c2-4faa-8eee-55f30ac8ef15",
+          "requirementId": "latency-1",
+          "durationMs": 3171,
+          "stage": "structured_output",
+          "headersDurationMs": 538,
+          "bodyDurationMs": 2633,
+          "promptBytes": 1899,
+          "requestBytes": 2222,
+          "resolvedModel": "liquid/lfm-2.5-2.6b:free",
+          "promptTokens": 446,
+          "completionTokens": 441,
+          "reason": "invalid_structured_output"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.skipped.provider_error",
+          "errorType": "Error",
+          "reasonCode": "PROVIDER_ERROR",
+          "message": "OpenRouter returned a grounded suggestion with an invalid schema"
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+      "evidenceCount": 3,
+      "timeoutMs": 30000,
+      "elapsedMs": 5929,
+      "outcome": "validated_suggestion",
+      "providerReturned": true,
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js",
+        "targetEvidenceId": "synthetic-1",
+        "reason": "Highlights relevant experience matching job requirement.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0
+      },
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "synthetic-1",
+        "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js} for synthetic inventory project 1.",
+        "reason": "Highlights relevant experience matching job requirement.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0
+      },
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.completed",
+        "requestId": "8df3a0d7-e0fb-4d6e-871e-004023680e66",
+        "requirementId": "latency-3",
+        "durationMs": 5928,
+        "stage": "structured_output",
+        "headersDurationMs": 239,
+        "bodyDurationMs": 5689,
+        "promptBytes": 2515,
+        "requestBytes": 2934,
+        "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+        "promptTokens": 626,
+        "completionTokens": 385,
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "contentLength": 225
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 3,
+          "matchEvidenceIdsCount": 3,
+          "verifiedEvidenceCount": 3,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "8df3a0d7-e0fb-4d6e-871e-004023680e66",
+          "requirementId": "latency-3",
+          "durationMs": 1,
+          "stage": "headers",
+          "promptBytes": 2515,
+          "requestBytes": 2934,
+          "model": "nvidia/nemotron-3-super-120b-a12b:free",
+          "evidenceCount": 3
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.completed",
+          "requestId": "8df3a0d7-e0fb-4d6e-871e-004023680e66",
+          "requirementId": "latency-3",
+          "durationMs": 5928,
+          "stage": "structured_output",
+          "headersDurationMs": 239,
+          "bodyDurationMs": 5689,
+          "promptBytes": 2515,
+          "requestBytes": 2934,
+          "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+          "promptTokens": 626,
+          "completionTokens": 385,
+          "model": "nvidia/nemotron-3-super-120b-a12b:free",
+          "contentLength": 225
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "liquid/lfm-2.5-2.6b:free",
+      "evidenceCount": 3,
+      "timeoutMs": 30000,
+      "elapsedMs": 2946,
+      "outcome": "PROVIDER_ERROR",
+      "providerReturned": false,
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.failed",
+        "requestId": "b3118a34-4372-4f78-bf80-974bf841265a",
+        "requirementId": "latency-3",
+        "durationMs": 2946,
+        "stage": "structured_output",
+        "headersDurationMs": 973,
+        "bodyDurationMs": 1972,
+        "promptBytes": 2515,
+        "requestBytes": 2920,
+        "resolvedModel": "liquid/lfm-2.5-2.6b:free",
+        "promptTokens": 606,
+        "completionTokens": 530,
+        "reason": "invalid_structured_output"
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 3,
+          "matchEvidenceIdsCount": 3,
+          "verifiedEvidenceCount": 3,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "b3118a34-4372-4f78-bf80-974bf841265a",
+          "requirementId": "latency-3",
+          "durationMs": 1,
+          "stage": "headers",
+          "promptBytes": 2515,
+          "requestBytes": 2920,
+          "model": "liquid/lfm-2.5-2.6b:free",
+          "evidenceCount": 3
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.failed",
+          "requestId": "b3118a34-4372-4f78-bf80-974bf841265a",
+          "requirementId": "latency-3",
+          "durationMs": 2946,
+          "stage": "structured_output",
+          "headersDurationMs": 973,
+          "bodyDurationMs": 1972,
+          "promptBytes": 2515,
+          "requestBytes": 2920,
+          "resolvedModel": "liquid/lfm-2.5-2.6b:free",
+          "promptTokens": 606,
+          "completionTokens": 530,
+          "reason": "invalid_structured_output"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.skipped.provider_error",
+          "errorType": "Error",
+          "reasonCode": "PROVIDER_ERROR",
+          "message": "OpenRouter returned a grounded suggestion with an invalid schema"
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "openrouter/free",
+      "evidenceCount": 3,
+      "timeoutMs": 30000,
+      "elapsedMs": 29062,
+      "outcome": "validated_suggestion",
+      "providerReturned": true,
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js",
+        "targetEvidenceId": "synthetic-1",
+        "reason": "Directly matches the required skill 'Experience building Node.js REST APIs' with explicit technology mention",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0.95
+      },
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "synthetic-1",
+        "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js} for synthetic inventory project 1.",
+        "reason": "Directly matches the required skill 'Experience building Node.js REST APIs' with explicit technology mention",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0.95
+      },
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.completed",
+        "requestId": "3bd26086-1617-48c7-bc94-6073878e95b2",
+        "requirementId": "latency-3",
+        "durationMs": 29061,
+        "stage": "structured_output",
+        "headersDurationMs": 324,
+        "bodyDurationMs": 28737,
+        "promptBytes": 2515,
+        "requestBytes": 2911,
+        "resolvedModel": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "promptTokens": 626,
+        "completionTokens": 382,
+        "model": "openrouter/free",
+        "contentLength": 294
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 3,
+          "matchEvidenceIdsCount": 3,
+          "verifiedEvidenceCount": 3,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "3bd26086-1617-48c7-bc94-6073878e95b2",
+          "requirementId": "latency-3",
+          "durationMs": 1,
+          "stage": "headers",
+          "promptBytes": 2515,
+          "requestBytes": 2911,
+          "model": "openrouter/free",
+          "evidenceCount": 3
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.completed",
+          "requestId": "3bd26086-1617-48c7-bc94-6073878e95b2",
+          "requirementId": "latency-3",
+          "durationMs": 29061,
+          "stage": "structured_output",
+          "headersDurationMs": 324,
+          "bodyDurationMs": 28737,
+          "promptBytes": 2515,
+          "requestBytes": 2911,
+          "resolvedModel": "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "promptTokens": 626,
+          "completionTokens": 382,
+          "model": "openrouter/free",
+          "contentLength": 294
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "liquid/lfm-2.5-2.6b:free",
+      "evidenceCount": 12,
+      "timeoutMs": 30000,
+      "elapsedMs": 3841,
+      "outcome": "PROVIDER_ERROR",
+      "providerReturned": false,
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.failed",
+        "requestId": "6614b877-8b5b-4947-8c3d-16ff913718d7",
+        "requirementId": "latency-12",
+        "durationMs": 3839,
+        "stage": "structured_output",
+        "headersDurationMs": 451,
+        "bodyDurationMs": 3388,
+        "promptBytes": 5299,
+        "requestBytes": 6073,
+        "resolvedModel": "liquid/lfm-2.5-2.6b:free",
+        "promptTokens": 1326,
+        "completionTokens": 771,
+        "reason": "invalid_structured_output"
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 12,
+          "matchEvidenceIdsCount": 12,
+          "verifiedEvidenceCount": 12,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "6614b877-8b5b-4947-8c3d-16ff913718d7",
+          "requirementId": "latency-12",
+          "durationMs": 2,
+          "stage": "headers",
+          "promptBytes": 5299,
+          "requestBytes": 6073,
+          "model": "liquid/lfm-2.5-2.6b:free",
+          "evidenceCount": 12
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.failed",
+          "requestId": "6614b877-8b5b-4947-8c3d-16ff913718d7",
+          "requirementId": "latency-12",
+          "durationMs": 3839,
+          "stage": "structured_output",
+          "headersDurationMs": 451,
+          "bodyDurationMs": 3388,
+          "promptBytes": 5299,
+          "requestBytes": 6073,
+          "resolvedModel": "liquid/lfm-2.5-2.6b:free",
+          "promptTokens": 1326,
+          "completionTokens": 771,
+          "reason": "invalid_structured_output"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "generation.skipped.provider_error",
+          "errorType": "Error",
+          "reasonCode": "PROVIDER_ERROR",
+          "message": "OpenRouter returned a grounded suggestion with an invalid schema"
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "openrouter/free",
+      "evidenceCount": 12,
+      "timeoutMs": 30000,
+      "elapsedMs": 4088,
+      "outcome": "validated_suggestion",
+      "providerReturned": true,
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js",
+        "targetEvidenceId": "synthetic-1",
+        "reason": "Highlight experience building Node.js REST APIs matching job requirement.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 1
+      },
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "synthetic-1",
+        "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js} for synthetic inventory project 1.",
+        "reason": "Highlight experience building Node.js REST APIs matching job requirement.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 1
+      },
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.completed",
+        "requestId": "f8bd781a-94d7-40b0-9129-ba0a44631db6",
+        "requirementId": "latency-12",
+        "durationMs": 4088,
+        "stage": "structured_output",
+        "headersDurationMs": 492,
+        "bodyDurationMs": 3596,
+        "promptBytes": 5299,
+        "requestBytes": 6064,
+        "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+        "promptTokens": 1394,
+        "completionTokens": 307,
+        "model": "openrouter/free",
+        "contentLength": 242
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 12,
+          "matchEvidenceIdsCount": 12,
+          "verifiedEvidenceCount": 12,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "f8bd781a-94d7-40b0-9129-ba0a44631db6",
+          "requirementId": "latency-12",
+          "durationMs": 1,
+          "stage": "headers",
+          "promptBytes": 5299,
+          "requestBytes": 6064,
+          "model": "openrouter/free",
+          "evidenceCount": 12
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.completed",
+          "requestId": "f8bd781a-94d7-40b0-9129-ba0a44631db6",
+          "requirementId": "latency-12",
+          "durationMs": 4088,
+          "stage": "structured_output",
+          "headersDurationMs": 492,
+          "bodyDurationMs": 3596,
+          "promptBytes": 5299,
+          "requestBytes": 6064,
+          "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+          "promptTokens": 1394,
+          "completionTokens": 307,
+          "model": "openrouter/free",
+          "contentLength": 242
+        }
+      ]
+    },
+    {
+      "phase": "baseline",
+      "requestedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+      "evidenceCount": 12,
+      "timeoutMs": 30000,
+      "elapsedMs": 5070,
+      "outcome": "validated_suggestion",
+      "providerReturned": true,
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js",
+        "targetEvidenceId": "synthetic-1",
+        "reason": "Directly matches the required skill of building Node.js REST APIs.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0
+      },
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "synthetic-1",
+        "before": "\\item Built REST APIs using Node.js for synthetic inventory project 1.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js} for synthetic inventory project 1.",
+        "reason": "Directly matches the required skill of building Node.js REST APIs.",
+        "evidenceIds": [
+          "synthetic-1"
+        ],
+        "confidence": 0
+      },
+      "terminal": {
+        "scope": "job-tailoring",
+        "event": "openrouter.request.completed",
+        "requestId": "e6931cba-8f85-4b57-b972-79a3dab04a39",
+        "requirementId": "latency-12",
+        "durationMs": 5069,
+        "stage": "structured_output",
+        "headersDurationMs": 385,
+        "bodyDurationMs": 4684,
+        "promptBytes": 5299,
+        "requestBytes": 6087,
+        "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+        "promptTokens": 1394,
+        "completionTokens": 397,
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "contentLength": 235
+      },
+      "diagnostics": [
+        {
+          "scope": "job-tailoring",
+          "event": "generation.input",
+          "inputEvidenceCount": 12,
+          "matchEvidenceIdsCount": 12,
+          "verifiedEvidenceCount": 12,
+          "classification": "STRONG"
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.started",
+          "requestId": "e6931cba-8f85-4b57-b972-79a3dab04a39",
+          "requirementId": "latency-12",
+          "durationMs": 1,
+          "stage": "headers",
+          "promptBytes": 5299,
+          "requestBytes": 6087,
+          "model": "nvidia/nemotron-3-super-120b-a12b:free",
+          "evidenceCount": 12
+        },
+        {
+          "scope": "job-tailoring",
+          "event": "openrouter.request.completed",
+          "requestId": "e6931cba-8f85-4b57-b972-79a3dab04a39",
+          "requirementId": "latency-12",
+          "durationMs": 5069,
+          "stage": "structured_output",
+          "headersDurationMs": 385,
+          "bodyDurationMs": 4684,
+          "promptBytes": 5299,
+          "requestBytes": 6087,
+          "resolvedModel": "nvidia/nemotron-3-super-120b-a12b:free",
+          "promptTokens": 1394,
+          "completionTokens": 397,
+          "model": "nvidia/nemotron-3-super-120b-a12b:free",
+          "contentLength": 235
+        }
+      ]
+    }
+  ],
+  "catalog": [
+    {
+      "id": "openrouter/free",
+      "pricing": {
+        "prompt": "0",
+        "completion": "0"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b:free",
+      "pricing": {
+        "prompt": "0",
+        "completion": "0"
+      },
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
+    {
+      "id": "liquid/lfm-2.5-2.6b:free",
+      "pricing": {
+        "prompt": "0",
+        "completion": "0"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs"
+      ]
+    }
+  ],
+  "limitations": [
+    "Exploratory sample, one request per model/evidence-count cell; not a percentile or reliability estimate.",
+    "Headers include connection, network, server queueing and processing; body includes remaining inference and transfer.",
+    "Extended-deadline trials are separate fresh requests, not continuations of timed-out requests."
+  ],
+  "finishedAt": "2026-10-15T02:03:30.734Z"
+}

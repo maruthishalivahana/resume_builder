@@ -1,0 +1,110 @@
+{
+  "database": "resume_eng_jd_audit_f400bc2743af431696b9d2cdcf491504",
+  "mode": "live",
+  "providerCalls": 1,
+  "files": [
+    {
+      "_id": "6ad03166aa2f0011e2858b04",
+      "projectId": "6ad03166aa2f0011e2858b02",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item \\textbf{Built Node.js REST APIs} for JD-AUDIT-ALPHA-731.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 2,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T01:50:30.68Z",
+      "updatedAt": "2026-10-15T01:53:36.375Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad03166aa2f0011e2858b09",
+      "projectId": "6ad03166aa2f0011e2858b07",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Node.js REST APIs for JD_AUDIT_BRAVO_731.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 0,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T01:50:30.782Z",
+      "updatedAt": "2026-10-15T01:50:30.782Z",
+      "__v": 0
+    }
+  ],
+  "analyses": [
+    {
+      "_id": "6ad031deaa2f0011e2858b25",
+      "analysisId": "ba355eef-e3a9-4eb4-a968-bcac75df3901",
+      "resumeId": "6ad03166aa2f0011e2858b02",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad031deaa2f0011e2858b23",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T01:52:30.688Z",
+      "createdAt": "2026-10-15T01:52:30.689Z",
+      "updatedAt": "2026-10-15T01:52:36.797Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T01:52:36.796Z",
+      "diagnosticReasons": {
+        "NO_VERIFIED_EVIDENCE": 1
+      },
+      "durationMs": 6177,
+      "summary": {
+        "total": 2,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 1,
+        "conflict": 0,
+        "safeSuggestions": 1,
+        "diagnosticReasons": {
+          "NO_VERIFIED_EVIDENCE": 1
+        }
+      }
+    }
+  ],
+  "suggestions": [
+    {
+      "_id": "6ad031e4aa2f0011e2858b34",
+      "suggestionId": "4b827668-67df-444d-91ff-5bcc53168b9b",
+      "analysisId": "ba355eef-e3a9-4eb4-a968-bcac75df3901",
+      "jobTargetId": "6ad031deaa2f0011e2858b23",
+      "requirementId": "requirement-2",
+      "projectId": "6ad03166aa2f0011e2858b02",
+      "versionId": "ver_master",
+      "type": "highlight",
+      "targetEvidenceId": "cde527c0853f3a32b4631352fbd269b04f959508a2050c1009a8dc3f6f534e09",
+      "before": "\\item Built Node.js REST APIs for JD_AUDIT_ALPHA_731.",
+      "after": "\\item \\textbf{Built Node.js REST APIs} for JD_AUDIT_ALPHA_731.",
+      "reason": "Directly demonstrates required experience building Node.js REST APIs.",
+      "evidenceIds": [
+        "cde527c0853f3a32b4631352fbd269b04f959508a2050c1009a8dc3f6f534e09"
+      ],
+      "confidence": 0,
+      "status": "accepted",
+      "validation": "PASS",
+      "reasonCode": "PERSISTED",
+      "sourcePatch": {
+        "fileId": "6ad03166aa2f0011e2858b04",
+        "fileName": "resume.tex",
+        "evidenceId": "cde527c0853f3a32b4631352fbd269b04f959508a2050c1009a8dc3f6f534e09",
+        "lineStart": 5,
+        "lineEnd": 5,
+        "before": "\\item Built Node.js REST APIs for JD_AUDIT_ALPHA_731.",
+        "after": "\\item \\textbf{Built Node.js REST APIs} for JD_AUDIT_ALPHA_731.",
+        "beforeHash": "fd55906d6d961a25f68ccc606bbda0be824d91bc65e80c5e95b00686dc8007d6"
+      },
+      "createdAt": "2026-10-15T01:52:36.774Z",
+      "updatedAt": "2026-10-15T01:52:54.036Z",
+      "__v": 0,
+      "appliedAfterHash": "c4c6dc62269c62639b9f347a8c5e08a82b2e13d221f7129a0f57b12bce0e18e9",
+      "appliedAt": "2026-10-15T01:52:54.035Z",
+      "appliedBeforeHash": "fd55906d6d961a25f68ccc606bbda0be824d91bc65e80c5e95b00686dc8007d6",
+      "appliedFileId": "6ad03166aa2f0011e2858b04",
+      "appliedLineEnd": 5,
+      "appliedLineStart": 5
+    }
+  ],
+  "evidence": []
+}

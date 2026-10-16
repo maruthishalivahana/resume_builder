@@ -1,0 +1,132 @@
+{
+  "syntheticOnly": true,
+  "databaseUsed": false,
+  "cloudRequests": false,
+  "model": "qwen3:1.7b",
+  "cases": [
+    {
+      "name": "sqlite",
+      "classification": "STRONG",
+      "verifiedCount": 1,
+      "elapsedMs": 12338,
+      "expectedSpan": "SQLite",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "55e2953e0e06573f4a18f28414e3b859c731a858464a153b175faa7b637394c3",
+        "before": "\\item Built Python REST APIs with SQLite for a coursework project.",
+        "after": "\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "55e2953e0e06573f4a18f28414e3b859c731a858464a153b175faa7b637394c3"
+        ],
+        "confidence": 0.5
+      },
+      "metExpectation": true
+    },
+    {
+      "name": "redis",
+      "classification": "STRONG",
+      "verifiedCount": 1,
+      "elapsedMs": 3336,
+      "expectedSpan": "Redis",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "5b74cf312b538d93c0d983729e679e3897f9c02a77169d99f9c437c9997f6d97",
+        "before": "\\item Used Redis for a cache in a coursework project.",
+        "after": "\\item Used \\textbf{Redis} for a cache in a coursework project.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "5b74cf312b538d93c0d983729e679e3897f9c02a77169d99f9c437c9997f6d97"
+        ],
+        "confidence": 0.5
+      },
+      "metExpectation": true
+    },
+    {
+      "name": "rust",
+      "classification": "STRONG",
+      "verifiedCount": 1,
+      "elapsedMs": 2659,
+      "expectedSpan": "Rust",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "88bc6fb7a712498ee69dbcee0571cb3602cf9ecbcae7bb1f6da3de8435f88ad9",
+        "before": "\\item Built Rust command line tools for a personal project.",
+        "after": "\\item Built \\textbf{Rust} command line tools for a personal project.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "88bc6fb7a712498ee69dbcee0571cb3602cf9ecbcae7bb1f6da3de8435f88ad9"
+        ],
+        "confidence": 0.5
+      },
+      "metExpectation": true
+    },
+    {
+      "name": "docker-multiple",
+      "classification": "STRONG",
+      "verifiedCount": 1,
+      "elapsedMs": 3469,
+      "expectedSpan": "Docker",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "d05ad1ea4f856be74ef4e659b333b452db245b3df17464ab99ad4c7ba7b2cc82",
+        "before": "\\item Used Docker to package a coursework application.",
+        "after": "\\item Used \\textbf{Docker} to package a coursework application.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "d05ad1ea4f856be74ef4e659b333b452db245b3df17464ab99ad4c7ba7b2cc82"
+        ],
+        "confidence": 0.5
+      },
+      "metExpectation": true
+    },
+    {
+      "name": "unsupported-tensorflow",
+      "classification": "MISSING",
+      "verifiedCount": 0,
+      "elapsedMs": 1,
+      "expectedSpan": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH",
+      "suggestion": null,
+      "metExpectation": true
+    },
+    {
+      "name": "unsupported-production",
+      "classification": "PARTIAL",
+      "verifiedCount": 0,
+      "elapsedMs": 0,
+      "expectedSpan": null,
+      "reason": "SUGGESTION_SCOPE_MISMATCH",
+      "suggestion": null,
+      "metExpectation": true
+    },
+    {
+      "name": "already-bold",
+      "classification": "STRONG",
+      "verifiedCount": 1,
+      "elapsedMs": 3136,
+      "expectedSpan": null,
+      "reason": "INVALID_PROVIDER_OUTPUT",
+      "suggestion": null,
+      "metExpectation": true
+    },
+    {
+      "name": "repeated",
+      "classification": "STRONG",
+      "verifiedCount": 1,
+      "elapsedMs": 2501,
+      "expectedSpan": null,
+      "reason": "INVALID_PROVIDER_OUTPUT",
+      "suggestion": null,
+      "metExpectation": true
+    }
+  ],
+  "metrics": {
+    "cases": 8,
+    "metExpectation": 8,
+    "useful": 4,
+    "supported": 4,
+    "unexpectedSuggestions": 0,
+    "providerFailures": 0
+  }
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useResume } from "@/hooks/use-resume";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Check, Sparkles, ArrowRight, Eye, Code2 } from "lucide-react";
@@ -16,6 +17,7 @@ interface TemplateItem {
 }
 
 export function TemplateGallery() {
+  const { resumeBasePath } = useResume();
   const [selectedTemplate, setSelectedTemplate] = useState("modern-engineer");
 
   const templates: TemplateItem[] = [
@@ -130,7 +132,7 @@ export function TemplateGallery() {
           Selected: <span className="font-medium text-white">{selectedTemplate}</span> (Standard ATS-verified LaTeX format)
         </div>
 
-        <Link href="/resume/demo/editor">
+        <Link href={`${resumeBasePath}/editor`}>
           <Button variant="primary" size="md">
             <span>Continue to Editor</span>
             <ArrowRight className="w-3.5 h-3.5" />

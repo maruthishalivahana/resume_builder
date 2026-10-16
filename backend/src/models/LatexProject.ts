@@ -6,6 +6,8 @@ export interface ILatexProject extends Document {
   entryFileId: Types.ObjectId | null;
   entryFileSelectionRequired: boolean;
   sourceVersion: number;
+  treeVersion?: number;
+  treeOperation?: import("../services/latexTree.service").TreeOperation;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,6 +41,8 @@ const LatexProjectSchema = new Schema<ILatexProject>(
       default: 0,
       min: 0,
     },
+    treeVersion: { type: Number, default: 0 },
+    treeOperation: { type: Schema.Types.Mixed, default: undefined },
   },
   {
     timestamps: true,

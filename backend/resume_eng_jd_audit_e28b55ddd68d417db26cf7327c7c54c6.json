@@ -1,0 +1,59 @@
+{
+  "database": "resume_eng_jd_audit_e28b55ddd68d417db26cf7327c7c54c6",
+  "topology": "standalone",
+  "projectId": "6acfc8760f75080a64d0bd7d",
+  "fileId": "6acfc8760f75080a64d0bd7f",
+  "browserAcceptedSuggestion": "8fcbf01a-bdbd-42f8-9f71-89f9fafec885",
+  "acceptedContentRevision": 2,
+  "realProviderFailures": [
+    {
+      "analysisId": "454f2622-502f-41a1-9b94-91fad7febb40",
+      "reasons": {
+        "PROVIDER_ERROR": 1
+      }
+    }
+  ],
+  "concurrentAnalysis": {
+    "analysisId": "57667356-b181-423d-b490-750d61cdd1b1",
+    "jobTargetId": "6acfcb660f75080a64d0be4c",
+    "summary": {
+      "total": 1,
+      "strong": 1,
+      "partial": 0,
+      "weak": 0,
+      "missing": 0,
+      "conflict": 0,
+      "safeSuggestions": 0,
+      "diagnosticReasons": {
+        "SOURCE_PATCH_FAILED": 1
+      }
+    }
+  },
+  "staleAcceptance": {
+    "status": 409,
+    "code": "SOURCE_CHANGED"
+  },
+  "staleSaveStatus": 409,
+  "finalContentRevision": 4,
+  "finalContent": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built \\textbf{Node.js} REST APIs for JD_AUDIT_AFTER_ANALYSIS_164.\n\\end{itemize}\n\\end{document}",
+  "limits": [
+    "No immutable cross-file analysis snapshot",
+    "No general semantic entailment guarantee"
+  ],
+  "realProviderSuccess": {
+    "analysisId": "c82cfe0f-60ac-4f9b-89da-d6db1e1e9f1f",
+    "suggestionId": "66dc4e36-2818-452e-9fe9-1afe0d0cceee",
+    "fileId": "6acfc8760f75080a64d0bd84",
+    "contentRevision": 1,
+    "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built \\textbf{Node.js REST APIs} for JD_AUDIT_BRAVO_731.\n\\end{itemize}\n\\end{document}",
+    "after": "\\item Built \\textbf{Node.js REST APIs} for JD_AUDIT_BRAVO_731."
+  },
+  "browserNavigation": {
+    "fromProject": "6acfc8760f75080a64d0bd82",
+    "toProject": "6acfc8760f75080a64d0bd7d",
+    "delayMs": 5000,
+    "observation": "A showed its own source and an empty JD session after leaving pending B analysis",
+    "kind": "full browser navigation; SPA races covered by callback tests"
+  },
+  "backendShutdown": "Automatic 20-minute audit safety timer; final additional read refused after shutdown"
+}

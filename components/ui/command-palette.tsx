@@ -31,7 +31,7 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
-  const { compileLatex, resetToMaster, toggleAIAssistant, openAIAssistantForATS, openAIAssistantForJD } = useResume();
+  const { resumeBasePath,  compileLatex, resetToMaster, toggleAIAssistant, openAIAssistantForATS, openAIAssistantForJD } = useResume();
 
   const commands: CommandItem[] = [
     {
@@ -40,7 +40,7 @@ export function CommandPalette() {
       category: "Navigation",
       icon: <FileText className="w-4 h-4 text-neutral-400" />,
       shortcut: "G E",
-      action: () => router.push("/resume/demo/editor"),
+      action: () => router.push(`${resumeBasePath}/editor`),
     },
     {
       id: "nav_latex",
@@ -48,7 +48,7 @@ export function CommandPalette() {
       category: "Navigation",
       icon: <Code2 className="w-4 h-4 text-sky-400" />,
       shortcut: "G L",
-      action: () => router.push("/resume/demo/latex"),
+      action: () => router.push(`${resumeBasePath}/latex`),
     },
     {
       id: "nav_preview",
@@ -56,7 +56,7 @@ export function CommandPalette() {
       category: "Navigation",
       icon: <Download className="w-4 h-4 text-neutral-400" />,
       shortcut: "⌘ ⇧ P",
-      action: () => router.push("/resume/demo/preview"),
+      action: () => router.push(`${resumeBasePath}/preview`),
     },
     {
       id: "nav_ats",
@@ -64,7 +64,7 @@ export function CommandPalette() {
       category: "Navigation",
       icon: <FileText className="w-4 h-4 text-emerald-400" />,
       shortcut: "G A",
-      action: () => router.push("/resume/demo/ats"),
+      action: () => router.push(`${resumeBasePath}/ats`),
     },
     {
       id: "act_ai_assistant",
@@ -96,7 +96,7 @@ export function CommandPalette() {
       shortcut: "⌘ ↵",
       action: () => {
         compileLatex();
-        router.push("/resume/demo/latex");
+        router.push(`${resumeBasePath}/latex`);
       },
     },
     {

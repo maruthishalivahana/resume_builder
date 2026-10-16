@@ -9,6 +9,15 @@ const { ResumeEvidenceParserService } = require("./dist/modules/job-tailoring/se
 const requirement = new RequirementExtractorService().extract("Required: 3+ years of React experience")[0];
 assert.equal(requirement.category, "experience");
 assert.equal(requirement.importance, "required");
+const extractor = new RequirementExtractorService();
+for (const [label, importance] of [["Required", "required"], ["Preferred", "preferred"], ["Must have", "required"], ["Nice to have", "preferred"]]) {
+  const inline = extractor.extract(`${label}: Node.js REST APIs`)[0];
+  assert.equal(inline.importance, importance);
+  assert.equal(inline.text, "Node.js REST APIs");
+  assert.equal(inline.originalText, `${label}: Node.js REST APIs`);
+}
+const contextual = extractor.extract("Required qualifications:\n- Node.js\nPreferred: Docker\n- Python");
+assert.deepEqual(contextual.map(item => item.importance), ["required", "preferred", "required"], "Inline labels must not leak into following requirements");
 
 const evidence = [{
   id: "evidence-1",

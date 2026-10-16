@@ -1,20 +1,9 @@
 import ResumeEvidence from "../models/ResumeEvidence";
 import { LexicalSearchProvider, LexicalSearchResult } from "./interfaces";
+import { normalizeEvidenceText } from "../utils/evidence-terms.util";
 
 export function tokenize(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/node\s*\.?\s*js|nodejs/g, "nodejs")
-    .replace(/react\s*\.?\s*js|reactjs/g, "reactjs")
-    .replace(/next\s*\.?\s*js|nextjs/g, "nextjs")
-    .replace(/express\s*\.?\s*js|expressjs/g, "expressjs")
-    .replace(/restful\s+apis?|rest\s+apis?/g, "rest api")
-    .replace(/react\s+native/g, "react native")
-    .replace(/spring\s+boot/g, "spring boot")
-    .replace(/[^a-z0-9+#]+/g, " ")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
+  return normalizeEvidenceText(text).split(/\s+/).filter(Boolean);
 }
 
 export class Bm25LexicalSearchProvider implements LexicalSearchProvider {

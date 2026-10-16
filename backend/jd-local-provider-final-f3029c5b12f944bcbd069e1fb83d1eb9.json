@@ -1,0 +1,162 @@
+{
+  "database": "resume_eng_jd_audit_f3029c5b12f944bcbd069e1fb83d1eb9",
+  "mode": "controlled",
+  "providerCalls": 0,
+  "files": [
+    {
+      "_id": "6ad0bda31d619ec667f32fc9",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 2,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T11:48:51.967Z",
+      "updatedAt": "2026-10-15T11:50:34.473Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad0bda41d619ec667f32fce",
+      "projectId": "6ad0bda41d619ec667f32fcc",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Node.js REST APIs for JD_AUDIT_BRAVO_731.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 0,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T11:48:52.018Z",
+      "updatedAt": "2026-10-15T11:48:52.018Z",
+      "__v": 0
+    }
+  ],
+  "analyses": [
+    {
+      "_id": "6ad0bdcd1d619ec667f32fee",
+      "analysisId": "f4ef79bf-af70-43c8-9b66-1ef486a4fe5e",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bdcd1d619ec667f32fec",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:49:33.986Z",
+      "createdAt": "2026-10-15T11:49:33.987Z",
+      "updatedAt": "2026-10-15T11:49:38.766Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:49:38.764Z",
+      "durationMs": 4795,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1
+      }
+    },
+    {
+      "_id": "6ad0bdee1d619ec667f33013",
+      "analysisId": "68938228-7a43-4d56-baf7-a737550edd2c",
+      "resumeId": "6ad0bda31d619ec667f32fc7",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bdee1d619ec667f33011",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:50:06.483Z",
+      "createdAt": "2026-10-15T11:50:06.484Z",
+      "updatedAt": "2026-10-15T11:50:09.129Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:50:09.129Z",
+      "durationMs": 2650,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1
+      }
+    }
+  ],
+  "suggestions": [
+    {
+      "_id": "6ad0bdd21d619ec667f32ffa",
+      "suggestionId": "798d53cd-d785-4161-93de-20052271f46b",
+      "analysisId": "f4ef79bf-af70-43c8-9b66-1ef486a4fe5e",
+      "jobTargetId": "6ad0bdcd1d619ec667f32fec",
+      "requirementId": "requirement-1",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "versionId": "ver_master",
+      "type": "highlight",
+      "targetEvidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+      "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "reason": "Highlight existing resume text relevant to this requirement.",
+      "evidenceIds": [
+        "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea"
+      ],
+      "confidence": 0.5,
+      "status": "rejected",
+      "validation": "PASS",
+      "reasonCode": "PERSISTED",
+      "sourcePatch": {
+        "fileId": "6ad0bda31d619ec667f32fc9",
+        "fileName": "resume.tex",
+        "evidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+        "lineStart": 5,
+        "lineEnd": 5,
+        "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "beforeHash": "f34db9fa1ee71024676d09ec3d59b60fc6bd1e98939990e9eb6a46d131ef9a18"
+      },
+      "createdAt": "2026-10-15T11:49:38.714Z",
+      "updatedAt": "2026-10-15T11:50:00.72Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad0bdf11d619ec667f3301f",
+      "suggestionId": "68916ba9-d8a5-4dcd-968f-771ae8d8ab1e",
+      "analysisId": "68938228-7a43-4d56-baf7-a737550edd2c",
+      "jobTargetId": "6ad0bdee1d619ec667f33011",
+      "requirementId": "requirement-1",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "versionId": "ver_master",
+      "type": "highlight",
+      "targetEvidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+      "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "reason": "Highlight existing resume text relevant to this requirement.",
+      "evidenceIds": [
+        "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea"
+      ],
+      "confidence": 0.5,
+      "status": "accepted",
+      "validation": "PASS",
+      "reasonCode": "PERSISTED",
+      "sourcePatch": {
+        "fileId": "6ad0bda31d619ec667f32fc9",
+        "fileName": "resume.tex",
+        "evidenceId": "a667ad0104215db397451227f62f6595d8bbbca34f4389c011a65f9a839dcbea",
+        "lineStart": 5,
+        "lineEnd": 5,
+        "before": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "after": "\\item Built \\textbf{Python REST APIs} with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+        "beforeHash": "f34db9fa1ee71024676d09ec3d59b60fc6bd1e98939990e9eb6a46d131ef9a18"
+      },
+      "createdAt": "2026-10-15T11:50:09.123Z",
+      "updatedAt": "2026-10-15T11:50:34.462Z",
+      "__v": 0,
+      "appliedAfterHash": "226107d03e48fd442bdd5b7a340b228365109416a05b138a4fad1904e8ebe2ae",
+      "appliedAt": "2026-10-15T11:50:34.461Z",
+      "appliedBeforeHash": "f34db9fa1ee71024676d09ec3d59b60fc6bd1e98939990e9eb6a46d131ef9a18",
+      "appliedFileId": "6ad0bda31d619ec667f32fc9",
+      "appliedLineEnd": 5,
+      "appliedLineStart": 5
+    }
+  ],
+  "evidence": []
+}

@@ -1,0 +1,98 @@
+{
+  "database": "resume_eng_local_quality_5dad741db5a5408baee57c639578f64b",
+  "topology": "standalone",
+  "syntheticOnly": true,
+  "cloudRequests": false,
+  "a": {
+    "projectId": "6ad0c401526f707ac02e5b7d",
+    "fileId": "6ad0c401526f707ac02e5b7f",
+    "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Python REST APIs with SQLite for a coursework project.\n\\end{itemize}\n\\end{document}"
+  },
+  "b": {
+    "projectId": "6ad0c402526f707ac02e5b82",
+    "fileId": "6ad0c402526f707ac02e5b84",
+    "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Java tools for a personal project.\n\\end{itemize}\n\\end{document}"
+  },
+  "results": [
+    {
+      "analysisId": "24f896d5-1aea-494e-96f8-ce98fa1d1e1d",
+      "jobTargetId": "6ad0c402526f707ac02e5b87",
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 1,
+        "diagnosticReasons": {}
+      }
+    },
+    {
+      "analysisId": "a5ee6b92-0366-4ac3-94cc-f024f8300f33",
+      "jobTargetId": "6ad0c402526f707ac02e5b88",
+      "summary": {
+        "total": 1,
+        "strong": 0,
+        "partial": 0,
+        "weak": 0,
+        "missing": 1,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "NO_VERIFIED_EVIDENCE": 1
+        }
+      }
+    }
+  ],
+  "accepted": {
+    "suggestionId": "9f0c0cd5-c791-414d-a533-dfafbbe89048",
+    "status": "accepted",
+    "fileId": "6ad0c401526f707ac02e5b7f",
+    "fileName": "resume.tex",
+    "changedLineStart": 5,
+    "changedLineEnd": 5,
+    "updatedContent": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.\n\\end{itemize}\n\\end{document}",
+    "contentRevision": 1,
+    "recoveryPending": false,
+    "pdfStale": true
+  },
+  "files": [
+    {
+      "_id": "6ad0c401526f707ac02e5b7f",
+      "projectId": "6ad0c401526f707ac02e5b7d",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Python REST APIs with \\textbf{SQLite} for a coursework project.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 1,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T12:16:01.979Z",
+      "updatedAt": "2026-10-15T12:16:04.430Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad0c402526f707ac02e5b84",
+      "projectId": "6ad0c402526f707ac02e5b82",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Java tools for a personal project.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 0,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T12:16:02.026Z",
+      "updatedAt": "2026-10-15T12:16:02.026Z",
+      "__v": 0
+    }
+  ],
+  "verified": [
+    "concurrent project isolation",
+    "SQLite match persisted",
+    "exact highlight persisted",
+    "cross-project accept rejected",
+    "revision increment and recovery finalization",
+    "accept retry does not double apply"
+  ]
+}

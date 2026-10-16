@@ -1,0 +1,340 @@
+{
+  "database": "resume_eng_jd_audit_09007efe8a85492bb6558919eced3d39",
+  "mode": "controlled",
+  "providerCalls": 0,
+  "files": [
+    {
+      "_id": "6ad0ba0dbc568862aed16aee",
+      "projectId": "6ad0ba0dbc568862aed16aec",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 1,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T11:33:33.17Z",
+      "updatedAt": "2026-10-15T11:36:32.526Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ad0ba0dbc568862aed16af3",
+      "projectId": "6ad0ba0dbc568862aed16af1",
+      "folderId": null,
+      "name": "resume.tex",
+      "path": "resume.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Experience}\n\\begin{itemize}\n\\item Used Docker for a coursework project. LOCAL-AI-BRAVO-953.\n\\end{itemize}\n\\end{document}",
+      "contentRevision": 1,
+      "treeVersion": 0,
+      "language": "latex",
+      "createdAt": "2026-10-15T11:33:33.222Z",
+      "updatedAt": "2026-10-15T11:38:45.089Z",
+      "__v": 0
+    }
+  ],
+  "analyses": [
+    {
+      "_id": "6ad0bac6bc568862aed16b13",
+      "analysisId": "db20bb85-f2e8-488b-a044-468205309949",
+      "resumeId": "6ad0ba0dbc568862aed16aec",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bac6bc568862aed16b11",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:36:38.626Z",
+      "createdAt": "2026-10-15T11:36:38.627Z",
+      "updatedAt": "2026-10-15T11:36:58.765Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:36:58.76Z",
+      "diagnosticReasons": {
+        "NO_EDIT_NEEDED": 1
+      },
+      "durationMs": 20168,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "NO_EDIT_NEEDED": 1
+        }
+      }
+    },
+    {
+      "_id": "6ad0bb06bc568862aed16b34",
+      "analysisId": "f13421bb-115c-48ea-bb31-49731937fdc8",
+      "resumeId": "6ad0ba0dbc568862aed16aec",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bb06bc568862aed16b32",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:37:42.778Z",
+      "createdAt": "2026-10-15T11:37:42.78Z",
+      "updatedAt": "2026-10-15T11:37:47.433Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:37:47.432Z",
+      "diagnosticReasons": {
+        "NO_EDIT_NEEDED": 1
+      },
+      "durationMs": 4661,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "NO_EDIT_NEEDED": 1
+        }
+      }
+    },
+    {
+      "_id": "6ad0bb49bc568862aed16b66",
+      "analysisId": "adfac2c1-c41f-440c-828e-41e700a64c4c",
+      "resumeId": "6ad0ba0dbc568862aed16af1",
+      "resumeVersionId": "ver_master",
+      "jobTargetId": "6ad0bb49bc568862aed16b64",
+      "status": "completed",
+      "pipelineStage": "completed",
+      "startedAt": "2026-10-15T11:38:49.456Z",
+      "createdAt": "2026-10-15T11:38:49.457Z",
+      "updatedAt": "2026-10-15T11:38:51.809Z",
+      "__v": 0,
+      "completedAt": "2026-10-15T11:38:51.809Z",
+      "diagnosticReasons": {
+        "NO_EDIT_NEEDED": 1
+      },
+      "durationMs": 2356,
+      "summary": {
+        "total": 1,
+        "strong": 1,
+        "partial": 0,
+        "weak": 0,
+        "missing": 0,
+        "conflict": 0,
+        "safeSuggestions": 0,
+        "diagnosticReasons": {
+          "NO_EDIT_NEEDED": 1
+        }
+      }
+    }
+  ],
+  "suggestions": [],
+  "evidence": [
+    {
+      "_id": "6ad0bac6bae0ae9aa0f344cf",
+      "projectId": "6ad0ba0dbc568862aed16aec",
+      "evidenceId": "9c63f723695f5669e5db9746b701e2a52695b20db06af7ea088b54f2b4bd168d",
+      "versionId": "ver_master",
+      "__v": 0,
+      "createdAt": "2026-10-15T11:36:38.409Z",
+      "entities": [],
+      "metadata": {
+        "technologies": [
+          "Python"
+        ],
+        "normalizedTechnologies": [
+          "python"
+        ],
+        "entities": []
+      },
+      "normalizedTechnologies": [
+        "python"
+      ],
+      "originalSectionName": "Experience",
+      "rawText": "\\item Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "resumeId": "6ad0ba0dbc568862aed16aec",
+      "section": "experience",
+      "source": {
+        "fileId": "6ad0ba0dbc568862aed16aee",
+        "fileName": "resume.tex",
+        "lineStart": 5,
+        "lineEnd": 5
+      },
+      "technologies": [
+        "Python"
+      ],
+      "text": "Built Python REST APIs with SQLite for a coursework project. LOCAL-AI-ALPHA-842.",
+      "type": "experience",
+      "updatedAt": "2026-10-15T11:37:42.803Z",
+      "embedding": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0.25,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0.5,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0.25,
+        0,
+        0,
+        0,
+        0
+      ],
+      "embeddingDimensions": 64,
+      "embeddingModel": "mock-hash-v1"
+    },
+    {
+      "_id": "6ad0bb49bae0ae9aa0f344d2",
+      "evidenceId": "96dbafb1c28bae93184bb5a104449d98c1ab3459a8793bd9b540a62b2e70bf33",
+      "versionId": "ver_master",
+      "projectId": "6ad0ba0dbc568862aed16af1",
+      "__v": 0,
+      "createdAt": "2026-10-15T11:38:49.415Z",
+      "entities": [],
+      "metadata": {
+        "technologies": [
+          "Docker"
+        ],
+        "normalizedTechnologies": [
+          "docker"
+        ],
+        "entities": []
+      },
+      "normalizedTechnologies": [
+        "docker"
+      ],
+      "originalSectionName": "Experience",
+      "rawText": "\\item Used Docker for a coursework project. LOCAL-AI-BRAVO-953.",
+      "resumeId": "6ad0ba0dbc568862aed16af1",
+      "section": "experience",
+      "source": {
+        "fileId": "6ad0ba0dbc568862aed16af3",
+        "fileName": "resume.tex",
+        "lineStart": 5,
+        "lineEnd": 5
+      },
+      "technologies": [
+        "Docker"
+      ],
+      "text": "Used Docker for a coursework project. LOCAL-AI-BRAVO-953.",
+      "type": "experience",
+      "updatedAt": "2026-10-15T11:38:49.475Z",
+      "embedding": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.2886751345948129,
+        0,
+        0,
+        0.2886751345948129,
+        0,
+        0,
+        0,
+        0.2886751345948129,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.2886751345948129,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.5773502691896258,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.2886751345948129,
+        0,
+        0.2886751345948129,
+        0,
+        0,
+        0.2886751345948129,
+        0,
+        0.2886751345948129,
+        0,
+        0
+      ],
+      "embeddingDimensions": 64,
+      "embeddingModel": "mock-hash-v1"
+    }
+  ]
+}

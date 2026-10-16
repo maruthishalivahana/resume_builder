@@ -16,6 +16,7 @@ const schema = new Schema<IResumeEvidence>(
     subsection: String,
     type: { type: String, required: true },
     text: { type: String, required: true },
+    rawText: String,
     source: {
       fileId: { type: String, required: true },
       fileName: { type: String, required: true },

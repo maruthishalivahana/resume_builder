@@ -56,7 +56,8 @@ export class RequirementExtractorService {
       }
 
       // Determine requirement-level importance & category
-      const inlineImportance = this.detectImportance(trimmed, currentImportance);
+      // Inline labels are removed from display text, but still establish importance.
+      const inlineImportance = this.detectImportance(originalText, currentImportance);
       const category = this.detectCategory(trimmed, currentCategory);
       const { extractedTerms, normalizedTerms } = this.extractTerms(trimmed, category);
 
@@ -86,7 +87,7 @@ export class RequirementExtractorService {
     const result: Array<{ text: string; isHeader: boolean }> = [];
 
     for (const rawLine of lines) {
-      let line = rawLine.trim();
+      const line = rawLine.trim();
       if (!line) continue;
 
       // Check inline bullet splitting (e.g. "Requirements: • Item 1 • Item 2")

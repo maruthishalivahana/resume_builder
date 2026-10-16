@@ -24,7 +24,7 @@ import { useResume } from "@/hooks/use-resume";
 
 export function JobMatcher() {
   const router = useRouter();
-  const { setSelectedBulletId, setActiveSectionId } = useResume();
+  const { resumeBasePath,  setSelectedBulletId, setActiveSectionId } = useResume();
   const [selectedJob, setSelectedJob] = useState(mockJobMatches[0]);
   const [selectedFilter, setSelectedFilter] = useState<"all" | "found" | "partial" | "missing">("all");
   const [activeReqId, setActiveReqId] = useState<string | null>(null);
@@ -38,7 +38,7 @@ export function JobMatcher() {
     if (req.matchedResumeTargetId) {
       setSelectedBulletId(req.matchedResumeTargetId);
       setActiveSectionId("sec_experience");
-      router.push("/resume/demo/editor");
+      router.push(`${resumeBasePath}/editor`);
     }
   };
 

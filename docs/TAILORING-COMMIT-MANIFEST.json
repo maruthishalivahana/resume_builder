@@ -1,0 +1,408 @@
+{
+  "date": "2026-10-16",
+  "purpose": "Review candidates only; no staging or commit authorization",
+  "files": [
+    {
+      "path": "backend/src/modules/job-tailoring/providers/interfaces.ts",
+      "group": "grounding-and-source",
+      "sha256": "c80c76eaaaffe9f021acecca55b847942bd106a670f60a37285b17812e3f9d0d"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/providers/bm25-lexical-search.provider.ts",
+      "group": "grounding-and-source",
+      "sha256": "09ff77979f880b888729fb45c84b9c426ab593d6caa409305739d188911e3934"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/providers/openrouter-llm.provider.ts",
+      "group": "grounding-and-source",
+      "sha256": "b004d64c20f6b86a40134b97aca1c957dab6ed9188cc2ac15dacf69aadeecb3a"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/prompts/grounded-suggestion.prompt.ts",
+      "group": "grounding-and-source",
+      "sha256": "e317ed1d2f795e0f9839143ac1aed35a54465e5714ac0a366dbb2dca3908710c"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/models/ResumeEvidence.ts",
+      "group": "grounding-and-source",
+      "sha256": "30491c645d02697fccfa897a2aafc229ea072b3c20d0d85d6552b3770661372b"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/controllers/tailoring.controller.ts",
+      "group": "grounding-and-source",
+      "sha256": "eb3445f5d96d506e872abc94d3e16e10b6113e5aa907e164321e84859284e6ef"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/claim-validator.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "aba3fcc3ad4e1337b0d4f3b3f634269491b5213ec4040ae82d79f796f64a0171"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/evidence-ranker.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "1f42ef3bc7a52b389014d51ddc64ccf0140aa254c351a50bea9a85cf093f3c69"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/evidence-validator.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "7bc1d4558018c40a318c879ee707a081be4507d930d95c8001f7101536f3adb3"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/grounded-generation.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "4f0443abddff3edf3ac7abd953d2a113e235567759ca02b0a34610439fdcacd6"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/match-classifier.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "62021a5c38279c894d55c9b43a8617164ff0022beabcce631981dd119cfb7108"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/requirement-extractor.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "1c586ec7ace70e883a9fe9ba92f110518a25b7444ee3086b1753ab01cf1419c4"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/resume-evidence-parser.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "84cc3f68205914ccab1fc1b3423771104c175490c9cfc1f2f57c15539bee493e"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/tailoring-generator.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "2b44b7553deaffa9a4861c10c370c243233ed2bd1cbe77360afcef703d991289"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/tailoring-orchestrator.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "c3ff4f01c0ccb7ae267393c9663320784ed6accb6370824078966289ba3ddc07"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/highlight-edit.service.ts",
+      "group": "grounding-and-source",
+      "sha256": "54f2b8a2e6f2a5418765707233137f3432592d2fc7fc8908b864b011104ace19"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/utils/evidence-terms.util.ts",
+      "group": "grounding-and-source",
+      "sha256": "535c35f6ba90b177183a7061f803529d497f96a22cebc066dce01cbd173e3a4e"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/utils/evidence-negation.util.ts",
+      "group": "grounding-and-source",
+      "sha256": "cea88f7144181e22e2028d54cc7a6e259e2c407b01f4672e50e1a02353135deb"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/utils/source-range.util.ts",
+      "group": "grounding-and-source",
+      "sha256": "c1abcfbf716b63c3dd8b59c8ffe0a26919e430aac13bb1350ef83b3f5aa04404"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/utils/latex-evidence-text.util.ts",
+      "group": "grounding-and-source",
+      "sha256": "53c4182664d4cfa1828082fdc1f384d4768137071c7aec82a8150a282c244eba"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/config/tailoring-provider.config.ts",
+      "group": "local-highlight-provider",
+      "sha256": "2892324334e72e3348b597665b8b6cf04461ee35f250323b451bba12e70a961f"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/providers/ollama-highlight.provider.ts",
+      "group": "local-highlight-provider",
+      "sha256": "cf1a4996c07b4fe99e1693dd464587e6826748033706f4607f2d8946c15bbfaf"
+    },
+    {
+      "path": "backend/src/modules/job-tailoring/services/highlight-candidates.service.ts",
+      "group": "local-highlight-provider",
+      "sha256": "3f7e325dc9813da4b9acd1d209b7303f73510182991005b1e1580d9e65901ddc"
+    },
+    {
+      "path": "backend/start-local-ai.js",
+      "group": "local-highlight-provider",
+      "sha256": "cff216531d95a28ba64d9c591f2bee4b461758618c9179c53cf53e11e6691087"
+    },
+    {
+      "path": "backend/.env.example",
+      "group": "local-highlight-provider",
+      "sha256": "57d6e449aa5bb511d6fb109a48c74a63979118075c3119ab709b27b4bfd0ac9f"
+    },
+    {
+      "path": "docs/JD-LOCAL-PROVIDER.md",
+      "group": "local-highlight-provider",
+      "sha256": "d8ce0382f5d1aa0dc9a7dcad9456cbd768bbe40637674030ed5ccddd6316d7a7"
+    },
+    {
+      "path": "backend/test-tailoring.js",
+      "group": "regression-tests",
+      "sha256": "fbdc529dc5f111cc8304aa71fd53748f61bc05bb9ab2be48f525374f93c5f05b"
+    },
+    {
+      "path": "backend/test-grounded.js",
+      "group": "regression-tests",
+      "sha256": "a5040d92b0c04e53c37f756bf05a413689946ed461d968ed8096dd014a6d8e66"
+    },
+    {
+      "path": "backend/test-claim-validator.js",
+      "group": "regression-tests",
+      "sha256": "adf3f87307e42f43dc95a50def1e7c6761bb46a55a0175e8c72ac4cfe82c72ef"
+    },
+    {
+      "path": "backend/test-source-mapping.js",
+      "group": "regression-tests",
+      "sha256": "dfc5fdf338e46fba5553bf593c742ec7fcfbe4f2ff5fe3739f98aef36f53d619"
+    },
+    {
+      "path": "backend/test-source-patch.js",
+      "group": "regression-tests",
+      "sha256": "629d31daaf9a0f5cf8fceedf1dde94715b58858022b78cc107b138f17ef57a5f"
+    },
+    {
+      "path": "backend/test-highlight-generation.js",
+      "group": "regression-tests",
+      "sha256": "119de08a3656c19ac6371f39991d7b3d405b49ffbef55996ca0aef174693b36e"
+    },
+    {
+      "path": "backend/test-highlight-candidates.js",
+      "group": "regression-tests",
+      "sha256": "a73f306d611a899c0264c58a2502d99fe0e4fcc4c99568899eb74bcab7231ba8"
+    },
+    {
+      "path": "backend/test-ollama-provider.js",
+      "group": "regression-tests",
+      "sha256": "a9d6c7d1ada6a572016ab1b29f10c489efb54fdf64cfb074302db49e7163c85c"
+    },
+    {
+      "path": "backend/test-evidence-negation.js",
+      "group": "regression-tests",
+      "sha256": "c91a5028b2344df3ca8ab1399d7d5a360c1d0ad75b7e4eb318cb959d57816746"
+    },
+    {
+      "path": "backend/test-paraphrase-retrieval.js",
+      "group": "regression-tests",
+      "sha256": "a8d1fa54ae49cb77ad9f3448e049732245d0f3461994073e94f34481371b8c2e"
+    },
+    {
+      "path": "backend/test-noncontent-evidence.js",
+      "group": "regression-tests",
+      "sha256": "005ad79fc2bc9c17528d730a4b674ccaff780a27f0535bcbae9c1963649131d7"
+    },
+    {
+      "path": "backend/test-local-evaluation.js",
+      "group": "regression-tests",
+      "sha256": "11f53f66b903375343917c47704ef2445c297765e7845fd2e2ae2db381da8b85"
+    },
+    {
+      "path": "backend/test-unseen-evaluation.js",
+      "group": "regression-tests",
+      "sha256": "ff9fe297ae2bf246bd9b861db8589a40b43394ce8f8d659f37e4c062546b6a56"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/after-negation.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "ff3fa5057ccb8d10e004e1251ee4d6d74b13dce1e9806b8a36880e04f2458afc"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/baseline.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "408beae2fa9a62d7a1b90da25446704193c480f88ad182e60ad290972b65e72d"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/browser-session.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "17c9b5ecee352739452c34d862a8c5524dbb63873d66e67dbc7d69d6c4745540"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/BROWSER-VERIFICATION.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "4a9e950325174698fc32acc37a97dc2018cb521f0b6b6ee1bedc3a3bda16fcf9"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/candidate-results-65d92d45.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "33fbed54e44f3799b9cd17b05ac336e6d2ed561e1ea71615f080768c10aed3de"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/CANDIDATE-SELECTION.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "96034c895aaa404d2518aa2ce36fb7e9cb9d62eeed5ce291e731a4a3ec0adac5"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/consolidated-baseline.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "72c0c1ca01e924db199578d750ce89f2ae89100e19640141de98314a5a6c873d"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/CONSOLIDATED-MILESTONE.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "3b778661b229cdd77082967c62c189c15f36dab04463e4aac8ca3b254a88d2c6"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/dataset.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "178fdf41c8a4c275b5637788e21f90b4cc23df2c1e0bf1102fe2c8da1a02cdde"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/expanded-dataset.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "17d2bc27a3abee84424a01e573e0f74c856847c1740c04a3d8c0bffab7830bc8"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/local-metrics.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "c421b777e574593d6fb28fae2fde55dc59970a9b102060e0165a75e2bd07ab7a"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/LOCAL-MODEL-EVALUATION.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "f5b77bafa6183e20bf9504d1132171c344f1e50ada9d31948a63e72102b96042"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/local-oracle.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "e3ca16feb233f962e07ad3d6351f8b396cd5af6cfff3ef65ccac758705eb3d53"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/local-review.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "d833966b5aa99093f529d43781682b9b34ceefceaeffec26aa4e1e822b098331"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/local-run.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "2c5b971535a75823a9a80e007a43dcbd70b92340bdcca63c8c7ffa7630db502c"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/model-results-1d71ee7a.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "206de0b2b8c8bf450b51a5adf27736e5940f2ea49cad39c4ddf39b15339a7525"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/NONCONTENT-EVIDENCE-FIX.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "d9be049a83e7a168bcb7bcffb3c5d74c4019e2ccc2290b793eebf03b67a07225"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/noncontent-live-results.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "894b9aa4e8b5122574dffd393b951a0eeb69b1fc353dc5e39089d0365c254567"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/NONCONTENT-LIVE-VERIFICATION.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "1cba09e0f73187255199c7a350a7f0f502b6ef9dcdf9c2adedfb6056dedf4ab2"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/noncontent-live.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "45c8d72f753f3716cecd2058549ecce262f34b2c848db9ea46ceafd650b490f3"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/noncontent-local-results.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "ebb39170f1886abf9e3ca129a97421be93de243b686a344c6a23ef998cf1c08b"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/noncontent-scripted-results.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "f308f760b33bd46a936498cc825b6e6e8dd7ff917547fc5b51629d6709ff5ac7"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/pdf-results-7b0a5d04.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "cb0a6eb0fa93f891478a096c6742cf9b94295fa92cc5ef2e9c58c9a8ab7a8926"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/README.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "1bf2aec5c20486917fac32fa9fe3c09face8343af50b25a7beac59453a84717b"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/review-results-7b0a5d04.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "00f263280a9c723ea8b59d865753889e3b3917cb8b92ca30228e2f9f29ed937a"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/run.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "b2e73592c93ee0b67a8c2b475befa89cd6e9778d5b6764befcad6b5c976f4b19"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/unseen-dataset.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "a7c02a06fa7da0c19959f51ce4790750df7cf6291697dd654d67273a7f8804e5"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/UNSEEN-EVALUATION.md",
+      "group": "benchmark-and-evidence",
+      "sha256": "862ddca59393547fbee382cc006777d2e548cae50d4dd9564385b79884f44fe0"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/unseen-local-results.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "282d6cef39702e5ee06a8db14dac23f6e945d3721b5fbf07b87a705f972f24ca"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/unseen-metrics.js",
+      "group": "benchmark-and-evidence",
+      "sha256": "0df72e133dc4f098b45f85c3e8a0dd74f049b24d13ac04e55fe8e5692a729664"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/unseen-scripted-results.json",
+      "group": "benchmark-and-evidence",
+      "sha256": "fc1909258a568328f9cf102d4f69e332843d4a59f3ac9c13cd3ed4caee0538ba"
+    },
+    {
+      "path": "backend/benchmarks/tailoring/verify-local-review-pdf.py",
+      "group": "benchmark-and-evidence",
+      "sha256": "387fb24a838860988be7d70f682d8d598835b18879df0d643afca33a998576af"
+    },
+    {
+      "path": "backend/test-openrouter-provider.js",
+      "group": "regression-tests",
+      "sha256": "9fb68575573bd056f6214a075d3674848fe11c22d984eba90819fc8ee31c8b46"
+    },
+    {
+      "path": "backend/test-generation-diagnostics.js",
+      "group": "regression-tests",
+      "sha256": "328dfaa11673f6d8c685f8c795a97378e576c2d565c695659d3988a51b32bdcd"
+    },
+    {
+      "path": "backend/test-tailoring-quality.js",
+      "group": "regression-tests",
+      "sha256": "4dab2110d9cb5ffeda067175e8bc92b36ad013a5aa06530f881f1d18641b835e"
+    },
+    {
+      "path": "backend/test-jd-analysis-guards.js",
+      "group": "regression-tests",
+      "sha256": "74870c25d6457c340ab4fcea49174d0242428537c6539b0f36fc3fc4d31a4873"
+    }
+  ],
+  "requiresHunkSplit": [
+    "backend/package.json",
+    "backend/README.md",
+    "backend/src/modules/job-tailoring/services/source-patch.service.ts"
+  ],
+  "prerequisiteContracts": [
+    "backend/src/models/LatexFile.ts",
+    "backend/src/models/LatexProject.ts",
+    "backend/src/services/latexWriteRecovery.service.ts",
+    "hooks/use-resume.tsx",
+    "lib/file-save-manager.ts"
+  ],
+  "exclusions": [
+    "ignored environment files and credentials",
+    "storage/** and portable runtime/model binaries",
+    "backend/jd-* and backend/resume_eng_jd_audit_* raw artifacts",
+    "unrelated frontend, file-tree, compilation, PDF and project restoration changes",
+    "root package.json and package-lock.json",
+    "ReportMind_Condensed_Layout.docx",
+    "AGENTS.md policy edits"
+  ],
+  "warning": "Current worktree checks do not prove a selected subset builds on HEAD; land prerequisite contracts or verify a reconstructed tree before commit",
+  "baseCommit": "c680f659bcd3e729397912d178750cf90ca43e0b",
+  "reviewArtifacts": [
+    "docs/TAILORING-COMMIT-REVIEW.md",
+    "docs/TAILORING-COMMIT-MANIFEST.json"
+  ]
+}

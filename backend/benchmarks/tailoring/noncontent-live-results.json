@@ -1,0 +1,270 @@
+{
+  "database": "resume_eng_browser_21e18500b42d4687a9588f10fc94e653",
+  "projectId": "6ad1ec05834d2552bbb910d1",
+  "fileId": "6ad1ec05834d2552bbb910d3",
+  "checks": [
+    "Synthetic label-only source saved; legacy contamination and two scope controls seeded",
+    "negative browser analysis persisted expected classification and suggestion count",
+    "Live reindex removes stale Python evidence, preserves raw source/revision, and leaves other project/version controls intact",
+    "positive browser analysis persisted expected classification and suggestion count",
+    "positive browser analysis persisted expected classification and suggestion count"
+  ],
+  "negativeFile": {
+    "id": "6ad1ec05834d2552bbb910d3",
+    "name": "browser-check.tex",
+    "path": "browser-check.tex",
+    "folderId": null,
+    "updatedAt": "2026-10-16T09:20:46.056Z",
+    "contentRevision": 1,
+    "content": "\\documentclass{article}\n\\begin{document}\n\\section{Projects}\n\\begin{itemize}\n\\item \\label{Python} Wrote Perl tools.\n\\end{itemize}\n\\end{document}",
+    "recoveryPending": false
+  },
+  "controlProjectId": "6ad1ec6ecaa8940a2048002d",
+  "prepared": true,
+  "negative": {
+    "analysisId": "68a77c8e-079a-4169-9d69-24db524e01f9",
+    "matches": [
+      {
+        "_id": "6ad1ec9bbae0ae9aa0f3455b",
+        "analysisId": "68a77c8e-079a-4169-9d69-24db524e01f9",
+        "requirementId": "requirement-1",
+        "__v": 0,
+        "bestScore": 0.09625,
+        "classification": "MISSING",
+        "confidence": 0.9,
+        "createdAt": "2026-10-16T09:21:31.866Z",
+        "evidenceIds": [],
+        "evidenceScores": [
+          {
+            "evidenceId": "1ed43d62a5809efa8e8c19c8d55b7bb7df43359328e9b1cefe87fe15692e3163",
+            "lexicalScore": 0,
+            "semanticScore": 0,
+            "hybridScore": 0.09625,
+            "_id": "6ad1ec9b834d2552bbb91103"
+          }
+        ],
+        "jobTargetId": "6ad1ec9b834d2552bbb910f8",
+        "projectId": "6ad1ec05834d2552bbb910d1",
+        "reason": "No supporting resume evidence was found for this required technology.",
+        "reasonCode": "NO_EVIDENCE_RETRIEVED",
+        "updatedAt": "2026-10-16T09:21:31.866Z",
+        "versionId": "ver_master"
+      }
+    ],
+    "suggestions": [],
+    "file": {
+      "id": "6ad1ec05834d2552bbb910d3",
+      "name": "browser-check.tex",
+      "path": "browser-check.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Projects}\n\\begin{itemize}\n\\item \\label{Python} Wrote Perl tools.\n\\end{itemize}\n\\end{document}",
+      "recoveryPending": false,
+      "contentRevision": 1,
+      "folderId": null,
+      "language": "latex",
+      "lineCount": 7,
+      "updatedAt": "2026-10-16T09:20:46.107Z"
+    },
+    "scopedSuggestionsRead": true
+  },
+  "previousHarnessErrors": [
+    "null == true"
+  ],
+  "reindex": {
+    "projectId": "6ad1ec05834d2552bbb910d1",
+    "versionId": "ver_master",
+    "filesProcessed": 1,
+    "filesIndexed": 1,
+    "sectionsDetected": 1,
+    "evidenceCount": 1,
+    "evidenceCreated": 0,
+    "evidenceUpdated": 1,
+    "evidenceSkipped": 0,
+    "parseWarnings": [],
+    "durationMs": 38
+  },
+  "reindexedEvidence": [
+    {
+      "_id": "6ad1ec9bbae0ae9aa0f3455a",
+      "evidenceId": "1ed43d62a5809efa8e8c19c8d55b7bb7df43359328e9b1cefe87fe15692e3163",
+      "projectId": "6ad1ec05834d2552bbb910d1",
+      "versionId": "ver_master",
+      "__v": 0,
+      "createdAt": "2026-10-16T09:21:31.536Z",
+      "entities": [
+        "Wrote Perl tools"
+      ],
+      "metadata": {
+        "technologies": [],
+        "normalizedTechnologies": [],
+        "entities": [
+          "Wrote Perl tools"
+        ]
+      },
+      "normalizedTechnologies": [],
+      "originalSectionName": "Projects",
+      "rawText": "\\item \\label{Python} Wrote Perl tools.",
+      "resumeId": "6ad1ec05834d2552bbb910d1",
+      "section": "projects",
+      "source": {
+        "fileId": "6ad1ec05834d2552bbb910d3",
+        "fileName": "browser-check.tex",
+        "lineStart": 5,
+        "lineEnd": 5
+      },
+      "technologies": [],
+      "text": "Wrote Perl tools.",
+      "type": "project",
+      "updatedAt": "2026-10-16T09:22:30.160Z",
+      "embedding": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.5773502691896258,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.5773502691896258,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.5773502691896258,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "embeddingDimensions": 64,
+      "embeddingModel": "mock-hash-v1"
+    }
+  ],
+  "positive": {
+    "analysisId": "1c0486f8-01b9-44b0-abfc-4ee51ddc4e64",
+    "matches": [
+      {
+        "_id": "6ad1ecfebae0ae9aa0f3455d",
+        "analysisId": "1c0486f8-01b9-44b0-abfc-4ee51ddc4e64",
+        "requirementId": "requirement-1",
+        "__v": 0,
+        "bestScore": 0.5487500000000001,
+        "classification": "STRONG",
+        "confidence": 0.86975,
+        "createdAt": "2026-10-16T09:23:10.403Z",
+        "evidenceIds": [
+          "e9ab5ec8d344a39d70b7d0b5ca9354ff8f9d13f6184c142d6ac6e28c12d4cbe7"
+        ],
+        "evidenceScores": [
+          {
+            "evidenceId": "e9ab5ec8d344a39d70b7d0b5ca9354ff8f9d13f6184c142d6ac6e28c12d4cbe7",
+            "lexicalScore": 1,
+            "semanticScore": 0,
+            "hybridScore": 0.5487500000000001,
+            "_id": "6ad1ecfe834d2552bbb91144"
+          }
+        ],
+        "jobTargetId": "6ad1ecfe834d2552bbb91139",
+        "projectId": "6ad1ec05834d2552bbb910d1",
+        "reason": "Explicit evidence directly matches the required technology.",
+        "reasonCode": "EXACT_EVIDENCE_MATCH",
+        "updatedAt": "2026-10-16T09:23:10.403Z",
+        "versionId": "ver_master"
+      }
+    ],
+    "suggestions": [
+      {
+        "_id": "6ad1ed0e834d2552bbb91147",
+        "suggestionId": "ad3dcf1f-597f-4f2a-84c1-6c9d6c80d016",
+        "analysisId": "1c0486f8-01b9-44b0-abfc-4ee51ddc4e64",
+        "jobTargetId": "6ad1ecfe834d2552bbb91139",
+        "requirementId": "requirement-1",
+        "projectId": "6ad1ec05834d2552bbb910d1",
+        "versionId": "ver_master",
+        "type": "highlight",
+        "targetEvidenceId": "e9ab5ec8d344a39d70b7d0b5ca9354ff8f9d13f6184c142d6ac6e28c12d4cbe7",
+        "before": "\\item \\label{work} Wrote Python tools.",
+        "after": "\\item \\label{work} Wrote \\textbf{Python} tools.",
+        "reason": "Highlight existing resume text relevant to this requirement.",
+        "evidenceIds": [
+          "e9ab5ec8d344a39d70b7d0b5ca9354ff8f9d13f6184c142d6ac6e28c12d4cbe7"
+        ],
+        "confidence": 0.5,
+        "status": "pending",
+        "validation": "PASS",
+        "reasonCode": "PERSISTED",
+        "sourcePatch": {
+          "fileId": "6ad1ec05834d2552bbb910d3",
+          "fileName": "browser-check.tex",
+          "evidenceId": "e9ab5ec8d344a39d70b7d0b5ca9354ff8f9d13f6184c142d6ac6e28c12d4cbe7",
+          "lineStart": 5,
+          "lineEnd": 5,
+          "before": "\\item \\label{work} Wrote Python tools.",
+          "after": "\\item \\label{work} Wrote \\textbf{Python} tools.",
+          "beforeHash": "c2a80930f9377ea393ad2ef0ccd49cf9304529ec0b0f2fd9f907bc8b058cc873"
+        },
+        "createdAt": "2026-10-16T09:23:26.509Z",
+        "updatedAt": "2026-10-16T09:23:26.509Z",
+        "__v": 0
+      }
+    ],
+    "file": {
+      "id": "6ad1ec05834d2552bbb910d3",
+      "name": "browser-check.tex",
+      "path": "browser-check.tex",
+      "content": "\\documentclass{article}\n\\begin{document}\n\\section{Projects}\n\\begin{itemize}\n\\item \\label{work} Wrote Python tools.\n\\end{itemize}\n\\end{document}",
+      "recoveryPending": false,
+      "contentRevision": 3,
+      "folderId": null,
+      "language": "latex",
+      "lineCount": 7,
+      "updatedAt": "2026-10-16T09:23:02.552Z"
+    },
+    "scopedSuggestionsRead": true
+  }
+}

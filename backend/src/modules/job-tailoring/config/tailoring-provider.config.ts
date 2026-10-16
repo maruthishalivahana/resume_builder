@@ -1,9 +1,10 @@
 import "../../../config/env";
 import { LLMProvider, DeterministicTailoringGenerator } from "../providers/interfaces";
 import { OpenRouterLLMProvider } from "../providers/openrouter-llm.provider";
+import { OllamaHighlightProvider } from "../providers/ollama-highlight.provider";
 import { tailoringDiagnostic, tailoringDiagnosticWarning } from "../utils/tailoring-diagnostic.util";
 
-export type SupportedLLMProvider = "openrouter" | "deterministic";
+export type SupportedLLMProvider = "openrouter" | "deterministic" | "ollama";
 
 export interface TailoringProviderConfig {
   requestedProviderRaw: string | undefined;
@@ -15,26 +16,34 @@ export interface TailoringProviderConfig {
 }
 
 export function resolveTailoringProviderConfig(): TailoringProviderConfig {
-  const raw = process.env.LLM_PROVIDER;
+  // JD-specific override leaves conversational chat's provider untouched.
+  const raw = process.env.TAILORING_LLM_PROVIDER ?? process.env.LLM_PROVIDER;
   const trimmed = raw ? raw.trim().toLowerCase() : "";
 
   if (!trimmed) {
-    const errorMsg = "LLM_PROVIDER is not set. Supported values are 'openrouter' or 'deterministic'.";
+    const errorMsg = "LLM_PROVIDER is not set. Supported values are 'openrouter', 'deterministic' or development-only 'ollama'.";
     tailoringDiagnosticWarning("provider.config_missing", {
       reason: errorMsg,
-      supportedValues: "openrouter, deterministic",
+      supportedValues: "openrouter, deterministic, ollama",
     });
     throw new Error(`[Configuration Error] ${errorMsg}`);
   }
 
-  if (trimmed !== "openrouter" && trimmed !== "deterministic") {
-    const errorMsg = `Invalid LLM_PROVIDER '${raw}'. Supported values are 'openrouter' or 'deterministic'.`;
+  if (trimmed !== "openrouter" && trimmed !== "deterministic" && trimmed !== "ollama") {
+    const errorMsg = `Invalid LLM_PROVIDER '${raw}'. Supported values are 'openrouter', 'deterministic' or development-only 'ollama'.`;
     tailoringDiagnosticWarning("provider.config_invalid", {
       requested: raw,
-      supportedValues: "openrouter, deterministic",
+      supportedValues: "openrouter, deterministic, ollama",
       reason: errorMsg,
     });
     throw new Error(`[Configuration Error] ${errorMsg}`);
+  }
+
+  if (trimmed === "ollama") {
+    const primaryProvider = new OllamaHighlightProvider();
+    tailoringDiagnostic("provider.initialized", { provider: "OllamaHighlightProvider", model: primaryProvider.model,
+      capability: primaryProvider.capability, fallbackConfigured: false });
+    return { requestedProviderRaw: raw, normalizedProvider: "ollama", isValid: true, model: primaryProvider.model, primaryProvider };
   }
 
   if (trimmed === "openrouter") {

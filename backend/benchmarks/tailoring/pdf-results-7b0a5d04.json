@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "compilationId": "6ad1146e8c1860d4b4b0772c",
+      "pages": 1,
+      "text": "1 Experience\n\u0088Built Python REST APIs with SQLite for a coursework project.\nLOCALMODELBASE731\n1",
+      "boldText": "1Experience",
+      "acceptedMarkerPresent": false,
+      "sqliteBold": false
+    },
+    {
+      "compilationId": "6ad114768c1860d4b4b07775",
+      "pages": 1,
+      "text": "1 Experience\n\u0088Built Python REST APIs withSQLitefor a coursework project.\nLOCALMODELBASE731\nLOCALMODELACCEPTED842\n1",
+      "boldText": "1ExperienceSQLite",
+      "acceptedMarkerPresent": true,
+      "sqliteBold": true
+    }
+  ]
+}

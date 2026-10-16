@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-15T10:39:25.607Z",
+  "syntheticOnly": true,
+  "productionConfigChanged": false,
+  "databaseUsed": false,
+  "providerPolicy": {
+    "data_collection": "deny",
+    "zdr": true,
+    "allow_fallbacks": false,
+    "max_price": {
+      "prompt": 0,
+      "completion": 0
+    }
+  },
+  "cases": [
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "httpStatus": 404,
+      "elapsedMs": 724,
+      "error": {
+        "code": 404,
+        "message": "No endpoints found matching your data policy (Zero data retention). Configure: https://openrouter.ai/settings/privacy"
+      },
+      "hasContent": false
+    },
+    {
+      "model": "liquid/lfm-2.5-2.6b:free",
+      "httpStatus": 404,
+      "elapsedMs": 85,
+      "error": {
+        "code": 404,
+        "message": "No endpoints found matching your data policy (Zero data retention). Configure: https://openrouter.ai/settings/privacy"
+      },
+      "hasContent": false
+    }
+  ]
+}

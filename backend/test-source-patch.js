@@ -15,6 +15,13 @@ assert.equal(single.updatedContent, "first\nDeveloped REST APIs using Node.js.\n
 const multi = applySourcePatchContent("a\nline one\nline two\nz", patch("line one\nline two", "replacement", 2, 3));
 assert.equal(multi.updatedContent, "a\nreplacement\nz");
 
+const crlf = applySourcePatchContent("a\r\nline one\r\nline two\r\nz", patch("line one\r\nline two", "new one\r\nnew two", 2, 3));
+assert.equal(crlf.updatedContent, "a\r\nnew one\r\nnew two\r\nz");
+const mixed = applySourcePatchContent("a\r\nsame\nsame\r\nz", patch("same", "new", 2));
+assert.equal(mixed.updatedContent, "a\r\nnew\nsame\r\nz", "An exact anchor must preserve surrounding mixed line endings");
+assert.throws(() => applySourcePatchContent("line one\r\nline two", patch("line one\nline two", "new", 1, 2)), /changed|not found/i);
+assert.throws(() => applySourcePatchContent("source", { ...patch("source", "new", 1), beforeHash: "invalid" }), /hash|changed/i);
+
 const relocated = applySourcePatchContent("header\nBuilt REST APIs using Node.js.\nfooter", patch("Built REST APIs using Node.js.", "Updated REST APIs using Node.js.", 8));
 assert.equal(relocated.location.lineStart, 2);
 

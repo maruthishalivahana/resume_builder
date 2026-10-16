@@ -13,7 +13,7 @@ const evidence = [{
 }];
 const valid = parseGroundedSuggestion(JSON.stringify({
   type: "rewrite", targetEvidenceId: "e1", before: evidence[0].text,
-  after: "Built reliable REST APIs using Node.js.", reason: "Clarifies the existing work.",
+  after: String.raw`\textbf{Built REST APIs using Node.js.}`, reason: "Highlights the existing work without adding a claim.",
   evidenceIds: ["e1"], confidence: 0.8,
 }));
 assert.equal(new ClaimValidatorService().validate(valid, evidence), "PASS");

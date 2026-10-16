@@ -4,7 +4,8 @@ import ResumeEvidence from "../models/ResumeEvidence";
 import TailoringSuggestion from "../models/TailoringSuggestion";
 import { SourcePatch } from "../types";
 import { hashSourceText } from "../utils/source-hash.util";
-import { bumpProjectSourceVersion } from "../../../services/latexProjectState.service";
+import { finalizeFileWrite } from "../../../services/latexWriteRecovery.service";
+import { sourceLineRange } from "../utils/source-range.util";
 
 export class SourcePatchService {
   private static readonly activeSuggestions = new Set<string>();
@@ -21,6 +22,8 @@ export class SourcePatchService {
     changedLineStart: number;
     changedLineEnd: number;
     updatedContent: string;
+    contentRevision: number;
+    recoveryPending: boolean;
     pdfStale: true;
   }> {
     if (SourcePatchService.activeSuggestions.has(input.suggestionId)) {
@@ -46,6 +49,8 @@ export class SourcePatchService {
     changedLineStart: number;
     changedLineEnd: number;
     updatedContent: string;
+    contentRevision: number;
+    recoveryPending: boolean;
     pdfStale: true;
   }> {
     const suggestion = await TailoringSuggestion.findOne({ suggestionId: input.suggestionId }).lean();
@@ -53,10 +58,21 @@ export class SourcePatchService {
     if (suggestion.projectId !== input.projectId) throw new AppError("Suggestion belongs to another project", 403, "PROJECT_MISMATCH");
     if (suggestion.versionId !== input.versionId) throw new AppError("Suggestion belongs to another resume version", 409, "VERSION_MISMATCH");
     if (suggestion.validation !== "PASS") throw new AppError("Suggestion failed claim validation", 422, "VALIDATION_FAILED");
-    if (suggestion.status === "accepted") throw new AppError("Suggestion has already been applied", 409, "SUGGESTION_ALREADY_APPLIED");
-    if (suggestion.status !== "pending") throw new AppError("Only pending suggestions can be applied", 409, "SUGGESTION_NOT_PENDING");
     const patch = suggestion.sourcePatch;
     if (!patch) throw new AppError("Suggestion has no source patch", 422, "SOURCE_NOT_FOUND");
+    const file = await LatexFile.findOne({ _id: patch.fileId, projectId: input.projectId });
+    if (!file) throw new AppError("Source file was not found", 404, "FILE_NOT_FOUND");
+    if (file.pendingDelete) throw new AppError("Source file deletion is pending", 409, "DELETE_RECOVERY_PENDING");
+    // A retry after commit finishes the durable journal, never reapplies the patch.
+    if (suggestion.status === "accepted" || file.pendingWrite?.suggestionId === input.suggestionId) {
+      const recoveryPending = !await finalizeFileWrite(file);
+      return { suggestionId: input.suggestionId, status: "accepted", fileId: patch.fileId, fileName: patch.fileName,
+        changedLineStart: suggestion.appliedLineStart ?? file.pendingWrite?.lineStart ?? patch.lineStart,
+        changedLineEnd: suggestion.appliedLineEnd ?? file.pendingWrite?.lineEnd ?? patch.lineEnd,
+        updatedContent: file.content, contentRevision: file.contentRevision ?? 0, recoveryPending, pdfStale: true };
+    }
+    if (suggestion.status !== "pending") throw new AppError("Only pending suggestions can be applied", 409, "SUGGESTION_NOT_PENDING");
+    if (file.pendingWrite && !await finalizeFileWrite(file)) throw new AppError("Previous write recovery is pending", 503, "WRITE_RECOVERY_PENDING");
 
     const evidence = await ResumeEvidence.findOne({
       evidenceId: patch.evidenceId,
@@ -67,14 +83,16 @@ export class SourcePatchService {
     if (evidence.source.fileId !== patch.fileId || evidence.source.fileName !== patch.fileName) {
       throw new AppError("Suggestion source file does not match evidence", 409, "SOURCE_CHANGED");
     }
-    const file = await LatexFile.findOne({ _id: patch.fileId, projectId: input.projectId });
-    if (!file) throw new AppError("Source file was not found", 404, "FILE_NOT_FOUND");
     const patchResult = applySourcePatchContent(file.content, patch);
     const location = patchResult.location;
     const updatedContent = patchResult.updatedContent;
     const updated = await LatexFile.findOneAndUpdate(
-      { _id: file._id, projectId: input.projectId, content: file.content },
-      { $set: { content: updatedContent } },
+      { _id: file._id, projectId: input.projectId, pendingWrite: { $exists: false }, pendingDelete: { $ne: true }, content: file.content,
+        ...((file.contentRevision ?? 0) === 0 ? { $or: [{ contentRevision: 0 }, { contentRevision: { $exists: false } }] } : { contentRevision: file.contentRevision }) },
+      { $set: { content: updatedContent, pendingWrite: { suggestionId: input.suggestionId,
+        evidenceId: patch.evidenceId, versionId: input.versionId, lineStart: location.lineStart,
+        lineEnd: location.lineStart + patch.after.split(/\r?\n/).length - 1,
+        beforeHash: patch.beforeHash, afterHash: hashSourceText(patch.after) } }, $inc: { contentRevision: 1 } },
       { new: true }
     );
     if (!updated) {
@@ -84,24 +102,7 @@ export class SourcePatchService {
       }
       throw new AppError("The source changed while applying the suggestion", 409, "SOURCE_CHANGED");
     }
-    const applied = await TailoringSuggestion.findOneAndUpdate(
-      { suggestionId: input.suggestionId, status: "pending" },
-      {
-        $set: {
-          status: "accepted",
-          appliedAt: new Date(),
-          appliedFileId: patch.fileId,
-          appliedLineStart: location.lineStart,
-          appliedLineEnd: location.lineStart + patch.after.split(/\r?\n/).length - 1,
-          appliedBeforeHash: patch.beforeHash,
-          appliedAfterHash: hashSourceText(patch.after),
-        },
-      },
-      { new: true }
-    );
-    if (!applied) throw new AppError("Suggestion has already been applied", 409, "SUGGESTION_ALREADY_APPLIED");
-    await ResumeEvidence.deleteOne({ evidenceId: patch.evidenceId, projectId: input.projectId, versionId: input.versionId });
-    await bumpProjectSourceVersion(input.projectId);
+    const recoveryPending = !await finalizeFileWrite(updated);
     return {
       suggestionId: input.suggestionId,
       status: "accepted",
@@ -110,6 +111,8 @@ export class SourcePatchService {
       changedLineStart: location.lineStart,
       changedLineEnd: location.lineStart + patch.after.split(/\r?\n/).length - 1,
       updatedContent,
+      contentRevision: updated.contentRevision,
+      recoveryPending,
       pdfStale: true,
     };
   }
@@ -118,20 +121,13 @@ export class SourcePatchService {
 interface Location { startOffset: number; endOffset: number; lineStart: number; lineEnd: number }
 
 export function applySourcePatchContent(content: string, patch: SourcePatch): { updatedContent: string; location: Location } {
-  const lines = content.split(/\r?\n/);
-  const newline = content.includes("\r\n") ? "\r\n" : "\n";
-  const offsets = [0];
-  for (let index = 0; index < content.length; index += 1) {
-    if (content[index] === "\n") offsets.push(index + 1);
+  if (!patch.before || hashSourceText(patch.before) !== patch.beforeHash) {
+    throw new AppError("The source patch text or hash is invalid", 409, "SOURCE_CHANGED");
   }
   let location: Location | null = null;
-  if (patch.lineStart >= 1 && patch.lineEnd >= patch.lineStart && patch.lineEnd <= lines.length) {
-    const startOffset = offsets[patch.lineStart - 1];
-    const endOffset = patch.lineEnd === lines.length ? content.length : offsets[patch.lineEnd] - newline.length;
-    const selected = content.slice(startOffset, endOffset);
-    if (selected === patch.before && hashSourceText(selected) === patch.beforeHash) {
-      location = { startOffset, endOffset, lineStart: patch.lineStart, lineEnd: patch.lineEnd };
-    }
+  const range = sourceLineRange(content, patch.lineStart, patch.lineEnd);
+  if (range?.text === patch.before) {
+    location = { startOffset: range.startOffset, endOffset: range.endOffset, lineStart: patch.lineStart, lineEnd: patch.lineEnd };
   }
   if (!location) {
     const matches = findOccurrences(content, patch.before);

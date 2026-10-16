@@ -1,4 +1,5 @@
 import { JobRequirementData, RankedEvidence, ResumeEvidenceData } from "../types";
+import { evidenceTerms, containsEvidenceTerm } from "../utils/evidence-terms.util";
 
 export interface EvidenceRankingWeights {
   lexical: number;
@@ -15,7 +16,7 @@ export class EvidenceRankerService {
   rank(requirement: JobRequirementData, evidence: ResumeEvidenceData[]): RankedEvidence[] {
     return evidence
       .map((item) => {
-        const lexicalScore = this.lexicalScore(requirement.normalizedTerms, item);
+        const lexicalScore = this.lexicalScore(evidenceTerms(requirement.text), item);
         const semanticScore = 0;
         const sectionScore = this.sectionScore(requirement.category, item);
         const qualityScore = Math.min(1, item.text.length / 120);
@@ -28,7 +29,7 @@ export class EvidenceRankerService {
 
   private lexicalScore(terms: string[], item: ResumeEvidenceData): number {
     if (terms.length === 0) return 0;
-    return terms.filter((term) => item.text.toLowerCase().includes(term)).length / terms.length;
+    return terms.filter((term) => containsEvidenceTerm(item.text, term)).length / terms.length;
   }
 
   private sectionScore(category: string, item: ResumeEvidenceData): number {

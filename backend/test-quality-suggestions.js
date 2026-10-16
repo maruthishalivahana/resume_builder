@@ -10,7 +10,14 @@ async function runTests() {
 
   const claimValidator = new ClaimValidatorService();
   const generator = new DeterministicTailoringGenerator();
-  const groundedService = new GroundedGenerationService(generator, claimValidator);
+  const groundedService = new GroundedGenerationService({
+    generate: async ({ evidence }) => {
+      const target = evidence[0];
+      return { type: "highlight", targetEvidenceId: target.id, before: target.text,
+        after: `\\textbf{${target.text}}`, reason: "Highlights supplied evidence without adding facts",
+        evidenceIds: [target.id], confidence: 0.8 };
+    },
+  }, undefined, claimValidator);
 
   const evidenceList = [
     {
@@ -20,6 +27,7 @@ async function runTests() {
       section: "experience",
       type: "bullet",
       text: "Built REST APIs using Python.",
+      rawText: "Built REST APIs using Python.",
       source: { fileId: "f1", fileName: "resume.tex", lineStart: 10, lineEnd: 10 },
       technologies: ["Python", "REST API"],
       normalizedTechnologies: ["python", "rest_api"],
@@ -32,6 +40,7 @@ async function runTests() {
       section: "experience",
       type: "bullet",
       text: "Managed Docker containers on AWS.",
+      rawText: "Managed Docker containers on AWS.",
       source: { fileId: "f1", fileName: "resume.tex", lineStart: 12, lineEnd: 12 },
       technologies: ["Docker", "AWS"],
       normalizedTechnologies: ["docker", "aws"],
@@ -44,6 +53,7 @@ async function runTests() {
       section: "summary",
       type: "paragraph",
       text: "Software engineer focused on scalable cloud backends.",
+      rawText: "Software engineer focused on scalable cloud backends.",
       source: { fileId: "f1", fileName: "resume.tex", lineStart: 5, lineEnd: 5 },
       technologies: ["Cloud"],
       normalizedTechnologies: ["cloud"],
@@ -99,6 +109,13 @@ async function runTests() {
   assert.ok(!result1.suggestion.after.endsWith("for production applications."), "Must not use generic hardcoded suffix 'for production applications.'");
   assert.ok(!result2.suggestion.after.endsWith("for production applications."), "Must not use generic hardcoded suffix 'for production applications.'");
   console.log("✓ PASS: Suggestions are requirement-specific without repetitive generic filler.\n");
+
+  for (const [requirement, id] of [[req1, "ev-python"], [req2, "ev-docker"]]) {
+    const selected = evidenceList.filter(item => item.id === id);
+    assert.equal(await generator.generate({ requirement, evidence: selected,
+      constraints: { mustReferenceEvidence: true, mayInventFacts: false, mayChangeMeaning: false } }), null,
+      "Deterministic generator must abstain, not manufacture prose");
+  }
 
   console.log("==================================================");
   console.log("ALL QUALITY TESTS PASSED SUCCESSFULLY!");

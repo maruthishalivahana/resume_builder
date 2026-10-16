@@ -1,0 +1,12 @@
+{
+  "proposal": {
+    "type": "highlight",
+    "targetEvidenceId": "e1",
+    "highlightText": "Docker",
+    "reason": "Exact match for the job requirement",
+    "evidenceIds": [
+      "e1"
+    ],
+    "confidence": 0.8
+  }
+}

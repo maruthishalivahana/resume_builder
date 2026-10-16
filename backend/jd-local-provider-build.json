@@ -1,0 +1,84 @@
+{
+  "success": true,
+  "data": {
+    "state": "valid",
+    "latest": {
+      "_id": "6ad0be191d619ec667f33040",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "status": "success",
+      "mainFile": "resume.tex",
+      "compiledEntryFileId": "6ad0bda31d619ec667f32fc9",
+      "compiledEntryFileUpdatedAt": "2026-10-15T11:50:34.473Z",
+      "sourceVersion": 2,
+      "sourceCapture": {
+        "version": 1,
+        "entryFileId": "6ad0bda31d619ec667f32fc9",
+        "sourceVersion": 2,
+        "treeVersion": 0,
+        "files": [
+          {
+            "fileId": "6ad0bda31d619ec667f32fc9",
+            "path": "resume.tex",
+            "folderId": null,
+            "contentRevision": 2,
+            "sha256": "8781be0d16fb5c19f566c84a397ffb003a95c82507ff1e3973e42630c76bb172",
+            "byteLength": 202
+          }
+        ],
+        "folders": [],
+        "hash": "777d87af24076c4b47f5540db4a88be8f6b18a1436c5079d7f8eef0242a04150",
+        "capturedAt": "2026-10-15T11:50:48.439Z"
+      },
+      "pdfPath": "storage\\latex\\6ad0bda31d619ec667f32fc7\\8be7429e-93bc-481e-8aab-b5d5841bd184\\resume.pdf",
+      "pdfFileName": "resume.pdf",
+      "stdout": "This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex.fmt)\r\n restricted \\write18 enabled.\r\nentering extended mode\r\n(resume.tex\r\nLaTeX2e <2026-06-01>\r\nL3 programming layer <2026-09-09>\r\n(C:\\Users\\kumma\\AppData\\Local\\Programs\\MiKTeX\\tex/latex/base\\article.cls\r\nDocument Class: article 2025/01/22 v1.4n Standard LaTeX document class\r\n(C:\\Users\\kumma\\AppData\\Local\\Programs\\MiKTeX\\tex/latex/base\\size10.clo))\r\n(C:\\Users\\kumma\\AppData\\Local\\Programs\\MiKTeX\\tex/latex/l3kernel\\l3backend-pdft\r\nex.def)\r\nNo file resume.aux.\r\n\r\nOverfull \\hbox (7.30324pt too wide) in paragraph at lines 5--6\r\n[]\\OT1/cmr/m/n/10 Built \\OT1/cmr/bx/n/10 Python REST APIs \\OT1/cmr/m/n/10 with \r\nSQLite for a course-work project. LOCAL-\r\n[1{C:/Users/kumma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]\r\n(resume.aux) )\r\n(see the transcript file for additional information) <C:\\Users\\kumma\\AppData\\Lo\r\ncal\\MiKTeX\\fonts/pk/ljfour/jknappen/ec/dpi600\\tcrm1000.pk><C:/Users/kumma/AppDa\r\nta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/ku\r\nmma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:\r\n/Users/kumma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10\r\n.pfb>\r\nOutput written on C:\\Users\\kumma\\AppData\\Local\\Temp\\resume-eng\\8be7429e-93bc-48\r\n1e-8aab-b5d5841bd184\\resume.pdf (1 page, 41406 bytes).\r\nTranscript written on C:\\Users\\kumma\\AppData\\Local\\Temp\\resume-eng\\8be7429e-93b\r\nc-481e-8aab-b5d5841bd184\\resume.log.\r\n",
+      "stderr": "",
+      "compileErrors": [],
+      "durationMs": 1412,
+      "createdAt": "2026-10-15T11:50:49.84Z",
+      "updatedAt": "2026-10-15T11:50:49.84Z",
+      "__v": 0
+    },
+    "successful": {
+      "_id": "6ad0be191d619ec667f33040",
+      "projectId": "6ad0bda31d619ec667f32fc7",
+      "status": "success",
+      "mainFile": "resume.tex",
+      "compiledEntryFileId": "6ad0bda31d619ec667f32fc9",
+      "compiledEntryFileUpdatedAt": "2026-10-15T11:50:34.473Z",
+      "sourceVersion": 2,
+      "sourceCapture": {
+        "version": 1,
+        "entryFileId": "6ad0bda31d619ec667f32fc9",
+        "sourceVersion": 2,
+        "treeVersion": 0,
+        "files": [
+          {
+            "fileId": "6ad0bda31d619ec667f32fc9",
+            "path": "resume.tex",
+            "folderId": null,
+            "contentRevision": 2,
+            "sha256": "8781be0d16fb5c19f566c84a397ffb003a95c82507ff1e3973e42630c76bb172",
+            "byteLength": 202
+          }
+        ],
+        "folders": [],
+        "hash": "777d87af24076c4b47f5540db4a88be8f6b18a1436c5079d7f8eef0242a04150",
+        "capturedAt": "2026-10-15T11:50:48.439Z"
+      },
+      "pdfPath": "storage\\latex\\6ad0bda31d619ec667f32fc7\\8be7429e-93bc-481e-8aab-b5d5841bd184\\resume.pdf",
+      "pdfFileName": "resume.pdf",
+      "stdout": "This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex.fmt)\r\n restricted \\write18 enabled.\r\nentering extended mode\r\n(resume.tex\r\nLaTeX2e <2026-06-01>\r\nL3 programming layer <2026-09-09>\r\n(C:\\Users\\kumma\\AppData\\Local\\Programs\\MiKTeX\\tex/latex/base\\article.cls\r\nDocument Class: article 2025/01/22 v1.4n Standard LaTeX document class\r\n(C:\\Users\\kumma\\AppData\\Local\\Programs\\MiKTeX\\tex/latex/base\\size10.clo))\r\n(C:\\Users\\kumma\\AppData\\Local\\Programs\\MiKTeX\\tex/latex/l3kernel\\l3backend-pdft\r\nex.def)\r\nNo file resume.aux.\r\n\r\nOverfull \\hbox (7.30324pt too wide) in paragraph at lines 5--6\r\n[]\\OT1/cmr/m/n/10 Built \\OT1/cmr/bx/n/10 Python REST APIs \\OT1/cmr/m/n/10 with \r\nSQLite for a course-work project. LOCAL-\r\n[1{C:/Users/kumma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]\r\n(resume.aux) )\r\n(see the transcript file for additional information) <C:\\Users\\kumma\\AppData\\Lo\r\ncal\\MiKTeX\\fonts/pk/ljfour/jknappen/ec/dpi600\\tcrm1000.pk><C:/Users/kumma/AppDa\r\nta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/ku\r\nmma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:\r\n/Users/kumma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10\r\n.pfb>\r\nOutput written on C:\\Users\\kumma\\AppData\\Local\\Temp\\resume-eng\\8be7429e-93bc-48\r\n1e-8aab-b5d5841bd184\\resume.pdf (1 page, 41406 bytes).\r\nTranscript written on C:\\Users\\kumma\\AppData\\Local\\Temp\\resume-eng\\8be7429e-93b\r\nc-481e-8aab-b5d5841bd184\\resume.log.\r\n",
+      "stderr": "",
+      "compileErrors": [],
+      "durationMs": 1412,
+      "createdAt": "2026-10-15T11:50:49.84Z",
+      "updatedAt": "2026-10-15T11:50:49.84Z",
+      "__v": 0
+    },
+    "pdf": {
+      "fileName": "resume.pdf",
+      "url": "/api/latex/projects/6ad0bda31d619ec667f32fc7/pdf?compilationId=6ad0be191d619ec667f33040"
+    }
+  }
+}

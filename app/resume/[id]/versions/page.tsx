@@ -20,7 +20,7 @@ import { useResume } from "@/hooks/use-resume";
 import { Button } from "@/components/ui/button";
 
 export default function VersionsPage() {
-  const { resume } = useResume();
+  const { resumeBasePath,  resume } = useResume();
 
   return (
     <WorkspaceShell>
@@ -87,14 +87,14 @@ export default function VersionsPage() {
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <Link href="/resume/demo/editor">
+                  <Link href={`${resumeBasePath}/editor`}>
                     <Button variant="secondary" size="sm">
                       <FileText className="w-3.5 h-3.5" />
                       <span>Open Editor</span>
                     </Button>
                   </Link>
 
-                  <Link href="/resume/demo/preview">
+                  <Link href={`${resumeBasePath}/preview`}>
                     <Button variant="outline" size="sm">
                       <span>Preview PDF</span>
                     </Button>

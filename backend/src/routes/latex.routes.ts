@@ -6,6 +6,7 @@ import {
   createProject,
   getProject,
   getProjectFiles,
+  recoverProjectTree,
   setProjectEntryFile,
   createFile,
   createFolder,
@@ -19,6 +20,7 @@ import {
   compileProject,
   getProjectPdf,
   getLatestCompilation,
+  getCompilationHistory,
 } from "../controllers/latex.controller";
 
 const router = Router();
@@ -30,6 +32,7 @@ router.get("/compiler/status", checkCompilerStatus);
 router.post("/projects", createProject);
 router.get("/projects/:projectId", getProject);
 router.get("/projects/:projectId/files", getProjectFiles);
+router.post("/projects/:projectId/tree/recovery", recoverProjectTree);
 router.patch("/projects/:projectId/entry-file", setProjectEntryFile);
 router.post("/projects/:projectId/files", createFile);
 router.post("/projects/:projectId/folders", createFolder);
@@ -38,6 +41,7 @@ router.post("/projects/:projectId/folders", createFolder);
 router.post("/projects/:projectId/compile", compileProject);
 router.get("/projects/:projectId/pdf", getProjectPdf);
 router.get("/projects/:projectId/compilation/latest", getLatestCompilation);
+router.get("/projects/:projectId/compilations", getCompilationHistory);
 
 // File routes
 router.get("/files/:fileId", getLatexFile);

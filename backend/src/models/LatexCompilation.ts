@@ -7,6 +7,17 @@ export interface ICompileError {
   message: string;
 }
 
+export interface SourceCapture {
+  version: 1;
+  hash: string;
+  capturedAt: Date;
+  entryFileId: string;
+  sourceVersion: number;
+  treeVersion: number;
+  files: { fileId: string; path: string; folderId: string | null; contentRevision: number; sha256: string; byteLength: number }[];
+  folders: { folderId: string; path: string; parentFolderId: string | null }[];
+}
+
 export interface ILatexCompilation extends Document {
   projectId: Types.ObjectId;
   status: "success" | "failed" | "timeout";
@@ -14,6 +25,7 @@ export interface ILatexCompilation extends Document {
   compiledEntryFileId?: Types.ObjectId;
   compiledEntryFileUpdatedAt?: Date;
   sourceVersion: number;
+  sourceCapture?: SourceCapture;
   pdfPath?: string;
   pdfFileName?: string;
   stdout: string;
@@ -55,6 +67,8 @@ const LatexCompilationSchema = new Schema<ILatexCompilation>(
       type: Number,
       default: 0,
     },
+    // Additive provenance for new builds. Legacy builds have no capture metadata.
+    sourceCapture: { type: Schema.Types.Mixed, default: undefined },
     pdfPath: {
       type: String,
       default: null,
@@ -103,6 +117,7 @@ const LatexCompilationSchema = new Schema<ILatexCompilation>(
 );
 
 LatexCompilationSchema.index({ projectId: 1, createdAt: -1 });
+LatexCompilationSchema.index({ projectId: 1, compiledEntryFileId: 1, createdAt: -1 });
 
 export const LatexCompilation = mongoose.model<ILatexCompilation>(
   "LatexCompilation",

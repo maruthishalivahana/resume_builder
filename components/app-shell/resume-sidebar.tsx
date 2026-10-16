@@ -31,6 +31,7 @@ import {
 import { useResume } from "@/hooks/use-resume";
 import { LatexFileItem, LatexFolderItem } from "@/types/latex";
 import { CompileErrorItem, CompilerStatusData } from "@/lib/api/latex";
+import { buildProjectTree, visibleProjectTree } from "@/lib/project-tree";
 
 // ── TeX File Icon matching Sidebar.png ────────────────────────────────────────
 export function TexFileIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
@@ -204,6 +205,10 @@ export function ProjectFileItem({
   return (
     <div
       onClick={onClick}
+      role="treeitem"
+      aria-level={depth + 1}
+      aria-selected={isActive}
+      style={{ paddingLeft: 10 + Math.min(depth, 8) * 14 }}
       className={`group relative w-full flex items-center justify-between text-xs transition-colors rounded-md cursor-pointer select-none ${
         isRoot ? "h-8 px-2.5 my-0.5" : "h-7 pl-6 pr-2.5 my-0.5"
       } ${
@@ -277,9 +282,11 @@ export function ProjectFileItem({
 // ── 5. Project Folder Item Component ──────────────────────────────────────────
 interface ProjectFolderItemProps {
   name: string;
+  depth?: number;
   isOpen: boolean;
   onToggle: () => void;
   onAddFile?: () => void;
+  onAddFolder?: () => void;
   onRename?: () => void;
   onDelete?: () => void;
   children?: React.ReactNode;
@@ -287,9 +294,11 @@ interface ProjectFolderItemProps {
 
 export function ProjectFolderItem({
   name,
+  depth = 0,
   isOpen,
   onToggle,
   onAddFile,
+  onAddFolder,
   onRename,
   onDelete,
   children,
@@ -298,6 +307,11 @@ export function ProjectFolderItem({
     <div className="space-y-0.5">
       <div
         onClick={onToggle}
+        role="treeitem"
+        aria-level={depth + 1}
+        aria-expanded={isOpen}
+        aria-selected={false}
+        style={{ paddingLeft: 8 + Math.min(depth, 8) * 14 }}
         className="group relative w-full flex items-center justify-between px-2 py-1.5 rounded-md text-xs text-[#d4d4d8] hover:text-white hover:bg-white/[0.03] transition-colors cursor-pointer select-none"
       >
         <div className="flex items-center gap-1.5 min-w-0 pr-2">
@@ -322,6 +336,15 @@ export function ProjectFolderItem({
               className="p-1 text-neutral-400 hover:text-amber-400 hover:bg-white/10 rounded transition-colors"
             >
               <FilePlus className="w-3 h-3" />
+            </button>
+          )}
+          {onAddFolder && (
+            <button
+              onClick={onAddFolder}
+              title="New folder in this folder"
+              className="p-1 text-neutral-400 hover:text-amber-400 hover:bg-white/10 rounded transition-colors"
+            >
+              <FolderPlus className="w-3 h-3" />
             </button>
           )}
           {onRename && (
@@ -359,6 +382,7 @@ interface ProjectFileTreeProps {
   onToggleFolder: (folderId: string) => void;
   onSelectFile: (fileId: string) => void;
   onAddFileToFolder: (folderId: string) => void;
+  onAddFolderToFolder: (folderId: string) => void;
   onRenameFile: (file: LatexFileItem) => void;
   onDeleteFile: (file: LatexFileItem) => void;
   onSetEntryFile: (file: LatexFileItem) => void;
@@ -376,6 +400,7 @@ export function ProjectFileTree({
   onToggleFolder,
   onSelectFile,
   onAddFileToFolder,
+  onAddFolderToFolder,
   onRenameFile,
   onDeleteFile,
   onSetEntryFile,
@@ -400,79 +425,52 @@ export function ProjectFileTree({
     );
   }
 
-  // Root files: files with no folderId and no slash in path
-  const rootFiles = files.filter(
-    (f) => !f.folderId && !f.path.includes("/")
-  );
+  const tree = buildProjectTree(files, folders);
+  const renderRows = (roots: typeof tree.roots) => visibleProjectTree(roots, expandedFolderIds).map(({ node, depth }) => (
+    <div key={`${node.kind}:${node.item.id}`} data-tree-kind={node.kind} data-tree-id={node.item.id} title={node.item.path}>
+      {node.kind === "folder" ? (
+        <ProjectFolderItem
+          name={node.item.name}
+          depth={depth}
+          isOpen={expandedFolderIds.includes(node.item.id)}
+          onToggle={() => onToggleFolder(node.item.id)}
+          onAddFile={() => onAddFileToFolder(node.item.id)}
+          onAddFolder={() => onAddFolderToFolder(node.item.id)}
+          onRename={() => onRenameFolder(node.item)}
+          onDelete={() => onDeleteFolder(node.item)}
+        />
+      ) : (
+        <ProjectFileItem
+          name={node.item.name}
+          lines={node.item.lineCount ?? (node.item.content ? node.item.content.split("\n").length : 0)}
+          depth={depth}
+          isActive={activeFileId === node.item.id}
+          onClick={() => onSelectFile(node.item.id)}
+          onRename={() => onRenameFile(node.item)}
+          onDelete={() => onDeleteFile(node.item)}
+          onSetEntryFile={() => onSetEntryFile(node.item)}
+          isEntryFile={entryFileId === node.item.id}
+        />
+      )}
+    </div>
+  ));
 
   return (
     <div className="space-y-0.5">
-      {/* Root-level files (e.g. main.tex) */}
-      {rootFiles.map((file) => {
-        const lineCount = file.lineCount ?? (file.content ? file.content.split("\n").length : 0);
-        const isSelected = activeFileId === file.id;
-
-        return (
-          <ProjectFileItem
-            key={file.id}
-            name={file.name}
-            lines={lineCount}
-            isActive={isSelected}
-            depth={0}
-            onClick={() => onSelectFile(file.id)}
-            onRename={() => onRenameFile(file)}
-            onDelete={() => onDeleteFile(file)}
-            onSetEntryFile={() => onSetEntryFile(file)}
-            isEntryFile={entryFileId === file.id}
-          />
-        );
-      })}
-
-      {/* Folders */}
-      {folders.map((folder) => {
-        const isOpen = expandedFolderIds.includes(folder.id);
-        const childFiles = files.filter(
-          (f) =>
-            f.folderId === folder.id ||
-            f.path.startsWith(`${folder.path}/`)
-        );
-
-        return (
-          <ProjectFolderItem
-            key={folder.id}
-            name={folder.name}
-            isOpen={isOpen}
-            onToggle={() => onToggleFolder(folder.id)}
-            onAddFile={() => onAddFileToFolder(folder.id)}
-            onRename={() => onRenameFolder(folder)}
-            onDelete={() => onDeleteFolder(folder)}
-          >
-            {childFiles.map((file) => {
-              const lineCount =
-                file.lineCount ?? (file.content ? file.content.split("\n").length : 0);
-              const isSelected = activeFileId === file.id;
-
-              return (
-                <ProjectFileItem
-                  key={file.id}
-                  name={file.name}
-                  lines={lineCount}
-                  isActive={isSelected}
-                  depth={1}
-                  onClick={() => onSelectFile(file.id)}
-                  onRename={() => onRenameFile(file)}
-                  onDelete={() => onDeleteFile(file)}
-                />
-              );
-            })}
-          </ProjectFolderItem>
-        );
-      })}
+      <div role="tree" aria-label="Project files">{renderRows(tree.roots)}</div>
+      {tree.diagnostics.length > 0 && (
+        <section className="mt-2 border-t border-amber-500/20 pt-2 text-xs">
+          <div role="alert" className="px-2 text-amber-300 space-y-1">
+            <p>Inaccessible records: missing parents or folder cycles. Stored references have not been changed.</p>
+            <ul>{tree.diagnostics.map((message, index) => <li key={index}>{message}</li>)}</ul>
+          </div>
+          <div role="tree" aria-label="Inaccessible project records">{renderRows(tree.inaccessible)}</div>
+        </section>
+      )}
     </div>
   );
 }
 
-// ── 7. Compiler Status Component ──────────────────────────────────────────────
 interface CompilerStatusProps {
   compileStatus: "idle" | "compiling" | "success" | "error";
   compileLog?: string;
@@ -584,6 +582,7 @@ export function ResumeSidebar() {
   const [clientError, setClientError] = useState<string | null>(null);
 
   const {
+    resumeBasePath,
     atsScore,
     files,
     folders,
@@ -614,6 +613,7 @@ export function ResumeSidebar() {
   const [isFileModalOpen, setIsFileModalOpen] = useState(false);
   const [isFolderModalOpen, setIsFolderModalOpen] = useState(false);
   const [selectedFolderForFile, setSelectedFolderForFile] = useState<string | null>(null);
+  const [selectedParentForFolder, setSelectedParentForFolder] = useState<string | null>(null);
   const [newFileName, setNewFileName] = useState("");
   const [newFolderName, setNewFolderName] = useState("");
   const [modalError, setModalError] = useState<string | null>(null);
@@ -649,7 +649,7 @@ export function ResumeSidebar() {
   const isOverviewActive =
     pathname === "/dashboard" ||
     pathname.includes("/overview") ||
-    pathname === "/resume/demo";
+    /^\/resume\/[^/]+$/.test(pathname);
 
   const isATSActive = pathname.includes("/ats");
   const isJobsActive = pathname.includes("/jobs");
@@ -658,8 +658,8 @@ export function ResumeSidebar() {
 
   const handleSelectFile = async (fileId: string) => {
     await selectFile(fileId);
-    if (!pathname.includes("/latex")) {
-      router.push("/resume/demo/latex");
+    if (!pathname.includes("/latex") && window.location.pathname === pathname) {
+      router.push(`${resumeBasePath}/latex`);
     }
   };
 
@@ -681,9 +681,9 @@ export function ResumeSidebar() {
 
     setClientError(null);
     try {
-      await uploadFile(file);
-      if (!pathname.includes("/latex")) {
-        router.push("/resume/demo/latex");
+      const result = await uploadFile(file);
+      if (!pathname.includes("/latex") && window.location.pathname === pathname) {
+        router.push(`/resume/${encodeURIComponent(result.data.project.id)}/latex`);
       }
     } catch (err) {
       console.error("Upload error:", err);
@@ -710,8 +710,8 @@ export function ResumeSidebar() {
       setIsFileModalOpen(false);
       setNewFileName("");
       setSelectedFolderForFile(null);
-      if (!pathname.includes("/latex")) {
-        router.push("/resume/demo/latex");
+      if (!pathname.includes("/latex") && window.location.pathname === pathname) {
+        router.push(`${resumeBasePath}/latex`);
       }
     } catch (err) {
       setModalError(err instanceof Error ? err.message : "Failed to create file");
@@ -719,6 +719,13 @@ export function ResumeSidebar() {
   };
 
   // Create folder submission
+  const openFolderDialog = (parentId: string | null) => {
+    setSelectedParentForFolder(parentId);
+    setNewFolderName("");
+    setModalError(null);
+    setIsFolderModalOpen(true);
+  };
+
   const handleCreateFolderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setModalError(null);
@@ -729,9 +736,10 @@ export function ResumeSidebar() {
     }
 
     try {
-      await createFolder(name);
+      await createFolder(name, selectedParentForFolder);
       setIsFolderModalOpen(false);
       setNewFolderName("");
+      setSelectedParentForFolder(null);
     } catch (err) {
       setModalError(err instanceof Error ? err.message : "Failed to create folder");
     }
@@ -765,13 +773,13 @@ export function ResumeSidebar() {
   };
 
   // Delete submission
-  const handleDeleteSubmit = async () => {
+  const handleDeleteSubmit = async (choice?: "save" | "discard") => {
     if (!deletingItem) return;
     setModalError(null);
 
     try {
       if (deletingItem.type === "file") {
-        await deleteFile(deletingItem.id);
+        await deleteFile(deletingItem.id, choice);
       } else {
         await deleteFolder(deletingItem.id);
       }
@@ -809,14 +817,14 @@ export function ResumeSidebar() {
           <SidebarSection title="WORKSPACE">
             <SidebarNavItem
               title="LaTeX IDE"
-              href="/resume/demo/latex"
+              href={`${resumeBasePath}/latex`}
               icon={<SquareTerminal className="w-[18px] h-[18px]" />}
               active={isLatexActive}
               isIdeActiveStyle={true}
             />
             <SidebarNavItem
               title="Resume overview"
-              href="/resume/demo/overview"
+              href={`${resumeBasePath}/overview`}
               icon={<LayoutGrid className="w-[18px] h-[18px]" />}
               active={isOverviewActive}
             />
@@ -826,7 +834,7 @@ export function ResumeSidebar() {
           <SidebarSection title="ANALYSIS">
             <SidebarNavItem
               title="ATS score"
-              href="/resume/demo/ats"
+              href={`${resumeBasePath}/ats`}
               icon={<Scan className="w-[18px] h-[18px]" />}
               active={isATSActive}
               badge={
@@ -837,7 +845,7 @@ export function ResumeSidebar() {
             />
             <SidebarNavItem
               title="Resume insights"
-              href="/resume/demo/ats"
+              href={`${resumeBasePath}/ats`}
               icon={<TrendingUp className="w-[18px] h-[18px]" />}
               active={false}
             />
@@ -847,13 +855,13 @@ export function ResumeSidebar() {
           <SidebarSection title="WORK">
             <SidebarNavItem
               title="Job applications"
-              href="/resume/demo/jobs"
+              href={`${resumeBasePath}/jobs`}
               icon={<Briefcase className="w-[18px] h-[18px]" />}
               active={isJobsActive}
             />
             <SidebarNavItem
               title="Version history"
-              href="/resume/demo/versions"
+              href={`${resumeBasePath}/versions`}
               icon={<History className="w-[18px] h-[18px]" />}
               active={isVersionsActive}
             />
@@ -883,11 +891,7 @@ export function ResumeSidebar() {
 
                 {/* Add Folder button */}
                 <button
-                  onClick={() => {
-                    setNewFolderName("");
-                    setModalError(null);
-                    setIsFolderModalOpen(true);
-                  }}
+                  onClick={() => openFolderDialog(null)}
                   title="New folder"
                   className="p-1 text-[#71717a] hover:text-amber-400 hover:bg-white/[0.04] rounded transition-colors cursor-pointer"
                 >
@@ -952,6 +956,7 @@ export function ResumeSidebar() {
                 setModalError(null);
                 setIsFileModalOpen(true);
               }}
+              onAddFolderToFolder={openFolderDialog}
               onRenameFile={(file) => {
                 setRenamingItem({ type: "file", id: file.id, currentName: file.name });
                 setRenameInput(file.name);
@@ -1075,6 +1080,17 @@ export function ResumeSidebar() {
           onClose={() => setIsFolderModalOpen(false)}
         >
           <form onSubmit={handleCreateFolderSubmit} className="space-y-3">
+            <label className="block text-[11px] font-medium text-neutral-400">
+              Parent folder
+              <select
+                value={selectedParentForFolder ?? ""}
+                onChange={(event) => setSelectedParentForFolder(event.target.value || null)}
+                className="mt-1 w-full bg-[#0B0B0E] border border-white/10 rounded p-1.5 text-white"
+              >
+                <option value="">Project root</option>
+                {folders.map(folder => <option key={folder.id} value={folder.id}>{folder.path || folder.name}</option>)}
+              </select>
+            </label>
             <div>
               <label className="block text-[11px] font-medium text-neutral-400 mb-1">
                 Folder Name
@@ -1196,11 +1212,12 @@ export function ResumeSidebar() {
               </button>
               <button
                 type="button"
-                onClick={handleDeleteSubmit}
+                onClick={() => void handleDeleteSubmit(deletingItem.type === "file" ? "save" : undefined)}
                 className="px-3 py-1.5 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30 hover:bg-rose-500/30 transition-colors font-medium"
               >
-                Delete
+                  {deletingItem.type === "file" ? "Save and delete" : "Delete"}
               </button>
+                {deletingItem.type === "file" && <button type="button" className="text-rose-400" onClick={() => void handleDeleteSubmit("discard")}>Discard edits and delete</button>}
             </div>
           </div>
         </ModalWrapper>

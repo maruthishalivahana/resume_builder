@@ -17,7 +17,7 @@ import { useResume } from "@/hooks/use-resume";
 import { Button } from "@/components/ui/button";
 
 export function MasterResumeCard() {
-  const { resume } = useResume();
+  const { resumeBasePath,  resume } = useResume();
 
   return (
     <div className="rounded-2xl border border-white/[0.09] bg-gradient-to-br from-[#121217] via-[#0E0E12] to-[#0A0A0C] p-6 shadow-2xl relative overflow-hidden select-none">
@@ -43,21 +43,21 @@ export function MasterResumeCard() {
 
         {/* Primary actions */}
         <div className="flex items-center gap-2.5 flex-wrap">
-          <Link href="/resume/demo/editor">
+          <Link href={`${resumeBasePath}/editor`}>
             <Button variant="primary" size="md">
               <FileText className="w-3.5 h-3.5" />
               <span>Open Structured Editor</span>
             </Button>
           </Link>
 
-          <Link href="/resume/demo/latex">
+          <Link href={`${resumeBasePath}/latex`}>
             <Button variant="secondary" size="md">
               <Code2 className="w-3.5 h-3.5 text-sky-400" />
               <span>LaTeX IDE</span>
             </Button>
           </Link>
 
-          <Link href="/resume/demo/preview">
+          <Link href={`${resumeBasePath}/preview`}>
             <Button variant="outline" size="md">
               <Download className="w-3.5 h-3.5" />
               <span>PDF</span>
@@ -77,7 +77,7 @@ export function MasterResumeCard() {
             {resume.versions.map((ver) => (
               <Link
                 key={ver.id}
-                href="/resume/demo/editor"
+                href={`${resumeBasePath}/editor`}
                 className="px-3 py-1.5 rounded-lg bg-black/40 border border-white/[0.08] hover:border-white/20 text-xs text-neutral-300 hover:text-white flex items-center gap-2 transition-all"
               >
                 <span>{ver.versionName}</span>

@@ -1,0 +1,380 @@
+{
+  "model": "qwen3:1.7b",
+  "base": "http://127.0.0.1:11435",
+  "syntheticOnly": true,
+  "databaseUsed": false,
+  "cloudRequests": false,
+  "mode": "highlight-only",
+  "outputTokenCap": 256,
+  "appConfigChanged": false,
+  "timeoutMs": 120000,
+  "contextLength": 4096,
+  "think": false,
+  "numGpu": 0,
+  "cases": [
+    {
+      "name": "supported-node-cold",
+      "expected": "suggestion",
+      "jd": "Experience building Node.js REST APIs",
+      "runtimeMetrics": {
+        "totalMs": 14933.9297,
+        "loadMs": 3591.0953,
+        "promptEvalMs": 3271.887,
+        "generationMs": 7935.929,
+        "promptTokens": 300,
+        "outputTokens": 85,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\": {\"targetEvidenceId\": \"e1\", \"reason\": \"The evidence mentions building a REST API using Node.js, which aligns with the job requirement of 'Experience building Node.js REST APIs'.\", \"evidenceIds\": [\"e1\"], \"confidence\": 0.8, \"type\": \"highlight\",\"highlightText\":\"Built REST APIs using Node.js for a synthetic inventory project\"}}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js for a synthetic inventory project",
+        "targetEvidenceId": "e1",
+        "reason": "The evidence mentions building a REST API using Node.js, which aligns with the job requirement of 'Experience building Node.js REST APIs'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "elapsedMs": 14960,
+      "outcome": "validated_suggestion",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "e1",
+        "before": "\\item Built REST APIs using Node.js for a synthetic inventory project.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js for a synthetic inventory project}.",
+        "reason": "The evidence mentions building a REST API using Node.js, which aligns with the job requirement of 'Experience building Node.js REST APIs'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "sourcePatch": {
+        "fileId": "synthetic",
+        "fileName": "synthetic.tex",
+        "evidenceId": "e1",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "before": "\\item Built REST APIs using Node.js for a synthetic inventory project.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js for a synthetic inventory project}.",
+        "beforeHash": "d4e8c066fb5062aacc2c365b62335d3b0388e396826a4355d6e221202a542bb4"
+      },
+      "meetsExpected": true,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "supported-node-warm",
+      "expected": "suggestion",
+      "jd": "Experience building Node.js REST APIs",
+      "runtimeMetrics": {
+        "totalMs": 8402.9759,
+        "loadMs": 46.2277,
+        "promptEvalMs": 107.425,
+        "generationMs": 8222.446,
+        "promptTokens": 300,
+        "outputTokens": 94,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\": {\"targetEvidenceId\": \"e1\", \"reason\": \"The evidence explicitly states that the individual built a REST API using Node.js for a synthetic inventory project, which aligns with the job requirement of 'Experience building Node.js REST APIs'.\",\"evidenceIds\": [\"e1\"], \"confidence\": 0.8,\"type\": \"highlight\",\"highlightText\": \"Built REST APIs using Node.js for a synthetic inventory project\"}}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Built REST APIs using Node.js for a synthetic inventory project",
+        "targetEvidenceId": "e1",
+        "reason": "The evidence explicitly states that the individual built a REST API using Node.js for a synthetic inventory project, which aligns with the job requirement of 'Experience building Node.js REST APIs'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "elapsedMs": 8415,
+      "outcome": "validated_suggestion",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "e1",
+        "before": "\\item Built REST APIs using Node.js for a synthetic inventory project.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js for a synthetic inventory project}.",
+        "reason": "The evidence explicitly states that the individual built a REST API using Node.js for a synthetic inventory project, which aligns with the job requirement of 'Experience building Node.js REST APIs'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "sourcePatch": {
+        "fileId": "synthetic",
+        "fileName": "synthetic.tex",
+        "evidenceId": "e1",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "before": "\\item Built REST APIs using Node.js for a synthetic inventory project.",
+        "after": "\\item \\textbf{Built REST APIs using Node.js for a synthetic inventory project}.",
+        "beforeHash": "d4e8c066fb5062aacc2c365b62335d3b0388e396826a4355d6e221202a542bb4"
+      },
+      "meetsExpected": true,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "supported-docker-multiple-evidence",
+      "expected": "suggestion",
+      "jd": "Experience with Docker",
+      "runtimeMetrics": {
+        "totalMs": 11733.5443,
+        "loadMs": 27.1319,
+        "promptEvalMs": 2685.098,
+        "generationMs": 8996.639,
+        "promptTokens": 336,
+        "outputTokens": 79,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\": {\"targetEvidenceId\": \"e2\", \"reason\": \"Evidence e2 mentions 'Used Docker for a synthetic coursework project', which directly supports the job requirement of 'Experience with Docker'.\",\"evidenceIds\": [\"e2\"], \"confidence\": 0.8,\"type\": \"highlight\",\"highlightText\": \"Used Docker for a synthetic coursework project\"}}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Used Docker for a synthetic coursework project",
+        "targetEvidenceId": "e2",
+        "reason": "Evidence e2 mentions 'Used Docker for a synthetic coursework project', which directly supports the job requirement of 'Experience with Docker'.",
+        "evidenceIds": [
+          "e2"
+        ],
+        "confidence": 0.8
+      },
+      "elapsedMs": 11744,
+      "outcome": "validated_suggestion",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "e2",
+        "before": "\\item Used Docker for a synthetic coursework project.",
+        "after": "\\item \\textbf{Used Docker for a synthetic coursework project}.",
+        "reason": "Evidence e2 mentions 'Used Docker for a synthetic coursework project', which directly supports the job requirement of 'Experience with Docker'.",
+        "evidenceIds": [
+          "e2"
+        ],
+        "confidence": 0.8
+      },
+      "sourcePatch": {
+        "fileId": "synthetic",
+        "fileName": "synthetic.tex",
+        "evidenceId": "e2",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "before": "\\item Used Docker for a synthetic coursework project.",
+        "after": "\\item \\textbf{Used Docker for a synthetic coursework project}.",
+        "beforeHash": "4aa153d4f7012e8b0ec5b606499e42f04b074b38d12029498d71750193244570"
+      },
+      "meetsExpected": true,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "unsupported-tensorflow",
+      "expected": "abstain",
+      "jd": "Professional TensorFlow machine learning experience",
+      "runtimeMetrics": {
+        "totalMs": 3370.8567,
+        "loadMs": 49.9133,
+        "promptEvalMs": 2467.386,
+        "generationMs": 698.838,
+        "promptTokens": 299,
+        "outputTokens": 7,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\":null}",
+      "proposal": null,
+      "elapsedMs": 3391,
+      "outcome": "NO_EDIT_NEEDED",
+      "meetsExpected": true,
+      "unsafeOrIrrelevantSuggestionAccepted": false,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "unsupported-production-metric",
+      "expected": "abstain",
+      "jd": "Production application experience reducing latency by 50%",
+      "runtimeMetrics": {
+        "totalMs": 3220.8516,
+        "loadMs": 38.9174,
+        "promptEvalMs": 2488.069,
+        "generationMs": 658.011,
+        "promptTokens": 303,
+        "outputTokens": 7,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\":null}",
+      "proposal": null,
+      "elapsedMs": 3230,
+      "outcome": "NO_EDIT_NEEDED",
+      "meetsExpected": true,
+      "unsafeOrIrrelevantSuggestionAccepted": false,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "repeated-span",
+      "expected": "abstain",
+      "jd": "Experience with Docker",
+      "runtimeMetrics": {
+        "totalMs": 7330.8446,
+        "loadMs": 65.3945,
+        "promptEvalMs": 1995.024,
+        "generationMs": 5229.318,
+        "promptTokens": 288,
+        "outputTokens": 73,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\": {\"targetEvidenceId\": \"e1\", \"reason\": \"The evidence contains 'Docker Docker' which is a relevant mention of Docker, supporting the job requirement of 'Experience with Docker'.\",\"evidenceIds\": [\"e1\"], \"confidence\": 0.8,\"type\":\"highlight\",\"highlightText\":\"Docker Docker\"}}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Docker Docker",
+        "targetEvidenceId": "e1",
+        "reason": "The evidence contains 'Docker Docker' which is a relevant mention of Docker, supporting the job requirement of 'Experience with Docker'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "elapsedMs": 7338,
+      "outcome": "validated_suggestion",
+      "suggestion": {
+        "type": "highlight",
+        "targetEvidenceId": "e1",
+        "before": "\\item Docker Docker",
+        "after": "\\item \\textbf{Docker Docker}",
+        "reason": "The evidence contains 'Docker Docker' which is a relevant mention of Docker, supporting the job requirement of 'Experience with Docker'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "sourcePatch": {
+        "fileId": "synthetic",
+        "fileName": "synthetic.tex",
+        "evidenceId": "e1",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "before": "\\item Docker Docker",
+        "after": "\\item \\textbf{Docker Docker}",
+        "beforeHash": "bdaf01e53f0a0d088722a50dd9dd7bb93317f83e0e93f3d48bc889e9a1425d52"
+      },
+      "meetsExpected": false,
+      "unsafeOrIrrelevantSuggestionAccepted": true,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "already-bold",
+      "expected": "abstain",
+      "jd": "Experience with Docker",
+      "runtimeMetrics": {
+        "totalMs": 7659.9606,
+        "loadMs": 32.2241,
+        "promptEvalMs": 1524.892,
+        "generationMs": 6078.508,
+        "promptTokens": 299,
+        "outputTokens": 71,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\": {\"targetEvidenceId\": \"e1\", \"reason\": \"The evidence mentions using Docker for a synthetic coursework project, which is relevant to the job requirement of 'Experience with Docker'.\",\"evidenceIds\": [\"e1\"], \"confidence\": 0.8,\"type\":\"highlight\",\"highlightText\":\"Docker\"}}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Docker",
+        "targetEvidenceId": "e1",
+        "reason": "The evidence mentions using Docker for a synthetic coursework project, which is relevant to the job requirement of 'Experience with Docker'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "elapsedMs": 7666,
+      "outcome": "INVALID_PROVIDER_OUTPUT",
+      "meetsExpected": false,
+      "unsafeOrIrrelevantSuggestionAccepted": false,
+      "fitsExisting30SecondDeadline": true
+    },
+    {
+      "name": "label-only",
+      "expected": "abstain",
+      "jd": "Experience with Docker",
+      "runtimeMetrics": {
+        "totalMs": 7255.2316,
+        "loadMs": 19.4764,
+        "promptEvalMs": 1314.565,
+        "generationMs": 5900.666,
+        "promptTokens": 292,
+        "outputTokens": 77,
+        "doneReason": "stop"
+      },
+      "rawOutput": "{\"suggestion\": {\"targetEvidenceId\": \"e1\", \"reason\": \"The evidence shows a reference to 'Docker' in the list item, which is relevant to the job requirement of 'Experience with Docker'.\",\"evidenceIds\": [\"e1\"], \"confidence\": 0.8,\"type\": \"highlight\",\"highlightText\": \"Docker\"}}",
+      "proposal": {
+        "type": "highlight",
+        "highlightText": "Docker",
+        "targetEvidenceId": "e1",
+        "reason": "The evidence shows a reference to 'Docker' in the list item, which is relevant to the job requirement of 'Experience with Docker'.",
+        "evidenceIds": [
+          "e1"
+        ],
+        "confidence": 0.8
+      },
+      "elapsedMs": 7260,
+      "outcome": "INVALID_PROVIDER_OUTPUT",
+      "meetsExpected": false,
+      "unsafeOrIrrelevantSuggestionAccepted": false,
+      "fitsExisting30SecondDeadline": true
+    }
+  ],
+  "limitations": [
+    "Generation-only trial with forced STRONG classification, including unsupported cases to test abstention; not an end-to-end retrieval test.",
+    "Local structured envelope constrains JSON syntax; evidence/claim/source correctness still uses existing validators.",
+    "120-second experimental deadline does not change the application's 30-second deadline."
+  ],
+  "runtime": {
+    "version": "0.40.4"
+  },
+  "installedModels": {
+    "models": [
+      {
+        "name": "qwen3:1.7b",
+        "model": "qwen3:1.7b",
+        "modified_at": "2026-10-15T16:49:34.901622+05:30",
+        "size": 1359293444,
+        "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "2.0B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 40960,
+          "embedding_length": 2048,
+          "runner": "ggml"
+        },
+        "capabilities": [
+          "completion",
+          "tools",
+          "thinking"
+        ]
+      }
+    ]
+  },
+  "loadedModel": {
+    "models": [
+      {
+        "name": "qwen3:1.7b",
+        "model": "qwen3:1.7b",
+        "size": 1886629395,
+        "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "2.0B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-15T16:57:33.1979246+05:30",
+        "size_vram": 0,
+        "context_length": 4096,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+}

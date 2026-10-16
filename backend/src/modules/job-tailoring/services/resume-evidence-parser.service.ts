@@ -1,5 +1,7 @@
 import crypto from "crypto";
 import { ResumeEvidenceData, EvidenceType } from "../types";
+import { sourceLineRange } from "../utils/source-range.util";
+import { maskLatexEvidenceMetadata } from "../utils/latex-evidence-text.util";
 
 export interface SourceLatexFile {
   id: string;
@@ -78,9 +80,12 @@ export class ResumeEvidenceParserService {
 
   private parseFile(projectId: string, versionId: string, file: SourceLatexFile): ParsedEvidenceResult {
     const lines = file.content.split(/\r?\n/);
+    const masked = maskLatexEvidenceMetadata(file.content);
+    const evidenceLines = masked.text.split(/\r?\n/);
     const evidence: ResumeEvidenceData[] = [];
     const sections = new Set<string>();
     const warnings: string[] = [];
+    warnings.push(...masked.warnings.map(warning => `${file.name}: ${warning}`));
     let currentSection = "other";
     let originalSectionName = "Other";
     let pendingStart: number | null = null;
@@ -89,7 +94,7 @@ export class ResumeEvidenceParserService {
     const flush = (endLine: number): void => {
       const text = pendingParts.join(" ").replace(/\s+/g, " ").trim();
       if (pendingStart !== null && this.isMeaningful(text)) {
-        const rawText = lines.slice(pendingStart - 1, endLine).join("\n");
+        const rawText = sourceLineRange(file.content, pendingStart, endLine)!.text;
         const id = this.identity(projectId, versionId, file.id, pendingStart, endLine, text);
         const technologies = this.extractTechnologies(text);
         const normalizedTechnologies = technologies.map((technology) => this.normalizeTechnology(technology));
@@ -117,7 +122,10 @@ export class ResumeEvidenceParserService {
 
     lines.forEach((rawLine, index) => {
       const lineNumber = index + 1;
-      const withoutComment = this.removeComment(rawLine);
+      const withoutComment = this.removeComment(evidenceLines[index]);
+      // Metadata-only continuation lines do not split a visible bullet. Raw
+      // capture still comes from file.content with its original line range.
+      if (!withoutComment.trim() && evidenceLines[index] !== rawLine && rawLine.trim()) return;
       const heading = this.extractHeading(withoutComment);
       if (heading) {
         flush(lineNumber - 1);

@@ -1,4 +1,5 @@
 import { LLMProvider } from "../providers/interfaces";
+import { resolveHighlight } from "./highlight-edit.service";
 import { GroundedSuggestion, JobRequirementData, MatchClassificationResult, RankedEvidence, StrictGenerationConstraints } from "../types";
 
 export class TailoringGeneratorService {
@@ -10,6 +11,7 @@ export class TailoringGeneratorService {
     match?: MatchClassificationResult
   ): Promise<GroundedSuggestion | null> {
     const constraints: StrictGenerationConstraints = { mayInventFacts: false, mayChangeMeaning: false, mustReferenceEvidence: true };
-    return this.provider.generate({ requirement, evidence, constraints, match });
+    const proposal = await this.provider.generate({ requirement, evidence, constraints, match });
+    return proposal === null ? null : resolveHighlight(proposal, evidence);
   }
 }
